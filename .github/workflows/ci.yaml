@@ -43,6 +43,14 @@ jobs:
           npx quartz create
           rm -rf content
 
+      - name: Replace config and layout files
+        run: |
+          cp quartz.config.ts ./quartz-repo/quartz.config.ts
+          
+          # Replace quartz.layout.ts with custom version
+          cp quartz.layout.ts ./quartz-repo/quartz.layout.ts
+
+
       - name: Move markdown files from src to content
         run: |
           mkdir -p quartz-repo/content
