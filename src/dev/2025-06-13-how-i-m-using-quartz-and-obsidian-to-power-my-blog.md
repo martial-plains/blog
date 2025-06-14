@@ -1,5 +1,6 @@
 ---
 title: How I’m Using Quartz and Obsidian to Power My Blog
+date: 2025-06-13
 ---
 
 As someone who loves coding and creates music as a hobby, I’ve always been on the lookout for tools that give me full control over my website while keeping things simple. I don't need a complex system for blogging. I just want something efficient, flexible, and easy to maintain. That’s when I stumbled upon **Quartz**, a static website generator that promises speed and simplicity. Paired with **Obsidian**, the knowledge management app I’ve been using for a while, I’ve found a great combination for writing, organizing, and publishing my posts. Let me take you through how I’m using both of these tools and why I’m excited about the future of my blog.
