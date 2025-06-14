@@ -55,7 +55,7 @@ jobs:
         run: |
           mkdir -p quartz-repo/content
           ls
-          mv src/*.md quartz-repo/content/
+          mv src/* quartz-repo/content/
 
       - name: Check types and style
         run: |
