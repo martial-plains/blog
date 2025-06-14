@@ -1,5 +1,5 @@
 ---
-title: Embracing the Power of Static Websites
+title: Welcome
 language:
   - en
 layout: homepage
