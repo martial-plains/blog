@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+      <title>Blog</title>
+      <link>https://blog.isaiah-harvey.com</link>
+      <description>Last 10 notes on Blog</description>
+      <generator>Quartz -- quartz.jzhao.xyz</generator>
+      <item>
+    <title>How I’m Using Quartz and Obsidian to Power My Blog</title>
+    <link>https://blog.isaiah-harvey.com/dev/2025-06-13-how-i-m-using-quartz-and-obsidian-to-power-my-blog</link>
+    <guid>https://blog.isaiah-harvey.com/dev/2025-06-13-how-i-m-using-quartz-and-obsidian-to-power-my-blog</guid>
+    <description>As someone who loves coding and creates music as a hobby, I’ve always been on the lookout for tools that give me full control over my website while keeping things simple.</description>
+    <pubDate>Fri, 13 Jun 2025 19:54:00 GMT</pubDate>
+  </item><item>
+    <title>Welcome</title>
+    <link>https://blog.isaiah-harvey.com/</link>
+    <guid>https://blog.isaiah-harvey.com/</guid>
+    <description>Hey there! I’m Allister Isaiah Harvey — a developer and music enthusiast who loves blending code and creativity.</description>
+    <pubDate>Wed, 23 Aug 2023 19:09:04 GMT</pubDate>
+  </item>
+    </channel>
+  </rss>
