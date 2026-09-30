@@ -26,7 +26,7 @@ jobs:
           BLOG_BASE: /${{ github.event.repository.name }}
           # Scheme + host of the site, used for the absolute URLs in rss.xml.
           # For a custom domain use e.g. https://example.com instead.
-          BLOG_ORIGIN: https://${{ github.repository_owner }}.github.io
+          BLOG_ORIGIN: https://blog.isaiah-harvey.com
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
