@@ -1,0 +1,108 @@
+:root {
+  --bg: #fbfaf7;
+  --fg: #1f2328;
+  --muted: #666d75;
+  --accent: #1d5fa6;
+  --rule: #dcd8d0;
+  --code-bg: #f1eee7;
+  --syn-keyword: #7a3e9d;
+  --syn-function: #1d5fa6;
+  --syn-variable: #8a4b08;
+  --syn-string: #2a6e3f;
+  --syn-type: #0e6b73;
+  --syn-builtin: #b03a2e;
+  --syn-constant: #8a5a00;
+  --syn-comment: #666d75;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15171a;
+    --fg: #e4e2dd;
+    --muted: #9aa1a8;
+    --accent: #7db4ee;
+    --rule: #2c3035;
+    --code-bg: #1f2226;
+    --syn-keyword: #c9a0f0;
+    --syn-function: #7db4ee;
+    --syn-variable: #e5b17a;
+    --syn-string: #8fd19e;
+    --syn-type: #6fd0d8;
+    --syn-builtin: #f0928a;
+    --syn-constant: #e3b86a;
+    --syn-comment: #9aa1a8;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 3rem;
+  max-width: 44rem;
+  background: var(--bg);
+  color: var(--fg);
+  font: 1.125rem/1.7 Georgia, "Iowan Old Style", "Noto Serif", serif;
+}
+a { color: var(--accent); }
+a:hover { text-decoration-thickness: 2px; }
+
+/* header and footer */
+.site-header {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.5rem;
+  justify-content: space-between; align-items: baseline;
+  padding-bottom: .75rem; margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--rule);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.site-title { font-weight: 700; font-size: 1.15rem; color: var(--fg); text-decoration: none; }
+.site-header nav a { margin-left: 1.25rem; text-decoration: none; }
+.site-footer {
+  margin-top: 4rem; padding-top: 1rem; border-top: 1px solid var(--rule);
+  color: var(--muted); font: .9rem/1.5 system-ui, sans-serif;
+}
+.site-footer p { margin: .25rem 0; }
+
+/* headings */
+h1.title { font-size: 2.1rem; line-height: 1.2; margin: 0 0 1.5rem; }
+h2 { font-size: 1.55rem; line-height: 1.3; margin: 2.6rem 0 .6rem; }
+h3 { font-size: 1.25rem; margin: 2rem 0 .5rem; }
+h2, h3, h1.title { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+
+/* body content */
+p { margin: 0 0 1.1rem; }
+ul, ol { padding-left: 1.4rem; }
+li { margin-bottom: .35rem; }
+img { max-width: 100%; height: auto; }
+figure { margin: 2rem auto; text-align: center; }
+figure img { border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,.18); max-width: min(100%, 22rem); }
+figcaption { margin-top: .6rem; color: var(--muted); font-size: .95rem; }
+
+code, pre, kbd { font: .9em/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+code { background: var(--code-bg); padding: .1em .3em; border-radius: 3px; }
+pre {
+  background: var(--code-bg); padding: .9rem 1rem; border-radius: 6px;
+  overflow-x: auto; margin: 1.25rem 0;
+}
+pre code { background: none; padding: 0; }
+pre.example { border-left: 3px solid var(--accent); }
+
+/* Syntax highlighting. htmlize writes one class per Emacs face, prefixed
+   "org-" (font-lock-keyword-face becomes org-keyword, and so on). */
+.org-keyword { color: var(--syn-keyword); }
+.org-function-name { color: var(--syn-function); }
+.org-variable-name, .org-preprocessor { color: var(--syn-variable); }
+.org-string { color: var(--syn-string); }
+.org-type { color: var(--syn-type); }
+.org-builtin, .org-warning { color: var(--syn-builtin); }
+.org-constant { color: var(--syn-constant); }
+.org-comment, .org-comment-delimiter, .org-doc { color: var(--syn-comment); font-style: italic; }
+/* Org's own faces, used inside "#+begin_src org" blocks */
+.org-org-level-1, .org-org-level-2, .org-org-level-3 { color: var(--accent); font-weight: 700; }
+.org-org-meta-line, .org-org-document-info-keyword { color: var(--syn-comment); }
+
+.published { margin: 0; }
+li > a + * { color: var(--muted); }
+
+@media (max-width: 34rem) {
+  body { font-size: 1.05rem; }
+  h1.title { font-size: 1.7rem; }
+}

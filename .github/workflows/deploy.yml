@@ -1,0 +1,42 @@
+name: Deploy blog
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: purcell/setup-emacs@master
+        with:
+          version: 29.4
+      - name: Build
+        run: emacs --batch -l publish.el -f blog-publish
+        env:
+          # For a project site at user.github.io/REPO use /REPO.
+          # For a user site (user.github.io) or a custom domain, use an empty string.
+          BLOG_BASE: /${{ github.event.repository.name }}
+          # Scheme + host of the site, used for the absolute URLs in rss.xml.
+          # For a custom domain use e.g. https://example.com instead.
+          BLOG_ORIGIN: https://${{ github.repository_owner }}.github.io
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

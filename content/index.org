@@ -1,0 +1,9 @@
+#+TITLE: Home
+
+Hi, I'm Allister Isaiah Harvey. I write code for a living and make music for fun, and somewhere along the way the two started bleeding into each other.
+
+This blog is where I write about both. You'll find notes on things I'm building or figuring out, some thoughts on how I make music, and the occasional new track when I finish one.
+
+If you're into programming, music, or both, stick around. Thanks for stopping by.
+
+browse [[file:posts/index.org][all posts]].
