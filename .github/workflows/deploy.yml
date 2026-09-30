@@ -23,7 +23,7 @@ jobs:
         env:
           # For a project site at user.github.io/REPO use /REPO.
           # For a user site (user.github.io) or a custom domain, use an empty string.
-          BLOG_BASE: /${{ github.event.repository.name }}
+          BLOG_BASE: ""
           # Scheme + host of the site, used for the absolute URLs in rss.xml.
           # For a custom domain use e.g. https://example.com instead.
           BLOG_ORIGIN: https://blog.isaiah-harvey.com
