@@ -7,7 +7,7 @@
 
 I did not set out to write a book. I set out to learn Icelandic.
 
-And yet here we are. My book, /Icelandic Vocabulary/, is now published and available on Amazon. Honestly, it still feels a bit strange to type that. One minute I was making notes for myself, and the next I was looking at a page that said "published".
+And yet here we are. My book, /Icelandic Vocabulary/, is now published and available on Amazon. Honestly, it still feels a bit strange to type that. One minute I was making notes for myself, and the next I was looking at a page that said 'published'.
 
 This is the story of how that happened.
 
@@ -67,7 +67,7 @@ Jag ser mannen.
 Jag pratar med mannen.
 #+end_example
 
-At first, Swedish gives you the vocabulary for free while also giving you the wrong expectations about how that vocabulary behaves grammatically. That tension was interesting enough that I gave it a place in the book: the "Swedish Connection" boxes, which show where Swedish helps and where it quietly trips you up.
+At first, Swedish gives you the vocabulary for free while also giving you the wrong expectations about how that vocabulary behaves grammatically. That tension was interesting enough that I gave it a place in the book: the 'Swedish Connection' boxes, which show where Swedish helps and where it quietly trips you up.
 
 * Things that surprised me while writing it
 
@@ -128,13 +128,13 @@ On the LaTeX side, =\ipa= just switches to Doulos SIL, which has the symbols I n
 \DeclareRobustCommand{\ipa}[1]{{\ipaFont #1}}
 #+end_src
 
-And the other awkward bit: the body font, Noto Serif, doesn't have the → arrow I use for forms like "X → Y", so I had to add a fallback or it would silently vanish from the PDF. Those are the kinds of tiny things you only discover when you're staring at a proof copy. But I managed to get every symbol showing, somehow.
+And the other awkward bit: the body font, Noto Serif, doesn't have the → arrow I use for forms like 'X → Y', so I had to add a fallback or it would silently vanish from the PDF. Those are the kinds of tiny things you only discover when you're staring at a proof copy. But I managed to get every symbol showing, somehow.
 
 * Publishing it was a different experience
 
 Honestly, Amazon made it very easy for me to publish. KDP even lets you choose whether to apply DRM, which means nobody has to lock their book down if they'd rather their audience download it and use it as they see fit.
 
-Writing the book made me feel like a writer. Clicking "Publish" made me realise I'd actually made a book.
+Writing the book made me feel like a writer. Clicking 'Publish' made me realise I'd actually made a book.
 
 * What's actually in /Icelandic Vocabulary/
 
