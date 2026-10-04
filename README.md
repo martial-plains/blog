@@ -15,7 +15,9 @@ content/
   index.org                Home page
   about.org                About page
   posts/*.org              One file per post (index.org in here is generated)
-  css/style.css            Site stylesheet (light and dark)
+  css/style.css            Site stylesheet (warm grey, one column; light and dark)
+  js/site.js               Bottom dock: theme toggle, search, tag filter, reading progress
+  search-index.json        Generated search index (git-ignored)
   images/                  Images, referenced from posts as ../images/name.png
 public/                    Build output, including rss.xml (generated, git-ignored)
 .github/workflows/         Optional: deploy to GitHub Pages
@@ -41,7 +43,9 @@ Create `content/posts/my-post.org` with at least:
 ```org
 #+TITLE: My post title
 #+DATE: <2026-10-05 Mon>
+#+FILETAGS: :emacs:org-mode:
 #+DESCRIPTION: One or two sentences, shown as the summary in the RSS feed.
+#+HERO: images/my-post-banner.png
 #+LANGUAGE: en-GB
 
 * First heading
@@ -52,6 +56,53 @@ Text...
 The `#+DATE:` decides the order on the Posts page and in the feed (newest first).
 Put images in `content/images/` and link them as `[[file:../images/name.png]]`.
 Rebuild and the post appears on the Posts page and in the feed automatically.
+
+## Look and feel
+
+The design follows a reference video: a warm grey page, one narrow column, a bare
+list of posts, and a floating bar at the bottom instead of a header.
+
+- **Posts page:** a title, a one-line description (`blog-description` in
+  `publish.el`), tag pills, then the posts newest first. Hovering a post shows its
+  hero image beside the list. The pills filter by tag.
+- **Post page:** hero image, title, then the date on the left and the author on the
+  right, then the text. At the end are "Read more posts" and "Subscribe via RSS" links.
+- **Bottom dock:** a floating bar on every page with a light/dark toggle (remembered in
+  the browser) and buttons for Home, About and Posts. On short pages (home, About, the
+  Posts page) it holds the search box. On a long post it shows the section you're
+  reading with a progress ring, and a search button opens the box in its place.
+- **Table of contents:** on a post, click the section name in the dock and it grows
+  upward into a panel listing the post's headings (`*` as main entries, `**` indented
+  beneath them). The section you're in is highlighted, clicking an entry scrolls
+  there, and Esc or a click elsewhere closes it. It is built in the browser from the
+  post's own headings, so there is nothing to maintain.
+- **Dock animation:** the section name in the dock changes as you scroll, and the dock
+  smoothly grows or shrinks to fit each new name (it does the same when the table of
+  contents opens or the search box replaces the name). This is done by `morph()` in
+  `content/js/site.js`; change the timing with the `transition: width` line on `.dock`
+  in the stylesheet. It is skipped when the system's "reduce motion" setting is on.
+- **Search:** press Ctrl/Cmd+K anywhere, or click the box. It searches every post's
+  title, tags, summary and full text, ignores accents (so `hus` finds `hús`), needs
+  every word you type to match, and shows the best matches with the matching text
+  highlighted. Arrow keys and Enter pick a result; Esc closes it. The build writes the
+  index to `content/search-index.json` (git-ignored) and it is fetched the first time
+  you use the box.
+- **Motion:** content fades up on load and the dock springs in. Everything respects
+  the "reduce motion" setting, and the dock stays put when you move between pages in
+  browsers that support cross-page view transitions.
+
+Two extra keywords in a post's header feed this:
+
+- `#+FILETAGS: :emacs:org-mode:` gives the post its tag pills on the Posts page.
+- `#+HERO: images/name.png` (a path inside `content/`, 2:1 works best) sets the hero
+  image on the post and its hover preview in the list. Leave it out for no image.
+
+The "avatar" next to the author's name is their initials in a circle. To use a photo
+instead, change `.avatar` in `content/css/style.css` (a `background-image` and an
+empty initials span would do it).
+
+To change colours, fonts or widths, edit the variables at the top of
+`content/css/style.css`.
 
 ## RSS feed
 
