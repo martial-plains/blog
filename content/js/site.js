@@ -1,4 +1,4 @@
-/* Dock behaviour: theme toggle, site search, tag filter, reading progress. */
+/* Dock behaviour: theme toggle, site search, tag filter, table of contents, reading progress. */
 (function () {
   var doc = document, root = doc.documentElement;
   var $ = function (sel, ctx) { return (ctx || doc).querySelector(sel); };
@@ -35,12 +35,78 @@
 
   /* ---------- dock layout ---------- */
   var dock = $('.dock');
-  var heads = $$('#content h2');
+  var heads = $$('#content h2, #content h3');
   var label = $('#dock-label'), bar = $('.ring .bar');
   var reading = !list && heads.length > 0 && label && bar;   // long page: show the section name
   if (dock) {
     dock.classList.toggle('reading', !!reading);
     dock.classList.toggle('searching', !reading);              // short pages: search box is always open
+  }
+
+  // Run fn (which changes the dock's contents or classes) and animate the dock from its
+  // old width to its new one, so it grows and shrinks instead of jumping.
+  var morph = function (fn) {
+    if (!dock) { fn(); return; }
+    var from = dock.getBoundingClientRect().width;
+    if (dock._onEnd) dock.removeEventListener('transitionend', dock._onEnd);
+    dock.style.transition = 'none';
+    dock.style.width = '';
+    fn();
+    var to = dock.getBoundingClientRect().width;
+    if (Math.abs(from - to) < 1 || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      dock.style.transition = '';
+      return;
+    }
+    dock.style.width = from + 'px';
+    dock.style.overflow = 'hidden';            // keep content inside while the width is mid-animation
+    void dock.offsetWidth;                     // commit the starting width
+    dock.style.transition = '';
+    dock.style.width = to + 'px';
+    var done = function () {
+      clearTimeout(dock._morphTimer);
+      dock.removeEventListener('transitionend', onEnd);
+      dock.style.width = ''; dock.style.overflow = '';
+    };
+    var onEnd = function (e) { if (e.target === dock && e.propertyName === 'width') done(); };
+    dock._onEnd = onEnd;
+    dock.addEventListener('transitionend', onEnd);
+    clearTimeout(dock._morphTimer);
+    dock._morphTimer = setTimeout(done, 700);  // safety net if no transition event arrives
+  };
+
+  /* ---------- table of contents ---------- */
+  var toggleBtn = $('#toc-toggle'), panel = $('#toc-panel'), tocList = $('#toc-list');
+  var tocItems = [];
+  var tocOpen = false;
+  var setToc = function (open) {
+    if (!dock || !panel || open === tocOpen) return;
+    tocOpen = open;
+    morph(function () {
+      dock.classList.toggle('toc-open', open);
+      panel.inert = !open;
+      toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    if (open) revealActive();
+  };
+  var revealActive = function () {
+    var cur = tocItems.filter(function (t) { return t.li.classList.contains('is-active'); })[0];
+    if (cur) cur.li.scrollIntoView({ block: 'nearest' });
+  };
+  if (reading && tocList && toggleBtn) {
+    heads.forEach(function (h) {
+      var li = doc.createElement('li'), b = doc.createElement('button');
+      li.className = h.tagName === 'H3' ? 'l3' : 'l2';
+      b.type = 'button'; b.textContent = h.textContent.trim();
+      b.addEventListener('click', function () {
+        h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setToc(false);
+      });
+      li.appendChild(b); tocList.appendChild(li);
+      tocItems.push({ head: h, li: li });
+    });
+    toggleBtn.addEventListener('click', function () { setToc(!tocOpen); });
+    doc.addEventListener('click', function (e) { if (tocOpen && !dock.contains(e.target)) setToc(false); });
+    doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && tocOpen) { setToc(false); toggleBtn.focus(); } });
   }
 
   /* ---------- search ---------- */
@@ -138,13 +204,18 @@
 
   var openSearch = function () {
     if (!input) return;
-    if (dock) dock.classList.add('searching');
+    if (dock && !dock.classList.contains('searching')) {
+      morph(function () {
+        if (tocOpen) { tocOpen = false; dock.classList.remove('toc-open'); if (panel) panel.inert = true; if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false'); }
+        dock.classList.add('searching');
+      });
+    }
     input.focus(); input.select();
     load();
   };
   var closeSearch = function () {
     input.value = ''; closeResults(); input.blur();
-    if (dock && reading) dock.classList.remove('searching');
+    if (dock && reading) morph(function () { dock.classList.remove('searching'); });
   };
 
   if (input && results) {
@@ -166,7 +237,7 @@
       setTimeout(function () {
         if (doc.activeElement === input) return;
         closeResults();
-        if (reading && dock && !input.value) dock.classList.remove('searching');
+        if (reading && dock && !input.value && dock.classList.contains('searching')) morph(function () { dock.classList.remove('searching'); });
       }, 150);
     });
     if (openBtn) openBtn.addEventListener('click', openSearch);
@@ -179,15 +250,29 @@
   /* ---------- long pages: current section name + reading progress ring ---------- */
   if (reading) {
     var title = ($('h1.title') || {}).textContent || doc.title;
-    var ticking = false;
+    var ticking = false, lastIdx = -2;
     var update = function () {
       ticking = false;
       var max = doc.documentElement.scrollHeight - innerHeight;
       var p = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 1;
       bar.style.strokeDashoffset = String(1 - p);
-      var current = title;
-      heads.forEach(function (h) { if (h.getBoundingClientRect().top <= innerHeight * 0.35) current = h.textContent; });
-      if (label.textContent !== current) label.textContent = current;
+
+      var idx = -1;
+      heads.forEach(function (h, i) { if (h.getBoundingClientRect().top <= innerHeight * 0.35) idx = i; });
+      if (idx === lastIdx) return;
+      var first = lastIdx === -2;
+      lastIdx = idx;
+      var text = idx > -1 ? heads[idx].textContent.trim() : title.trim();
+      tocItems.forEach(function (t, i) { t.li.classList.toggle('is-active', i === idx); });
+      if (tocOpen) revealActive();
+      if (label.textContent === text) return;
+      if (first) { label.textContent = text; return; }
+      // The new name is a different length, so the dock grows or shrinks to fit it.
+      morph(function () { label.textContent = text; });
+      if (label.animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        label.animate([{ opacity: 0, transform: 'translateY(5px)' }, { opacity: 1, transform: 'none' }],
+                      { duration: 280, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      }
     };
     addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
     addEventListener('resize', update);

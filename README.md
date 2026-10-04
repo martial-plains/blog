@@ -69,8 +69,18 @@ list of posts, and a floating bar at the bottom instead of a header.
   right, then the text. At the end are "Read more posts" and "Subscribe via RSS" links.
 - **Bottom dock:** a floating bar on every page with a light/dark toggle (remembered in
   the browser) and buttons for Home, About and Posts. On short pages (home, About, the
-  Posts page) it holds the search box; on a long post it shows the section you're
+  Posts page) it holds the search box. On a long post it shows the section you're
   reading with a progress ring, and a search button opens the box in its place.
+- **Table of contents:** on a post, click the section name in the dock and it grows
+  upward into a panel listing the post's headings (`*` as main entries, `**` indented
+  beneath them). The section you're in is highlighted, clicking an entry scrolls
+  there, and Esc or a click elsewhere closes it. It is built in the browser from the
+  post's own headings, so there is nothing to maintain.
+- **Dock animation:** the section name in the dock changes as you scroll, and the dock
+  smoothly grows or shrinks to fit each new name (it does the same when the table of
+  contents opens or the search box replaces the name). This is done by `morph()` in
+  `content/js/site.js`; change the timing with the `transition: width` line on `.dock`
+  in the stylesheet. It is skipped when the system's "reduce motion" setting is on.
 - **Search:** press Ctrl/Cmd+K anywhere, or click the box. It searches every post's
   title, tags, summary and full text, ignores accents (so `hus` finds `hús`), needs
   every word you type to match, and shows the best matches with the matching text

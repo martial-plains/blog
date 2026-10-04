@@ -150,6 +150,11 @@
   (concat
    "<div class=\"bottom-fade\" aria-hidden=\"true\"></div>"
    "<nav class=\"dock\" aria-label=\"Site\">"
+   ;; Table of contents: filled in by content/js/site.js from the post's headings.
+   "<div class=\"toc-panel\" id=\"toc-panel\" inert><div class=\"toc-clip\">"
+   "<p class=\"toc-head\">Table of contents</p><ul class=\"toc-list\" id=\"toc-list\"></ul>"
+   "</div></div>"
+   "<div class=\"dock-row\">"
    ;; Search box (with its results list) and, on long pages, a button that opens it.
    "<div class=\"dock-search\"><label>"
    (blog-svg "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>")
@@ -162,10 +167,12 @@
    (blog-svg "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>")
    "</button>"
    ;; Which part of the post you are reading, with a progress ring.
-   "<span class=\"dock-section\"><i class=\"dot\"></i><span id=\"dock-label\"></span>"
+   "<button class=\"dock-section\" id=\"toc-toggle\" type=\"button\" aria-expanded=\"false\" "
+   "aria-controls=\"toc-panel\" title=\"Table of contents\">"
+   "<i class=\"dot\"></i><span id=\"dock-label\"></span>"
    "<svg class=\"ring\" viewBox=\"0 0 20 20\" width=\"18\" height=\"18\" aria-hidden=\"true\">"
    "<circle class=\"track\" cx=\"10\" cy=\"10\" r=\"8\"/>"
-   "<circle class=\"bar\" cx=\"10\" cy=\"10\" r=\"8\" pathLength=\"1\"/></svg></span>"
+   "<circle class=\"bar\" cx=\"10\" cy=\"10\" r=\"8\" pathLength=\"1\"/></svg></button>"
    "<span class=\"sep\"></span>"
    "<button id=\"theme-toggle\" type=\"button\" aria-label=\"Toggle light and dark theme\" title=\"Theme\">"
    "<span class=\"icon-moon\">"
@@ -181,7 +188,7 @@
    (format "<a class=\"dock-text\" href=\"%s\" title=\"All posts\">%s<span>Posts</span></a>"
            (blog-url "/posts/")
            (blog-svg "<path d=\"M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01\"/>"))
-   "</nav>"))
+   "</div></nav>"))
 
 (defun blog-postamble (info)
   "Footer for every page: end-of-post links (dated posts only), colophon, dock."
