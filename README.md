@@ -12,14 +12,14 @@ packages for you the first time it runs, so that run needs a network connection:
 ```
 publish.el                 Build script: settings, project definitions, page header/footer
 content/
-  index.org                Home page
-  about.org                About page
-  posts/*.org              One file per post (index.org in here is generated)
+  index.org                Home page            (index.is.org: its Icelandic translation)
+  about.org                About page           (about.is.org, ...)
+  posts/foo.org            One file per post    (foo.is.org beside it is the translation)
+                           (posts/index.org and index.*.org are generated)
   css/style.css            Site stylesheet (warm grey, one column; light and dark)
-  js/site.js               Bottom dock: theme toggle, search, tag filter, reading progress
-  search-index.json        Generated search index (git-ignored)
+  js/site.js               Bottom dock: theme toggle, language menu, search, tag filter, table of contents
   images/                  Images, referenced from posts as ../images/name.png
-public/                    Build output, including rss.xml (generated, git-ignored)
+public/                    Build output, including rss.xml and search-index.json (generated, git-ignored)
 .github/workflows/         Optional: deploy to GitHub Pages
 ```
 
@@ -85,7 +85,7 @@ list of posts, and a floating bar at the bottom instead of a header.
   title, tags, summary and full text, ignores accents (so `hus` finds `hús`), needs
   every word you type to match, and shows the best matches with the matching text
   highlighted. Arrow keys and Enter pick a result; Esc closes it. The build writes the
-  index to `content/search-index.json` (git-ignored) and it is fetched the first time
+  index to `public/search-index.json` (`public/is/search-index.json` for Icelandic) and it is fetched the first time
   you use the box.
 - **Motion:** content fades up on load and the dock springs in. Everything respects
   the "reduce motion" setting, and the dock stays put when you move between pages in
@@ -104,6 +104,61 @@ empty initials span would do it).
 To change colours, fonts or widths, edit the variables at the top of
 `content/css/style.css`.
 
+## Languages
+
+The site is in British English by default and can have translations. A translation
+sits **right beside its original**, with the language code before the extension:
+
+```
+content/
+  index.org                  English home        ->  /
+  index.is.org               Icelandic home      ->  /is/
+  about.org                  English About       ->  /about.html
+  posts/
+    foo.org                  English post        ->  /posts/foo.html
+    foo.is.org               Icelandic post      ->  /is/posts/foo.html
+    bar.org                  English only: no Icelandic version
+```
+
+A page counts as translated when its `.is.org` file exists. To translate a post, copy
+`foo.org` to `foo.is.org` in the same folder and translate the text (keep `#+DATE:`,
+`#+FILETAGS:` and `#+HERO:` the same; translate `#+TITLE:` and `#+DESCRIPTION:`).
+Untranslated pages simply stay English-only. The build publishes each language
+separately and drops the `.is` from the output name, so the URLs stay tidy.
+
+What readers get:
+
+- **Their own language automatically.** On a page that exists in more than one
+  language, a visitor is sent to the version matching the first language in their
+  browser's preference list that the page is available in. Anyone whose list has no
+  match, or has English first, stays on the English page.
+- **A language dropdown** (globe icon and `EN`/`IS` at the right of the dock) on those
+  pages. Choosing a language is remembered in the browser and from then on beats the
+  automatic choice, so someone with an Icelandic browser who picks English stays on
+  English. Pages with only one version have no dropdown.
+- **Translated furniture.** The dock, table of contents, search box and messages,
+  end-of-post links, dates (`30. september 2026`), the posts page, the RSS feed
+  (`/is/rss.xml`) and the search index are all per language. Text the site adds itself
+  lives in `blog-strings` in `publish.el`.
+- **Sensible fallbacks.** If a language has no posts yet, its Posts button, feed and
+  search use the English ones. If it has no About page, About links to the English one.
+- **Search-engine markup.** Every translated page declares its other versions with
+  `hreflang` links and the right `<html lang>`.
+
+One thing to know when writing links: `[[file:bar.org]]` in a translation points to
+`bar` **in the same language folder** (`/is/posts/bar.html`), which only exists if
+`bar.is.org` does. To link to the English page from an Icelandic one, use a relative
+path that climbs out of the language folder, e.g. `[[file:../posts/bar.org]]` from
+`index.is.org` (as the sample home page does).
+
+To add another language (say Swedish), add a line to `blog-languages` and entries for
+`sv` to `blog-strings` and `blog-months` in `publish.el`, then write some
+`something.sv.org` files.
+
+`content/index.is.org` is a short sample so the dropdown shows up straight away; edit
+or delete it. The Icelandic interface text in `blog-strings` is a first draft: have
+someone who writes Icelandic well look it over before you rely on it.
+
 ## RSS feed
 
 The build writes `public/rss.xml`, linked from the nav bar and from every page's
@@ -113,7 +168,7 @@ The build writes `public/rss.xml`, linked from the nav bar and from every page's
 
 `ox-rss` turns each top-level headline of one Org file into a feed item, and posts
 here are one file each. So before publishing, `blog-write-rss-source` in
-`publish.el` writes a small generated `.cache/rss/rss.org` with one headline per
+`publish.el` writes a small generated `.cache/rss/<language>/rss.org` with one headline per
 post, and the `blog-rss` project turns that into `rss.xml`.
 
 Feed readers need absolute URLs, so the build also needs to know where the site

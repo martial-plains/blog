@@ -1,4 +1,4 @@
-/* Dock behaviour: theme toggle, site search, tag filter, table of contents, reading progress. */
+/* Dock behaviour: theme toggle, language menu, site search, tag filter, table of contents, reading progress. */
 (function () {
   var doc = document, root = doc.documentElement;
   var $ = function (sel, ctx) { return (ctx || doc).querySelector(sel); };
@@ -109,6 +109,33 @@
     doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && tocOpen) { setToc(false); toggleBtn.focus(); } });
   }
 
+  /* ---------- language menu ---------- */
+  // The dropdown only exists on pages that are available in more than one language.
+  // Choosing a language is remembered, and from then on the site opens in it.
+  var langBtn = $('#lang-toggle'), langMenu = $('#lang-menu');
+  if (langBtn && langMenu) {
+    var showLang = function (open) {
+      langMenu.hidden = !open;
+      langBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    langBtn.addEventListener('click', function () {
+      var open = langMenu.hidden;
+      if (open && tocOpen) setToc(false);
+      showLang(open);
+    });
+    $$('a', langMenu).forEach(function (a) {
+      a.addEventListener('click', function () {
+        try { localStorage.setItem('lang', a.getAttribute('data-lang')); } catch (e) {}
+      });
+    });
+    doc.addEventListener('click', function (e) {
+      if (!langMenu.hidden && !langMenu.contains(e.target) && !langBtn.contains(e.target)) showLang(false);
+    });
+    doc.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !langMenu.hidden) { showLang(false); langBtn.focus(); }
+    });
+  }
+
   /* ---------- search ---------- */
   var input = $('#dock-search'), results = $('#search-results'), openBtn = $('#search-open');
   var kbd = $('.dock-search kbd');
@@ -189,7 +216,9 @@
     shown.sort(function (a, b) { return b.score - a.score; });
     if (!shown.length) {
       var none = doc.createElement('li'); none.className = 'none';
-      none.textContent = index ? 'No posts match \u201c' + query + '\u201d.' : 'Search is unavailable right now.';
+      none.textContent = index
+        ? (dock.getAttribute('data-no-match') || 'No posts match \u201c%s\u201d.').replace('%s', query)
+        : (dock.getAttribute('data-unavailable') || 'Search is unavailable right now.');
       results.appendChild(none);
     }
     shown.slice(0, 6).forEach(function (r) {
