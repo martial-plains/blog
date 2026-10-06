@@ -1,11 +1,4 @@
 #+TITLE: About
 #+LANGUAGE: en-GB
 
-I'm Allister. I learnt Swedish first and then turned to Icelandic, because I
-wanted to know where the language I already spoke had come from.
-
-I write about Icelandic, Emacs and Org mode, and about the odd projects that
-grow out of them. I'm the author of /Icelandic Vocabulary: A Learner's Companion
-to the Words, Grammar and Culture of Iceland/.
-
-# TODO: edit this page to say whatever you like, and add contact links.
+I'm Allister. I am passionate about creating free and open software that enriches everyday experiences for everyone. Programming has always been my true love, and I take great joy in helping others solve coding challenges.
