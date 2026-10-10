@@ -2,8 +2,8 @@
 #+DATE: <2026-09-30 Wed>
 #+FILETAGS: :icelandic:emacs:org-mode:books:
 #+DESCRIPTION: How a pile of Icelandic study notes in Org mode slowly turned into a published book.
-#+HERO: images/icelandic-vocabulary-banner.png
-#+PROPERTY: TIMEZONE America/Port_of_Spain
+#+HERO: banner.png
+#+TIMEZONE: America/Port_of_Spain
 
 * I actually published a book
 
@@ -14,7 +14,7 @@ And yet here we are. My book, /Icelandic Vocabulary/, is now published and avail
 This is the story of how that happened.
 
 #+CAPTION: The finished book
-[[file:../images/icelandic-vocabulary-cover.png]]
+[[file:cover.png]]
 
 * Why I started learning Icelandic
 

@@ -2,8 +2,8 @@
 #+DATE: <2026-09-30 Wed>
 #+FILETAGS: :icelandic:emacs:org-mode:books:
 #+DESCRIPTION: Hur en hög med isländska studieanteckningar i Org mode sakta blev en utgiven bok.
-#+HERO: images/icelandic-vocabulary-banner.png
-#+PROPERTY: TIMEZONE America/Port_of_Spain
+#+HERO: banner.png
+#+TIMEZONE: America/Port_of_Spain
 
 * Jag har faktiskt gett ut en bok
 
@@ -14,7 +14,7 @@ Och ändå är vi här. Min bok, /Icelandic Vocabulary/, är nu utgiven och finn
 Det här är historien om hur det gick till.
 
 #+CAPTION: Den färdiga boken
-[[file:../../images/icelandic-vocabulary-cover.png]]
+[[file:cover.png]]
 
 * Varför jag började lära mig isländska
 

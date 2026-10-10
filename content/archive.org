@@ -1,0 +1,11 @@
+#+TITLE: Archive
+#+LAYOUT: list
+#+LANGUAGE: en-GB
+#+DESCRIPTION: Every post, newest first.
+
+#+begin_export html
+<header class="list-head"><h1 class="title">Archive</h1><p class="lede">Every post, newest first.</p></header>
+<section><h2 id="2026">2026</h2><ul class="archive-list">
+<li><a href="/posts/2026-09-30-from-icelandic-notes-to-a-published-book/"><span class="t">From Icelandic Notes to a Published Book: Icelandic Vocabulary 🇮🇸📚</span><time>30 September 2026 &middot; 8 min read</time></a></li>
+</ul></section>
+#+end_export

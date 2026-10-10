@@ -1,7 +1,7 @@
 # My Org-mode blog
 
-A small static blog built with Emacs' own `org-publish`. You need Emacs with Org
-mode (Org 9.5 or newer is recommended). The build script also installs two
+A small static blog built with Emacs' own `org-publish`. You need Emacs 27 or
+later with Org mode (Org 9.5 or newer is recommended). The build script also installs two
 packages for you the first time it runs, so that run needs a network connection:
 
 - `htmlize`, which colours source code blocks.
@@ -14,11 +14,16 @@ publish.el                 Build script: settings, project definitions, page hea
 content/
   index.org                Home page            (index.is.org: its Icelandic translation)
   about.org                About page           (about.is.org, ...)
-  posts/foo.org            One file per post    (foo.is.org beside it is the translation)
-                           (posts/index.org and index.*.org are generated)
+  posts/foo/index.org      A post in its own folder (index.is.org beside it is the translation)
+  posts/foo/banner.png     ...with its images next to it
+  posts/bar.org            A single-file post also works (bar.is.org is its translation)
+                           (posts/index.org and posts/index.*.org are generated)
   css/style.css            Site stylesheet (warm grey, one column; light and dark)
   js/site.js               Bottom dock: theme toggle, language menu, search, tag filter, table of contents
-  images/                  Images, referenced from posts as ../images/name.png
+  images/                  Optional: images shared by several pages, referenced as images/name.png
+  fonts/                   Inter (self-hosted) and its licence
+  404.org, favicon.svg     Not-found page and site icon
+scripts/check-links.py     Broken-link check, run by the deploy workflow
 public/                    Build output, including rss.xml and search-index.json (generated, git-ignored)
 .github/workflows/         Optional: deploy to GitHub Pages
 ```
@@ -38,24 +43,158 @@ You can also build from inside Emacs: `M-x load-file RET publish.el RET`, then
 
 ## Writing a new post
 
-Create `content/posts/my-post.org` with at least:
+Make a folder for the post, with the post and everything it uses inside it:
+
+```
+content/posts/my-post/
+  index.org          the post
+  banner.png         its hero image
+  diagram.png        any other images
+```
+
+`content/posts/my-post/index.org` needs at least:
 
 ```org
 #+TITLE: My post title
 #+DATE: <2026-10-05 Mon>
+#+TIMEZONE: America/Port_of_Spain
 #+FILETAGS: :emacs:org-mode:
 #+DESCRIPTION: One or two sentences, shown as the summary in the RSS feed.
-#+HERO: images/my-post-banner.png
+#+HERO: banner.png
 #+LANGUAGE: en-GB
 
 * First heading
 
 Text...
+
+[[file:diagram.png]]
 ```
 
-The `#+DATE:` decides the order on the Posts page and in the feed (newest first).
-Put images in `content/images/` and link them as `[[file:../images/name.png]]`.
+Links to files in the folder are written without any path (`[[file:diagram.png]]`,
+`#+HERO: banner.png`). The post is published at `/posts/my-post/` and its images
+at `/posts/my-post/diagram.png`, so the same relative link works on the page.
 Rebuild and the post appears on the Posts page and in the feed automatically.
+
+The `#+DATE:` decides the order on the Posts page and in the feed (newest first).
+
+A post can also be a single file, `content/posts/my-post.org` (published at
+`/posts/my-post.html`). For that style, put images in `content/images/` and
+link them as `[[file:../images/name.png]]` with `#+HERO: images/name.png`.
+`#+HERO:` is looked for beside the post first and then inside `content/`, and the
+build prints a warning if it can't find the file.
+
+## Extras built in
+
+- **Reading time:** every post shows "N min read" beside its date, and the Posts
+  list shows it too. It is worked out at build time from the post's text
+  (`blog-words-per-minute`, 230 by default; Japanese counts characters at
+  `blog-cjk-chars-per-minute`, 500). The wording per language lives in `blog-strings`.
+- **Link previews and search engines:** each page gets a description, a canonical
+  URL and Open Graph / Twitter tags (the hero image becomes the preview picture),
+  and the `hreflang` links are fully qualified. These need `BLOG_ORIGIN` to be set,
+  which the deploy workflow does.
+- **`sitemap.xml` and `robots.txt`**, generated on every build.
+- **`404.html`** (from `content/404.org`), which GitHub Pages shows for missing pages.
+- **Copy button** on code blocks (appears on hover; always visible on touch screens).
+- **Archive and Tags pages** (`/archive.html`, `/tags.html`, generated on every build
+  like the Posts page and git-ignored). The Archive groups posts by year; Tags lists
+  each tag with its posts. Both are linked under the heading of the Posts page, and
+  a post's tags link to its entry on the Tags page. Their titles are in `blog-strings`.
+- **End of a post:** its tags, up to three related posts (the ones sharing the most
+  tags), and Older / Newer links.
+- **Heading anchors:** hover a heading and click the `#` to copy a link to that
+  section. Anchors are made from the heading's text (`#why-i-started-learning-icelandic`)
+  so they don't change when you edit the post. A `:CUSTOM_ID:` property overrides one.
+  Renaming a heading changes its anchor, so old links to it stop scrolling there.
+- **Drafts and scheduled posts:** add `#+DRAFT: t` to a post, or give it a `#+DATE:` in
+  the future, and it is left out of the site, feeds, search, sitemap, Archive and Tags
+  (its images too) until you remove the line or the date arrives. A scheduled post goes
+  live on the first build on or after its date. To see drafts while you write, build with
+  `BLOG_DRAFTS=1 emacs --batch -l publish.el -f blog-publish`.
+- **Accessibility:** a "skip to content" link; images get their alt text from the caption
+  (`#+CAPTION:`), or from `#+ATTR_HTML: :alt description`, and count as decoration if they
+  have neither. Describe the banner with `#+HERO_ALT: ...`. Images below the banner load lazily.
+- **Inter, self-hosted** (`content/fonts/`), so every visitor sees the same typeface and no
+  request goes to Google. Japanese text uses the system font.
+- **Print stylesheet:** printing or saving a post as PDF drops the dock and shows the text, with
+  external link addresses spelled out.
+- **JSON Feed** (`/feed.json`, per language) beside `rss.xml`, and a default share image
+  (`content/images/og-default.png`) for pages with no banner.
+- **Link checker:** `python3 scripts/check-links.py public` checks every internal link, image
+  and `#section` link in the built site. The deploy workflow runs it, so a broken link stops
+  the deploy instead of going live. External links are not checked.
+- **Favicon** (`content/favicon.svg`) and a browser theme colour for light and dark.
+
+## Org features that work
+
+Checked by building a post that uses them: links to other posts
+(`[[file:../other-post/index.org][text]]`, also `::*Heading`), `[[id:...]]` links
+(the build scans every `:ID:` first), custom-id and heading links, footnotes
+(`[fn:1]` and inline), tables with captions, task lists, TODO keywords and heading
+tags, quotes, verse, centred text, `#+begin_details`, callouts (`#+begin_note`,
+`tip`, `warning`, `important`, `caution`), description lists, figures with
+captions, raw `#+begin_export html`, entities, sub/superscripts and headings down
+to six levels. LaTeX (`$x^2$`, `\[ ... \]`, `\begin{equation}`) is typeset by
+MathJax, loaded from a CDN only on pages that contain maths.
+
+Not supported: running code blocks at build time (`:exports results` /
+`:exports both` do nothing useful, so paste output into the post), `#+INCLUDE:`
+across the content folder, and links to files outside `content/`.
+
+## Comments and analytics (optional, free)
+
+Both are off until you fill in a setting near the top of `publish.el`.
+
+**Comments** use [giscus](https://giscus.app), which stores them as GitHub Discussions in your
+repository, so there is no extra account or database. Visitors sign in with GitHub to comment.
+
+1. In the blog's GitHub repository: Settings, Features, tick **Discussions**.
+2. Install the [giscus app](https://github.com/apps/giscus) on that repository.
+3. Open <https://giscus.app>, enter your repository, and choose a category (an
+   "Announcements" category is the usual pick). Under "Enable giscus" it shows
+   `data-repo`, `data-repo-id`, `data-category` and `data-category-id`.
+4. Put those four values into `blog-giscus` in `publish.el`:
+
+   ```elisp
+   (defvar blog-giscus
+     '(:repo "you/blog" :repo-id "R_kgDO..." :category "Announcements" :category-id "DIC_kwDO..."))
+   ```
+
+Every language version of a post shares one discussion. The comment box follows the site's
+light/dark toggle.
+
+**Analytics** use [GoatCounter](https://www.goatcounter.com), which is free for personal sites,
+uses no cookies and needs no consent banner. Sign up, pick a site code, and set
+`(defvar blog-goatcounter "yourcode")`. Local previews are not counted.
+
+## Timezones
+
+`#+DATE:` is read as local time in the post's own zone, set with `#+TIMEZONE:`:
+
+```org
+#+DATE: <2027-03-02 Tue 09:30>
+#+TIMEZONE: Atlantic/Reykjavik
+```
+
+If a post has no `#+TIMEZONE:`, it uses `blog-timezone` at the top of `publish.el`.
+That is the only thing to change when you move country: new posts get the new
+zone and old posts keep theirs, so nothing already written shifts.
+
+A page only shows the date, and a date read and shown in the same zone always
+shows what you typed, so the zone doesn't change what appears on a post. It sets
+the exact moment the post was published, which matters for the order of posts
+written in different countries and for the `pubDate` in the RSS feed. The feed
+writes every date in the build's `blog-timezone`; feed readers convert it
+correctly.
+
+- Use IANA names such as `Europe/Stockholm`. POSIX-style strings such as `UTC+2`
+  have the sign inverted, and the build stops with an error for a name it doesn't
+  recognise rather than quietly using UTC.
+- A translation is its own file, so give `index.is.org` its own `#+TIMEZONE:`
+  line too.
+- `#+PROPERTY: TIMEZONE name` is also understood, but `#+TIMEZONE:` is the
+  spelling to use.
+- This needs Emacs 27 or later.
 
 ## Look and feel
 
@@ -94,8 +233,9 @@ list of posts, and a floating bar at the bottom instead of a header.
 Two extra keywords in a post's header feed this:
 
 - `#+FILETAGS: :emacs:org-mode:` gives the post its tag pills on the Posts page.
-- `#+HERO: images/name.png` (a path inside `content/`, 2:1 works best) sets the hero
+- `#+HERO: banner.png` (a file in the post's folder, 2:1 works best) sets the hero
   image on the post and its hover preview in the list. Leave it out for no image.
+  For a single-file post use a path inside `content/`, e.g. `images/name.png`.
 
 The "avatar" next to the author's name is their initials in a circle. To use a photo
 instead, change `.avatar` in `content/css/style.css` (a `background-image` and an
@@ -115,16 +255,29 @@ content/
   index.is.org               Icelandic home      ->  /is/
   about.org                  English About       ->  /about.html
   posts/
-    foo.org                  English post        ->  /posts/foo.html
-    foo.is.org               Icelandic post      ->  /is/posts/foo.html
-    bar.org                  English only: no Icelandic version
+    foo/
+      index.org              English post        ->  /posts/foo/
+      index.is.org           Icelandic post      ->  /is/posts/foo/
+      index.sv.org           Swedish post        ->  /sv/posts/foo/
+      banner.png             Images used by every version
+    bar/
+      index.org              English only: no Icelandic version
+    baz.org                  A single-file post  ->  /posts/baz.html
+    baz.is.org               ...and its translation  ->  /is/posts/baz.html
 ```
 
 A page counts as translated when its `.is.org` file exists. To translate a post, copy
-`foo.org` to `foo.is.org` in the same folder and translate the text (keep `#+DATE:`,
-`#+FILETAGS:` and `#+HERO:` the same; translate `#+TITLE:` and `#+DESCRIPTION:`).
-Untranslated pages simply stay English-only. The build publishes each language
-separately and drops the `.is` from the output name, so the URLs stay tidy.
+`index.org` to `index.is.org` in the same folder and translate the text (keep `#+DATE:`,
+`#+TIMEZONE:`, `#+FILETAGS:` and `#+HERO:` the same; translate `#+TITLE:` and
+`#+DESCRIPTION:`). Untranslated pages simply stay English-only. The build publishes
+each language separately and drops the `.is` from the output name, so the URLs stay
+tidy.
+
+A translated post uses the images in its folder with the same plain links
+(`[[file:diagram.png]]`): the build copies the folder's images next to each
+translated page, so there is no `../../` to climb out of the language folder.
+(Single-file posts still need the long way round, e.g. `[[file:../../images/name.png]]`
+from `baz.is.org`.)
 
 What readers get:
 
@@ -184,7 +337,7 @@ With `htmlize` installed, Org wraps each token in a source block in a
 To see which classes your posts use:
 
 ```sh
-grep -oh 'class="org-[a-z0-9-]*"' public/posts/*.html | sort | uniq -c
+grep -roh --include='*.html' 'class="org-[a-z0-9-]*"' public/posts | sort | uniq -c
 ```
 
 ## First things to edit
@@ -192,7 +345,7 @@ grep -oh 'class="org-[a-z0-9-]*"' public/posts/*.html | sort | uniq -c
 - `publish.el`: `blog-title`, `blog-author` and `blog-description` (the feed's
   description).
 - `content/about.org`: replace the placeholder text.
-- `content/posts/from-icelandic-notes-to-a-published-book.org`: swap in your real
+- `content/posts/2026-09-30-from-icelandic-notes-to-a-published-book/index.org`: swap in your real
   Amazon link, and add the two screenshots marked `TODO`.
 
 ## Deploying

@@ -2,8 +2,8 @@
 #+DATE: <2026-09-30 Wed>
 #+FILETAGS: :icelandic:emacs:org-mode:books:
 #+DESCRIPTION: Org mode で書き溜めたアイスランド語の学習ノートが、少しずつ出版された本になるまで。
-#+HERO: images/icelandic-vocabulary-banner.png
-#+PROPERTY: TIMEZONE America/Port_of_Spain
+#+HERO: banner.png
+#+TIMEZONE: America/Port_of_Spain
 
 * 本を本当に出版しました
 
@@ -14,7 +14,7 @@
 これは、その経緯のお話です。
 
 #+CAPTION: 完成した本
-[[file:../../images/icelandic-vocabulary-cover.png]]
+[[file:cover.png]]
 
 * アイスランド語を学び始めた理由
 

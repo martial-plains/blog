@@ -1,0 +1,11 @@
+#+TITLE: Arkiv
+#+LAYOUT: list
+#+LANGUAGE: sv
+#+DESCRIPTION: Alla inlägg, nyaste först.
+
+#+begin_export html
+<header class="list-head"><h1 class="title">Arkiv</h1><p class="lede">Alla inlägg, nyaste först.</p></header>
+<section><h2 id="2026">2026</h2><ul class="archive-list">
+<li><a href="/sv/posts/2026-09-30-from-icelandic-notes-to-a-published-book/"><span class="t">Från isländska anteckningar till en utgiven bok: Icelandic Vocabulary 🇮🇸📚</span><time>30 september 2026 &middot; 10 min läsning</time></a></li>
+</ul></section>
+#+end_export

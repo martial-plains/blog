@@ -13,6 +13,70 @@
     var next = dark ? 'light' : 'dark';
     root.dataset.theme = next;
     try { localStorage.setItem('theme', next); } catch (e) {}
+    syncComments();
+  });
+
+  // Giscus comments (if the site has them) follow the site's light/dark choice, not just the system's.
+  function syncComments() {
+    var frame = doc.querySelector('iframe.giscus-frame');
+    if (!frame || !frame.contentWindow) return;
+    var dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    frame.contentWindow.postMessage({ giscus: { setConfig: { theme: dark ? 'dark' : 'light' } } }, 'https://giscus.app');
+  }
+  addEventListener('message', function (e) {
+    if (e.origin === 'https://giscus.app' && e.data && e.data.giscus) syncComments();
+  });
+
+  /* ---------- copying: code blocks and heading links ---------- */
+  var navEl = $('.dock');
+  var attr = function (name, fallback) { return (navEl && navEl.getAttribute(name)) || fallback; };
+  var copyText = attr('data-copy', 'Copy'), copiedText = attr('data-copied', 'Copied');
+  var copyToClipboard = function (text, done) {
+    var fallback = function () {
+      var ta = doc.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      doc.body.appendChild(ta); ta.select();
+      try { doc.execCommand('copy'); done(); } catch (e) {}
+      doc.body.removeChild(ta);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+    else fallback();
+  };
+
+  $$('#content pre.src').forEach(function (pre) {
+    var box = pre.parentNode;
+    if (!box.classList.contains('org-src-container')) {   // make sure the button has something to sit in
+      box = doc.createElement('div'); box.className = 'org-src-container';
+      pre.parentNode.insertBefore(box, pre); box.appendChild(pre);
+    }
+    var btn = doc.createElement('button');
+    btn.type = 'button'; btn.className = 'copy-btn'; btn.textContent = copyText;
+    btn.addEventListener('click', function () {
+      copyToClipboard(pre.textContent.replace(/\n$/, ''), function () {
+        btn.textContent = copiedText; btn.classList.add('is-done');
+        setTimeout(function () { btn.textContent = copyText; btn.classList.remove('is-done'); }, 1600);
+      });
+    });
+    box.appendChild(btn);
+  });
+
+  // A "#" after each heading copies a link straight to that section.  It is an empty
+  // link drawn with CSS, so the heading's own text (used by the contents list) stays clean.
+  var anchorLabel = attr('data-anchor', 'Copy link to this section');
+  $$('#content h2[id], #content h3[id], #content h4[id], #content h5[id], #content h6[id]').forEach(function (h) {
+    if (h.classList.contains('footnotes')) return;
+    var a = doc.createElement('a');
+    a.className = 'anchor'; a.href = '#' + h.id;
+    a.setAttribute('aria-label', anchorLabel); a.title = anchorLabel;
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      try { history.replaceState(null, '', '#' + h.id); } catch (err) {}
+      copyToClipboard(location.href.split('#')[0] + '#' + h.id, function () {
+        a.classList.add('is-done');
+        setTimeout(function () { a.classList.remove('is-done'); }, 1600);
+      });
+    });
+    h.appendChild(a);
   });
 
   /* ---------- posts index: tag pills ---------- */

@@ -1,0 +1,20 @@
+#+TITLE: Tags
+#+LAYOUT: list
+#+LANGUAGE: en-GB
+#+DESCRIPTION: Browse posts by topic.
+
+#+begin_export html
+<header class="list-head"><h1 class="title">Tags</h1><p class="lede">Browse posts by topic.</p></header>
+<section><h2 id="icelandic" data-count="1">icelandic</h2><ul class="archive-list">
+<li><a href="/posts/2026-09-30-from-icelandic-notes-to-a-published-book/"><span class="t">From Icelandic Notes to a Published Book: Icelandic Vocabulary 🇮🇸📚</span><time>30 September 2026 &middot; 8 min read</time></a></li>
+</ul></section>
+<section><h2 id="emacs" data-count="1">emacs</h2><ul class="archive-list">
+<li><a href="/posts/2026-09-30-from-icelandic-notes-to-a-published-book/"><span class="t">From Icelandic Notes to a Published Book: Icelandic Vocabulary 🇮🇸📚</span><time>30 September 2026 &middot; 8 min read</time></a></li>
+</ul></section>
+<section><h2 id="org-mode" data-count="1">org-mode</h2><ul class="archive-list">
+<li><a href="/posts/2026-09-30-from-icelandic-notes-to-a-published-book/"><span class="t">From Icelandic Notes to a Published Book: Icelandic Vocabulary 🇮🇸📚</span><time>30 September 2026 &middot; 8 min read</time></a></li>
+</ul></section>
+<section><h2 id="books" data-count="1">books</h2><ul class="archive-list">
+<li><a href="/posts/2026-09-30-from-icelandic-notes-to-a-published-book/"><span class="t">From Icelandic Notes to a Published Book: Icelandic Vocabulary 🇮🇸📚</span><time>30 September 2026 &middot; 8 min read</time></a></li>
+</ul></section>
+#+end_export
