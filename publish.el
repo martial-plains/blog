@@ -97,7 +97,8 @@
 (defvar blog-languages
   '(("en" :name "English"  :hreflang "en-GB" :locale "en-GB")
     ("is" :name "Íslenska" :hreflang "is"    :locale "is")
-    ("sv" :name "Svenska"  :hreflang "sv"    :locale "sv")))
+    ("sv" :name "Svenska"  :hreflang "sv"    :locale "sv")
+    ("ja" :name "日本語"   :hreflang "ja"    :locale "ja")))
 
 (defvar blog-months
   '(("en" . ["January" "February" "March" "April" "May" "June" "July"
@@ -105,7 +106,9 @@
     ("is" . ["janúar" "febrúar" "mars" "apríl" "maí" "júní" "júlí"
              "ágúst" "september" "október" "nóvember" "desember"])
     ("sv" . ["januari" "februari" "mars" "april" "maj" "juni" "juli"
-             "augusti" "september" "oktober" "november" "december"])))
+             "augusti" "september" "oktober" "november" "december"])
+    ("ja" . ["1月" "2月" "3月" "4月" "5月" "6月" "7月"
+             "8月" "9月" "10月" "11月" "12月"])))
 
 ;; Every piece of text the site itself adds around your writing.  Anything
 ;; missing for a language falls back to the default language.  The site title
@@ -142,7 +145,20 @@
      (all . "Alla") (filter . "Filtrera efter ämne")
      (none-list . "Inga inlägg hittades.") (no-match . "Inga inlägg matchar ”%s”.")
      (unavailable . "Sökningen är inte tillgänglig just nu.")
-     (read-full . "Läs hela inlägget") (date-format . "%d %s %d"))))
+     (read-full . "Läs hela inlägget") (date-format . "%d %s %d"))
+    ("ja"
+     (description . "アイスランド語、Emacs、Org mode、そしてそこから生まれる風変わりなプロジェクトについてのメモ。")
+     (home . "ホーム") (about . "自己紹介") (posts . "記事") (all-posts . "すべての記事")
+     (search . "記事を検索") (toc . "目次")
+     (theme . "ライト/ダークテーマを切り替える") (language . "言語")
+     (read-more . "ほかの記事を読む") (rss . "RSS で購読する")
+     (built . "Emacs と Org mode で作られています。")
+     (all . "すべて") (filter . "トピックで絞り込む")
+     (none-list . "該当する記事はありません。") (no-match . "「%s」に一致する記事はありません。")
+     (unavailable . "現在、検索を利用できません。")
+     (read-full . "記事の全文を読む")
+     ;; Arguments are (day month year), so number the fields to get 2026年9月30日.
+     (date-format . "%3$d年%2$s%1$d日"))))
 
 (defun blog-codes ()
   (mapcar #'car blog-languages))
