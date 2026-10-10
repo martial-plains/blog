@@ -106,7 +106,7 @@ To change colours, fonts or widths, edit the variables at the top of
 
 ## Languages
 
-The site is in British English by default and can have translations. A translation
+The site is in English by default and can have translations. A translation
 sits **right beside its original**, with the language code before the extension:
 
 ```
