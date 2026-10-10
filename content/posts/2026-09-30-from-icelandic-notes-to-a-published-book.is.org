@@ -3,6 +3,7 @@
 #+FILETAGS: :icelandic:emacs:org-mode:books:
 #+DESCRIPTION: Hvernig hrúga af íslenskum námsglósum í Org mode breyttist smám saman í útgefna bók.
 #+HERO: images/icelandic-vocabulary-banner.png
+#+PROPERTY: TIMEZONE America/Port_of_Spain
 
 * Ég gaf í alvöru út bók
 

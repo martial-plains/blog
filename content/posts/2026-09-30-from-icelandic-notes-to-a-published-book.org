@@ -3,6 +3,7 @@
 #+FILETAGS: :icelandic:emacs:org-mode:books:
 #+DESCRIPTION: How a pile of Icelandic study notes in Org mode slowly turned into a published book.
 #+HERO: images/icelandic-vocabulary-banner.png
+#+PROPERTY: TIMEZONE America/Port_of_Spain
 
 * I actually published a book
 

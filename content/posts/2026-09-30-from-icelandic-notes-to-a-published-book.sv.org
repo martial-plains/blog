@@ -3,6 +3,7 @@
 #+FILETAGS: :icelandic:emacs:org-mode:books:
 #+DESCRIPTION: Hur en hög med isländska studieanteckningar i Org mode sakta blev en utgiven bok.
 #+HERO: images/icelandic-vocabulary-banner.png
+#+PROPERTY: TIMEZONE America/Port_of_Spain
 
 * Jag har faktiskt gett ut en bok
 

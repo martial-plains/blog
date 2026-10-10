@@ -52,6 +52,8 @@
 (defvar blog-author "Allister Isaiah Harvey")
 (defvar blog-description
   "Notes on Icelandic, Emacs, Org mode and the odd projects that grow out of them.")
+(defvar blog-timezone "America/Port_of_Spain"
+  "Timezone used when generating RSS publication dates.")
 
 (defvar blog-base-path (or (getenv "BLOG_BASE") ""))
 
@@ -608,7 +610,11 @@ For the default language that is foo.org; otherwise foo.<code>.org beside it."
                                     ":PUBDATE: %s\n:ID: %s\n:END:\n")
                             (blog-plain-title (plist-get meta :title))
                             path
-                            (format-time-string "%Y-%m-%d %a %H:%M" (plist-get meta :date))
+                            (let ((process-environment
+                                  (cons (concat "TZ=" blog-timezone)
+                                        process-environment)))
+                              (format-time-string "%Y-%m-%d %a %H:%M"
+                                                  (plist-get meta :date)))
                             path))
             (unless (string-empty-p (plist-get meta :description))
               (insert (plist-get meta :description) "\n\n"))
