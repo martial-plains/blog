@@ -610,11 +610,7 @@ For the default language that is foo.org; otherwise foo.<code>.org beside it."
                                     ":PUBDATE: %s\n:ID: %s\n:END:\n")
                             (blog-plain-title (plist-get meta :title))
                             path
-                            (let ((process-environment
-                                  (cons (concat "TZ=" blog-timezone)
-                                        process-environment)))
-                              (format-time-string "%Y-%m-%d %a %H:%M"
-                                                  (plist-get meta :date)))
+                            (format-time-string "%Y-%m-%d %a %H:%M" (plist-get meta :date))
                             path))
             (unless (string-empty-p (plist-get meta :description))
               (insert (plist-get meta :description) "\n\n"))
@@ -824,6 +820,7 @@ For the default language that is foo.org; otherwise foo.<code>.org beside it."
 (defun blog-publish ()
   "Build the whole site into public/."
   (interactive)
+  (set-time-zone-rule blog-timezone)
   (dolist (code (blog-codes))
     (when (blog-lang-exists-p code)
       (blog-write-rss-source code)
