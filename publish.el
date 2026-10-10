@@ -96,13 +96,16 @@
 
 (defvar blog-languages
   '(("en" :name "English"  :hreflang "en-GB" :locale "en-GB")
-    ("is" :name "Íslenska" :hreflang "is"    :locale "is")))
+    ("is" :name "Íslenska" :hreflang "is"    :locale "is")
+    ("sv" :name "Svenska"  :hreflang "sv"    :locale "sv")))
 
 (defvar blog-months
   '(("en" . ["January" "February" "March" "April" "May" "June" "July"
              "August" "September" "October" "November" "December"])
     ("is" . ["janúar" "febrúar" "mars" "apríl" "maí" "júní" "júlí"
-             "ágúst" "september" "október" "nóvember" "desember"])))
+             "ágúst" "september" "október" "nóvember" "desember"])
+    ("sv" . ["januari" "februari" "mars" "april" "maj" "juni" "juli"
+             "augusti" "september" "oktober" "november" "december"])))
 
 ;; Every piece of text the site itself adds around your writing.  Anything
 ;; missing for a language falls back to the default language.  The site title
@@ -128,7 +131,18 @@
      (all . "Allt") (filter . "Sía eftir efni")
      (none-list . "Engar færslur fundust.") (no-match . "Engar færslur fundust fyrir „%s“.")
      (unavailable . "Leit er ekki tiltæk núna.")
-     (read-full . "Lesa alla færsluna") (date-format . "%d. %s %d"))))
+     (read-full . "Lesa alla færsluna") (date-format . "%d. %s %d"))
+    ("sv"
+     (description . "Anteckningar om isländska, Emacs, Org mode och de udda projekt som växer fram ur dem.")
+     (home . "Hem") (about . "Om mig") (posts . "Inlägg") (all-posts . "Alla inlägg")
+     (search . "Sök i inlägg") (toc . "Innehållsförteckning")
+     (theme . "Växla mellan ljust och mörkt tema") (language . "Språk")
+     (read-more . "Fler inlägg") (rss . "Prenumerera via RSS")
+     (built . "Byggd med Emacs och Org mode.")
+     (all . "Alla") (filter . "Filtrera efter ämne")
+     (none-list . "Inga inlägg hittades.") (no-match . "Inga inlägg matchar ”%s”.")
+     (unavailable . "Sökningen är inte tillgänglig just nu.")
+     (read-full . "Läs hela inlägget") (date-format . "%d %s %d"))))
 
 (defun blog-codes ()
   (mapcar #'car blog-languages))

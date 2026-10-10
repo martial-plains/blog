@@ -1,0 +1,169 @@
+#+TITLE: Från isländska anteckningar till en utgiven bok: /Icelandic Vocabulary/ 🇮🇸📚
+#+DATE: <2026-09-30 Wed>
+#+FILETAGS: :icelandic:emacs:org-mode:books:
+#+DESCRIPTION: Hur en hög med isländska studieanteckningar i Org mode sakta blev en utgiven bok.
+#+HERO: images/icelandic-vocabulary-banner.png
+
+* Jag har faktiskt gett ut en bok
+
+Jag hade aldrig tänkt skriva en bok. Jag hade tänkt lära mig isländska.
+
+Och ändå är vi här. Min bok, /Icelandic Vocabulary/, är nu utgiven och finns att köpa på Amazon. Ärligt talat känns det fortfarande lite konstigt att skriva det. Ena stunden gjorde jag anteckningar åt mig själv, och nästa stund tittade jag på en sida där det stod ”publicerad”.
+
+Det här är historien om hur det gick till.
+
+#+CAPTION: Den färdiga boken
+[[file:../../images/icelandic-vocabulary-cover.png]]
+
+* Varför jag började lära mig isländska
+
+I början av förra året började jag lära mig isländska. Efter så många år av svenskstudier ville jag veta mer om språkets rötter, och jag hade alltid hört att isländskan är det levande språk som ligger närmast fornnordiskan.
+
+Det var egentligen allt. Ingen storslagen plan, bara nyfikenhet på var språket jag redan kunde kom ifrån.
+
+* Anteckningarna kom först
+
+Jag har fört anteckningar så länge jag har använt Obsidian och Apple Notes. Efter ett tag märkte jag ändå att jag nästan aldrig rörde mina anteckningar på telefonen. När jag tänkte efter ville jag mycket hellre /läsa/ anteckningarna där än redigera dem. Nästan alla mina anteckningar skapades ju ändå på datorn.
+
+Så jag flyttade allt anteckningsskrivande till datorn och använde Obsidian. Det var en trevlig upplevelse, särskilt när Bases kom. Men medan jag skrev där saknade jag hela tiden mina Meow-tangentbindningar.
+
+Ja, ja, jag vet. Betydligt fler använder Vim-tangentbindningar. Jag vet inte, Meow känns bara så mycket bekvämare för mig, och det enda stället där jag kan använda det är Emacs. Så det var det som drog mig tillbaka.
+
+Varför Org i stället för Markdown? Mest för att det är lättare att ta med sig sina anteckningar. Markdown stöds på många ställen, men det finns så många olika /varianter/ av det. Så vitt jag vet finns det bara en variant av Org mode, med tillägg byggda ovanpå. Jag kan exportera Org till Markdown om jag någon gång vill, men inte åt andra hållet. Org klarar allt jag behöver, så jag blev kvar.
+
+På något vis blev det här ännu ett Emacs-projekt. 😂
+
+* Varför jag bestämde mig för att göra anteckningarna till en bok
+
+Ett år och fyra månader in i isländskastudierna tittade jag på hur många anteckningar jag hade skrivit och tänkte: /Isländska är ett så vackert och historiskt språk. Jag önskar att fler faktiskt lärde sig det./
+
+Där slog det mig. Om jag skrev en bok om isländskt ordförråd kunde jag kanske visa folk inte bara hur vackert språket ser ut, utan också hur fantastisk kulturen bakom det egentligen är.
+
+Det avgjorde också vilken sorts bok det skulle bli. När jag vände mig till isländskan förväntade jag mig samma sorts hjälp som jag hade haft med svenskan: läroböcker, ordböcker, lättlästa böcker. Det jag hittade var en handfull utmärkta resurser, men väldigt lite som förde samman ordförråd, grammatik och kultur på ett och samma ställe. Så det här är boken jag önskar att jag hade ägt när jag började.
+
+Jag är ingen isländsk språkforskare, och den här boken ersätter inte en riktig grammatik eller ordbok. Det är *en språkinlärare som skriver för andra språkinlärare*: sådant som hjälpte /mig/ att förstå och komma ihåg.
+
+* Kopplingen till svenskan
+
+Jag lär mig språk med laddering-metoden, där man använder ett språk man redan kan som språngbräda till nästa. Svenskan hjälpte /väldigt/ mycket. Mycket av det grundläggande germanska ordförrådet är tydligt besläktat. När jag stötte på /Ég er heima/ kunde jag genast se att /heima/ tillhörde samma familj som svenskans /hemma/. Detsamma gäller /vatn/, /hús/, /bók/, /dagur/ och så vidare.
+
+Det går längre än enskilda ord också. Isländskans /föðurbróðir/ och /móðurbróðir/ är byggda precis som svenskans /farbror/ och /morbror/, och /föðursystir/ och /móðursystir/ som /faster/ och /moster/. Men svenskan gör också så med far- och morföräldrar i vardagligt tal (/farmor/, /mormor/), medan islänningar oftast bara säger /amma/ och /afi/.
+
+Och så finns fällan. Svenskan kan få en att underskatta isländskans morfologi. Svenskan har till stor del förlorat det gamla germanska kasussystemet. Isländskan har inte det.
+
+#+begin_example
+Ég sé manninn.
+Jag ser mannen.
+#+end_example
+
+#+begin_example
+Ég tala við manninn.
+Jag pratar med mannen.
+#+end_example
+
+Och substantiven ändras beroende på kasus, numerus, genus, bestämdhet med mera. Samma man blir /maðurinn/ i en mening och /manninn/ i en annan. Ärligt talat hade jag väntat mig något mycket närmare svenskan, där mannen får samma form i båda meningarna:
+
+#+begin_example
+Jag ser mannen.
+Jag pratar med mannen.
+#+end_example
+
+Till en början ger svenskan dig ordförrådet gratis, men också helt fel förväntningar på hur orden beter sig grammatiskt. Den spänningen var intressant nog för att jag skulle ge den en plats i boken: rutorna ”Swedish Connection”, som visar var svenskan hjälper och var den i tysthet sätter dit en.
+
+* Saker som överraskade mig medan jag skrev den
+
+En stor överraskning var hur enkelt det är att styla Org: LaTeX för PDF:er och CSS för webb- och ePub-versionerna. Jag hade väntat mig att behöva kämpa betydligt mer med verktygen än jag gjorde.
+
+När jag först bestämde mig för att ge ut boken började jag i Apple Pages, eftersom det är gratis och man kan ändra stilen på en sak och få den uppdaterad överallt. Det som fick mig att byta till Emacs och Org mode var mycket mindre ädelt: jag arbetade mycket med boken på kvällarna, och den vita bakgrunden gjorde ont i ögonen, även med Night Shift påslaget i macOS.
+
+Det är en riktigt skön känsla att skriva i en editor man själv kontrollerar, och att skriva i Org mode får mig att känna att jag kontrollerar hela processen också.
+
+* Hur jag faktiskt gjorde boken
+
+Nu över till det tekniska. Hela boken ligger i ett Git-repo, en Org-fil per kapitel, hopsatta av en enda =book.org= med =#+include=-rader:
+
+#+begin_src org
+,* Getting Started
+
+,#+include: "chapters/pronunciation.org" :minlevel 2
+,#+include: "chapters/grammar-at-a-glance.org" :minlevel 2
+,#+include: "chapters/greetings-and-everyday-phrases.org" :minlevel 2
+#+end_src
+
+Med =:minlevel 2= blir varje kapitels översta rubrik ett LaTeX-=\chapter= under sin =\part=. Det finns 22 kapitel fördelade på sex delar, och tipsen, varningarna, grammatikanteckningarna, kulturanteckningarna och Swedish Connection-rutorna är alla bara specialblock i Org (=#+begin_swedish= och så vidare) som jag stylar i preamblen och i CSS:en.
+
+Flödet ser ut så här:
+
+#+begin_example
+                 ┌──→ LaTeX (XeLaTeX) ──→ PDF ──→ KDP
+Org files ───────┤
+                 └──→ HTML ──→ Pandoc ──→ EPUB
+#+end_example
+
+Ett enda kommando bygger allt:
+
+#+begin_src sh
+emacs --batch -l publish.el -f book-publish-all
+#+end_src
+
+Jag skrev också ett litet Python-skript som genererar övningarna i slutet av varje kapitel, plus facit och ordlistan, direkt från kapitlens egna ordförrådstabeller. Det betyder att jag inte kan glömma att lägga till ett nytt ord i ordlistan. På något vis blev det här /ännu ett/ Emacs-projekt, och sedan ett Python-projekt.
+
+** IPA-sagan
+
+Det enda som verkligen skavde var att få *IPA* att fungera. Det var här det blev lite löjligt. Till slut var tricket att sluta se IPA som text och i stället behandla det som något eget. Jag definierade en egen Org-länktyp, så att jag kan skriva =[[ipa:ˈθraʊstʏr]]= var som helst och få det exporterat korrekt till varje format:
+
+#+begin_src emacs-lisp
+(org-link-set-parameters
+ "ipa"
+ :export (lambda (path desc backend)
+           (cond
+            ((org-export-derived-backend-p backend 'latex) (format "\\ipa{%s}" path))
+            ((org-export-derived-backend-p backend 'html) (format "<span class=\"ipa\">%s</span>" path))
+            (t path))))
+#+end_src
+
+På LaTeX-sidan byter =\ipa= bara till Doulos SIL, som har de symboler jag behövde:
+
+#+begin_src latex
+\newfontfamily\ipaFont{DoulosSIL-Regular}[Path=\doulosdir, Extension=.ttf]
+\DeclareRobustCommand{\ipa}[1]{{\ipaFont #1}}
+#+end_src
+
+Och så den andra besvärliga biten: brödtextens typsnitt, Noto Serif, saknar →-pilen som jag använder för former som ”X → Y”, så jag fick lägga till en reservlösning, annars skulle den tyst försvinna från PDF:en. Det är sådana här småsaker man bara upptäcker när man sitter och stirrar på ett korrekturexemplar. Men jag lyckades få alla symboler att synas, på något vis.
+
+* Att ge ut den var en annan upplevelse
+
+Ärligt talat gjorde Amazon det mycket enkelt för mig att publicera. KDP låter dig till och med välja om du vill använda DRM, vilket betyder att ingen behöver låsa sin bok om de hellre vill att publiken laddar ner den och använder den som de själva vill.
+
+Att skriva boken fick mig att känna mig som en författare. Att klicka på ”Publicera” fick mig att inse att jag faktiskt hade gjort en bok.
+
+* Vad som finns i /Icelandic Vocabulary/
+
+/Icelandic Vocabulary: A Learner's Companion to the Words, Grammar and Culture of Iceland/ är för alla som talar engelska och vill bygga upp ett användbart isländskt ordförråd, oavsett om du är nybörjare, återvändande språkinlärare eller planerar en resa till Island. Du behöver inte kunna svenska, men om du gör det visar rutorna ”Swedish Connection” hur du kan dra nytta av det.
+
+Den är indelad i sex delar:
+
+- *Getting Started*: uttal, en kort översikt över den grammatik du behöver, samt hälsningar och vardagliga fraser
+- *People and Everyday Life*: familj, arbete, skola, kroppen och hälsa
+- *Home and Daily Living*: hemmet, kläder, mat och dryck, tid, siffror och färger
+- *Nature and the Outdoors*: djur, jordbruk, landskapet och Islands historia
+- *Recreation, Culture and Entertainment*: hobbyer, sport, högtider, konst och medier
+- *Travel and the Wider World*: transport, resor, länder och nationaliteter
+
+Varje kapitel inleds med en introduktion, presenterar ordförrådet i tematiska tabeller, visar orden i bruk i exempelmeningar och en kort dialog, och avslutas med övningar. Längst bak finns verbtabeller, deklinationstabeller, en guide till prepositioner och kasus, en lista över grammatiska termer på lättbegriplig engelska, ett facit och en isländsk–engelsk ordlista.
+
+* Vad händer härnäst?
+
+Mitt nästa mål är att bygga något som låter mig ta med mina Org-filer vart jag än går. Emacs kommer alltid att finnas på alla mina enheter, så länge det går. Men för de ställen där det inte går, ja... vill jag ändå kunna komma åt mina anteckningar.
+
+Jag är också mycket medveten om att jag är en språkinlärare, och att fel kommer att finnas kvar. Om du hittar något skulle jag vara väldigt tacksam om du hörde av dig, så hamnar det i en framtida upplaga.
+
+Att boken är utgiven betyder inte heller att jag är färdig med isländskan. Jag lär mig fortfarande. Den här boken är helt enkelt ett kvitto på hur långt jag har kommit hittills.
+
+* Var du kan köpa den
+
+/Icelandic Vocabulary/ finns nu att köpa på Amazon.
+
+[[https://www.amazon.com/dp/B0HLLBTCXL][Köp /Icelandic Vocabulary/]]
+
+Tack till alla som uppmuntrade mig medan jag arbetade med den: lärare, vänner, familj och de många andra språkentusiaster vars frågor, rättelser och goda humör hjälpte till att forma de här sidorna. ❤️
