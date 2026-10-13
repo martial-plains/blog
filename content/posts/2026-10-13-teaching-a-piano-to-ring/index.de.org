@@ -1,6 +1,5 @@
 #+TITLE: Einem Klavier das Klingen beibringen, ganz ohne Samples
-#+DATE: <2026-10-13 9:00>
-#+FILETAGS: :music:audio:dsp:rust:piano:
+#+DATE: 2026-10-13
 #+OPTIONS: toc:nil num:nil ^:{}
 #+STARTUP: showall inlineimages
 

@@ -1,6 +1,5 @@
 #+TITLE: Að kenna píanói að óma án upptaka
-#+DATE: <2026-10-13 9:00>
-#+FILETAGS: :music:audio:dsp:rust:piano:
+#+DATE: 2026-10-13
 #+OPTIONS: toc:nil num:nil ^:{}
 #+STARTUP: showall inlineimages
 
