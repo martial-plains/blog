@@ -1,5 +1,8 @@
 #+TITLE: サンプルを使わずにピアノを鳴らす
 #+DATE: 2026-10-13
+#+FILETAGS: :music:audio:dsp:rust:piano:
+#+DESCRIPTION: サンプルを一切使わないピアノを作る過程と、途中で逆にしていたこと。チューニング、ハンマー、弦、そしてテストの話。
+#+TIMEZONE: America/Port_of_Spain
 #+OPTIONS: toc:nil num:nil ^:{}
 #+STARTUP: showall inlineimages
 

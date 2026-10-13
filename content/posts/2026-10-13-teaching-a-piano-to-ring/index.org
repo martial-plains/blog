@@ -1,5 +1,8 @@
 #+TITLE: Teaching a piano to ring without samples
 #+DATE: 2026-10-13
+#+FILETAGS: :music:audio:dsp:rust:piano:
+#+DESCRIPTION: How I built a piano with no samples inside it, and the things I got backwards on the way: tuning, hammers, strings and tests.
+#+TIMEZONE: America/Port_of_Spain
 #+OPTIONS: toc:nil num:nil ^:{}
 #+STARTUP: showall inlineimages
 

@@ -1,5 +1,8 @@
 #+TITLE: Að kenna píanói að óma án upptaka
 #+DATE: 2026-10-13
+#+FILETAGS: :music:audio:dsp:rust:piano:
+#+DESCRIPTION: Hvernig ég smíðaði píanó án upptaka, og allt sem ég hafði öfugt á leiðinni: stillingu, hamra, strengi og prófanir.
+#+TIMEZONE: America/Port_of_Spain
 #+OPTIONS: toc:nil num:nil ^:{}
 #+STARTUP: showall inlineimages
 

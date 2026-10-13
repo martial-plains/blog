@@ -1,5 +1,8 @@
 #+TITLE: Einem Klavier das Klingen beibringen, ganz ohne Samples
 #+DATE: 2026-10-13
+#+FILETAGS: :music:audio:dsp:rust:piano:
+#+DESCRIPTION: Wie ich ein Klavier ganz ohne Samples gebaut habe, und was ich dabei verkehrt herum hatte: Stimmung, Hämmer, Saiten und Tests.
+#+TIMEZONE: America/Port_of_Spain
 #+OPTIONS: toc:nil num:nil ^:{}
 #+STARTUP: showall inlineimages
 

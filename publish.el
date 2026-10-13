@@ -4,7 +4,8 @@
 ;; Output: public/
 ;;
 ;; The first build needs network access: it installs htmlize (syntax
-;; highlighting) and org-contrib (which provides ox-rss) from ELPA.
+;; highlighting, plus rust-mode for Rust code) and org-contrib (which provides
+;; ox-rss) from ELPA.
 
 (require 'subr-x)
 (require 'cl-lib)
@@ -34,6 +35,12 @@
     (require feature)))
 
 (blog-ensure-package 'htmlize)
+;; Emacs has no Rust mode of its own, so without this `rust' source blocks are
+;; left uncoloured.  Optional: if it can't be installed the build carries on.
+(condition-case err
+    (blog-ensure-package 'rust-mode)
+  (error (message "rust-mode not available (%s): Rust blocks will not be coloured"
+                  (error-message-string err))))
 
 (add-to-list 'load-path
              (expand-file-name "lisp" (file-name-directory load-file-name)))
@@ -42,6 +49,59 @@
 
 (require 'ox-publish)
 (require 'ox-html)
+
+;; A small built-in Rust mode, used only when rust-mode could not be installed
+;; (no network, ELPA down), so Rust blocks are always coloured.  It covers what
+;; blog posts need: comments, strings, keywords, types, numbers, macros, lifetimes.
+(defvar blog-rust-mode-syntax-table
+  (let ((st (make-syntax-table)))
+    (modify-syntax-entry ?/ ". 124b" st)
+    (modify-syntax-entry ?* ". 23" st)
+    (modify-syntax-entry ?\n "> b" st)
+    (modify-syntax-entry ?\" "\"" st)
+    (modify-syntax-entry ?\\ "\\" st)
+    (modify-syntax-entry ?_ "_" st)
+    (modify-syntax-entry ?' "." st)
+    st))
+
+(defvar blog-rust-font-lock-keywords
+  `(("'\\(?:\\\\.\\|[^\\\\']\\)'" 0 font-lock-string-face)
+    ("'[a-z_][a-z0-9_]*\\_>" 0 font-lock-variable-name-face)
+    (,(regexp-opt '("as" "async" "await" "break" "const" "continue" "crate" "dyn" "else"
+                    "enum" "extern" "fn" "for" "if" "impl" "in" "let" "loop" "match" "mod"
+                    "move" "mut" "pub" "ref" "return" "self" "static" "struct" "super"
+                    "trait" "type" "unsafe" "use" "where" "while")
+                  'symbols)
+     0 font-lock-keyword-face)
+    (,(regexp-opt '("true" "false" "None" "Some" "Ok" "Err") 'symbols) 0 font-lock-constant-face)
+    ("\\_<fn[ \t]+\\([A-Za-z_][A-Za-z0-9_]*\\)" 1 font-lock-function-name-face)
+    ("\\_<\\([A-Za-z_][A-Za-z0-9_]*\\)!" 1 font-lock-preprocessor-face)
+    (,(regexp-opt '("i8" "i16" "i32" "i64" "i128" "isize" "u8" "u16" "u32" "u64" "u128"
+                    "usize" "f32" "f64" "bool" "char" "str") 'symbols)
+     0 font-lock-type-face)
+    ("\\_<[A-Z][A-Za-z0-9_]*\\_>" 0 font-lock-type-face)
+    ("\\_<[0-9][0-9_]*\\(?:\\.[0-9][0-9_]*\\)?\\(?:[eE][+-]?[0-9_]+\\)?\\(?:f32\\|f64\\|[iu]\\(?:8\\|16\\|32\\|64\\|128\\|size\\)\\)?\\_>"
+     0 font-lock-constant-face)))
+
+(defun blog-rust-syntactic-face (state)
+  "Face for strings and comments; `///' and `//!' lines count as documentation."
+  (if (nth 3 state)
+      font-lock-string-face
+    (save-excursion
+      (goto-char (nth 8 state))
+      (if (looking-at "//[/!]") font-lock-doc-face font-lock-comment-face))))
+
+(define-derived-mode blog-rust-mode prog-mode "Rust"
+  "Minimal Rust mode for colouring source blocks."
+  :syntax-table blog-rust-mode-syntax-table
+  (setq-local comment-start "// ")
+  (setq-local font-lock-defaults
+              '(blog-rust-font-lock-keywords nil nil nil nil
+                (font-lock-syntactic-face-function . blog-rust-syntactic-face))))
+
+(with-eval-after-load 'org-src
+  (unless (fboundp 'rust-mode)
+    (add-to-list 'org-src-lang-modes '("rust" . blog-rust))))
 
 ;; Colour source blocks with CSS classes (org-keyword, org-string, ...);
 ;; the colours themselves live in content/css/style.css.

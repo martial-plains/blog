@@ -1,5 +1,8 @@
 #+TITLE: Att lära ett piano att klinga utan samplingar
 #+DATE: 2026-10-13
+#+FILETAGS: :music:audio:dsp:rust:piano:
+#+DESCRIPTION: Hur jag byggde ett piano utan samplingar, och allt jag hade bakvänt på vägen: stämning, hammare, strängar och tester.
+#+TIMEZONE: America/Port_of_Spain
 #+OPTIONS: toc:nil num:nil ^:{}
 #+STARTUP: showall inlineimages
 
