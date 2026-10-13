@@ -126,6 +126,8 @@ strong, b { color: var(--fg); font-weight: 600; }
 img { max-width: 100%; height: auto; }
 figure { margin: 2rem auto; text-align: center; }
 figure img { border-radius: 12px; max-width: min(100%, 20rem); }
+/* Diagrams (SVG) fill the column; photos and covers keep the narrower cap above. */
+figure img[src$=".svg"] { width: 100%; max-width: 100%; height: auto; }
 figcaption { margin-top: .6rem; color: var(--muted); font-size: .9rem; }
 code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 code { background: var(--code-bg); padding: .12em .38em; border-radius: 5px; color: var(--fg); }
