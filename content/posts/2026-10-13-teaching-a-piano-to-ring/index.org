@@ -1,0 +1,383 @@
+#+TITLE: Teaching a piano to ring without samples
+#+DATE: <2026-10-13 9:00>
+#+OPTIONS: toc:nil num:nil ^:{}
+#+STARTUP: showall inlineimages
+
+Resonata is a piano with no recordings inside it. Every note you hear is
+worked out on the spot from a felt hammer, one to three steel strings, a
+wooden soundboard and a room. It runs as a plug-in or as a standalone
+player, and it is free and open source.
+
+This is the story of the first few days of getting it to sound like
+something. It is mostly a story about things I had backwards, and about the
+tests and measurements that told me so. I've kept the numbers in, because
+I'll want to know later whether I broke something.
+
+* What happens when you press a key
+
+#+CAPTION: One key, from finger to speaker. Dashed lines are things that listen or steer.
+[[file:img/signal-flow.svg]]
+
+Each key owns a small group of strings: one in the bass, two through the
+tenor, three in the treble. A hammer sends a short pulse into them. They
+all meet at the bridge, which is where they push on one another, and the
+bridge drives a soundboard. Off to the side, some other strings sit
+waiting to sympathise. After that it is just a room and whatever effects
+you have switched on.
+
+None of that is new. Julius Smith, Balázs Bank, Vesa Välimäki and others
+worked it out long before I came along, and the reading list is at the
+end. What I can add is a list of ways to get it wrong.
+
+* A string is a delay line
+
+A struck string is a wave running up and down it. In the computer that
+becomes a delay line the length of one trip, with a filter in the loop that
+loses a little energy each time round. The pitch comes from the total
+delay:
+
+\[ f_0 = \frac{f_s}{D} \]
+
+where $f_s$ is the sample rate and $D$ is the whole loop delay in samples,
+including the delay the filters add. That last clause is where I came
+unstuck. I had subtracted a fudge of 1.5 samples for the filters. The real
+delay of the dispersion cascade was about 7. At C4 the piano played
+55 cents flat, which is more than half a semitone, and I only found out
+because the fitting tool told me. The fix was to calculate each filter's
+exact phase delay and let a bisection find the fractional part. (Plain
+iteration just flips between two answers, and adding a fractional term on
+top counts it twice and costs another 5 cents. I tried both.) The tuning
+test now holds C2, C4 and C7 to within 5 cents.
+
+** Real strings are not harmonic
+
+A stiff string sings slightly sharp as you go up its partials:
+
+\[ f_n = n f_0 \sqrt{1 + B n^2} \]
+
+$B$ is the inharmonicity coefficient and it /rises/ with pitch. Mine ran the
+other way round, heavy in the bass and almost nothing in the treble. The
+result was a C4 whose partials sat 4 to 9 cents flat of a pure harmonic
+series, which no stiff string does, and a C7 that was very nearly a sine
+wave. Turning the curve the right way up, and then calibrating the
+dispersion filters against the loop's real phase, put the C4 partials 2 to
+12 cents sharp, as the theory says they should be.
+
+An outside reviewer spotted this on first look. It's obvious once you know:
+a real treble note has audibly stretched partials, and a C7 that is nearly
+a pure sine wave has none of them.
+
+* Tuning a piano that is never in tune
+
+Concert pianos are not tuned to equal temperament. The bass is tuned flat
+and the treble sharp, to meet the inharmonic partials halfway. That's
+called stretch, and piano tuners follow a curve described by Railsback.
+
+#+CAPTION: Tuning offset by register, after the fix. The hollow rings are where C1 and C2 were before.
+[[file:img/stretch.svg]]
+
+I had used one coefficient both ways and ended up with C1 at -41 cents and C2
+at -28. The model matched its own curve exactly, which is a particularly
+irritating kind of bug: the string was right, the curve was wrong. The
+deviation at the two ends of a real Railsback curve is similar in size,
+roughly 25 to 30 cents, but there are far fewer semitones above A4 than
+below it, so the treble side is steeper per semitone. The coefficient is
+therefore now 0.20 below A4 and 0.35 above. C1 sits at -23.9 cents and C7
+at +21.3.
+
+The same all-octaves check found the top of the piano ringing too long. C6
+lasted 2.53 s and C7 1.77 s, and I wanted something closer to half a second
+to a second. I lowered the decay floor from 1.2 to 0.9 s and got 2.08 and 1.41
+respectively. That is closer, but I don't trust it yet. It's on my list
+to compare against a real instrument.
+
+* Where the hammer lands
+
+The first version of the excitation was a pile of hacks. Each one broke
+something else, and a regression test that failed loudly was the only way I
+caught them.
+
+First I stretched a short hammer burst across the whole loop. For a 26-sample
+burst and a 1381-sample bass loop that plays it about fifty times too slowly,
+so the spectrum collapsed below 500 Hz and louder notes came out darker. I
+dropped that altogether. Next I dropped the burst into an empty loop, which
+leaves the output at digital zero until the wave comes round again. At C1
+that is about 31 ms of exact silence at the start of every note (at
+44.1 kHz), and you can hear it. Then there was the loud-note problem: a white
+burst at fortissimo spreads a fixed amount of energy over 22 kHz while the
+loop sustains below 1 kHz, so the loud note ended up quieter than the medium
+one.
+
+The version that survives injects the hammer's force pulse at a point 1/16 of
+the string length ahead of where the bridge reads the string, so the first
+tone arrives in under 2 ms even at C1. There is no pre-filled noise.
+
+#+CAPTION: Partial 8 has a node where an eighth-of-the-string hammer lands. It is barely excited, and the model notches it on purpose.
+[[file:img/strike-point.svg]]
+
+Where the hammer lands matters in a second way. A hammer that strikes at
+$1/8$ of the string leaves every eighth partial almost silent, because those
+partials have a node there. The comb filter that does this was fake in my
+first attempt: I averaged the signal with a copy of itself delayed by one
+sample, which is a mild low-pass, not a notch. It's a proper feed-forward
+comb now, with dips at partials 8, 16 and 24 and hollow peaks between.
+
+* The hammer was lying about its age
+
+#+CAPTION: Contact time at a moderate velocity (0.6), before and after the treble rebuild.
+[[file:img/contact-time.svg]]
+
+The hammer's felt touches the string for a few milliseconds, and how long
+decides which partials get excited. Short contact, bright treble. I had
+about 1.7 ms at every pitch. That is a low-pass filter at roughly the same
+corner everywhere, so the treble partials from the third upwards were being
+driven by flat noise. On top of that, the hardness law was inverted: a
+harder hammer rang for /longer/.
+
+Now the contact time shortens by a factor of $2^{-1/2}$ per octave, about
+4.8 ms at C1 and 0.59 ms at C7 at a moderate velocity (0.6) and neutral
+hardness. The whole law is five lines of Rust:
+
+#+begin_src rust
+let v = velocity.clamp(0.0, 1.0);
+let h = self.hardness.clamp(0.25, 4.0).sqrt();
+let base_ms = 3.0 - 2.2 * v;                    // harder blow, shorter contact
+let register = 2f32.powf(-(f32::from(midi) - 60.0) / 24.0);
+let ms = (base_ms / h * register).clamp(0.25, 6.0);
+#+end_src
+
+Dividing by $\sqrt{h}$ is the other half of the fix. The old law handled
+hardness the wrong way round, which is why harder hammers rang longer.
+
+The pulse shape took three tries. A haversine has spectral nulls that ate
+whole partials. A Gaussian was too dull. The one I kept is $u e^{1-u}$ with a short fade at
+the end, and it has no nulls inside the audible band.
+
+The treble also needed its loop filter replacing. It's now a one-pole filter
+solved per note so that partial 8 dies about three times faster than partial
+1, while the fundamental still hits the decay time in the table. A test
+checks that the fundamental lands within 0.2 % and the ratio within 5 % at
+C4, C6 and C7.
+
+* Two strings that disagree
+
+Strike a note with two or three strings and you do not get one decay. You
+get a quick fall as they move together, then a long, quiet tail as they
+drift apart and cancel at the bridge, which then barely moves. Pianists
+call the tail the aftersound.
+
+#+CAPTION: A sketch, not a measurement. Unison strings ring in two stages; the bridge is what couples them.
+[[file:img/two-stage-decay.svg]]
+
+My first attempt at this was wrong in an instructive way. I had the strings
+subtract a share of their average from themselves, which drained energy from
+the in-phase motion, the part that should keep the normal decay. A slowly
+beating pair of strings stays near that in-phase state for seconds, so every
+note simply died too fast. I only noticed because I rendered the same notes
+with the previous build. C4 had gone from 6.57 s to 2.64 s.
+
+The version that works adds a correction instead of taking one away:
+
+\[ y_i \leftarrow y_i + \eta\,(y_i - \bar y), \qquad
+   1 + \eta = \rho^{\,1/P - 1}, \qquad P = 1 + 3c \]
+
+Here $\bar y$ is the average of the strings, $\rho$ is the normal loop gain,
+and $c$ is the coupling amount. The in-phase motion keeps its ordinary decay
+and the out-of-phase part rings up to $P$ times longer. With detuned unisons,
+the first partial of C4 now has an aftersound of 12.2 s against 7.3 s with
+coupling off. With perfectly tuned strings nothing changes, which is correct
+too. (The model is Weinreich's, from 1977.)
+
+In code it is a few lines. First the gain, worked out once when the note
+starts, with a ceiling so a silly setting cannot run away:
+
+#+begin_src rust
+// Bridge coupling: eta = rho^(1/P - 1) - 1, P = 1 + 3c.
+let p = 1.0 + 3.0 * coupling.clamp(0.0, 1.0);
+let eta = (rho.max(1e-3).powf(1.0 / p - 1.0) - 1.0).clamp(0.0, 0.05);
+#+end_src
+
+Then, every sample, each string's output is pushed away from the mean of
+all the strings before it goes back into its own loop:
+
+#+begin_src rust
+let mean = sum / n;                        // the bridge's motion
+for (s, &v) in strings.iter_mut().zip(&outputs) {
+    s.commit_looped(v, v + eta * (v - mean));
+}
+#+end_src
+
+When the strings agree, $y_i - \bar y$ is zero and nothing happens. When they
+disagree, the disagreement gets a little less loss than the agreement does.
+
+* Why it sounded like a synth
+
+At one point I said it sounded like a synth. The reasons turned out to be
+small and specific.
+
+Every string in a choir was tuned exactly the same, which is the most digital
+thing a piano can do. I added a gentle, deterministic wander per key, about
+2.4 cents of tuning and 6 % of hammer strength, the same every time you play
+the key. Unison strings were also detuned by a fixed number of cents, so the
+beating got faster with pitch. At C7 it was 3.6 Hz, which sounds like a
+supersaw through a chorus pedal. The detune is now a constant beating rate of
+about 0.5 Hz. The last fix was the dryness: I nudged the room and sympathy
+defaults up (room 0.15 to 0.22, sympathy 0.5 to 0.6), because a piano with no
+bloom reads as a synth.
+
+I also found, while chasing a different issue, that the loop gain was worked
+out from the length of the delay line rather than the loop period. That
+miscounted the number of times the wave went round, and made decays at C7 27 %
+too long. It's the kind of bug you don't hear as a bug. You hear it as
+'hm, something is off about the top'.
+
+* One engine, seven instruments
+
+The same machinery turned out to be most of a harpsichord, a clavichord, a
+fortepiano and a harp, with different excitations and a few extra stops.
+
+- *Harpsichord:* a quill pluck rather than a hammer, with a buff (lute) stop.
+- *Clavichord:* a brass tangent that stays on the string, so pressing harder
+  after the note starts raises the pitch. That's called bebung. At full
+  pressure it bends the note up about 25 cents.
+- *Fortepiano:* light leather hammers, a moderator and a bassoon stop that
+  rattles.
+- *Concert harp:* finger-plucked strings that ring until you stop them, with
+  pinch harmonics and a glissando pedal.
+
+The two electric pianos needed new physics. The tine is a clamped-free beam
+whose modes sit in the ratio 1 : 6.267 : 17.547, plus a tone bar, read by a
+magnetic pickup. The reed is struck steel read by an electrostatic one. They
+had a start-up spike that took the output to 16, because I was
+differentiating a flux that began from zero rather than from rest. Starting the
+flux at its rest value fixed it.
+
+All ten pedals work on all of them, and any four can sit on the on-screen
+pedals. The pedals I invented (super sostenuto, glissando) are defined in
+the manual, because there is no standard to follow.
+
+* Real time, and other things you only learn the hard way
+
+The audio thread isn't allowed to wait for anything. No locks, no
+allocation, no files. I got this wrong, or something close to it, in three
+places, and found out about each one by accident.
+
+- The standalone player shared its engine behind a lock and built a vector in
+  every callback. It now owns the engine outright and receives MIDI through a
+  ring buffer.
+- The plug-in's smoothing did nothing. It read the raw value and then ran the
+  smoothers into a buffer it threw away. Every knob move was a step, so you
+  would have heard zipper noise on every parameter. Parameters are now smoothed
+  per 64-sample block.
+- The meter decayed up to 64 times too slowly, because a per-sample factor was
+  being applied once per block.
+
+The editor had its own bug. The meter and lamps only moved while the cursor
+was over the window. The graphics toolkit draws a frame only when an event
+wakes it, and the audio thread's polite request to redraw is only looked at
+just before drawing, which nobody triggers. A 15 frames-per-second timer
+fixes it.
+
+The sound has its own budget. A worst-case pile-up (the full 32 voices, with
+the sustain pedal down and every effect on) runs at about 11 times real time
+on a two-core cloud machine. SIMD bought most of that: groups of strings in
+one instruction, and the soundboard modes in two banks of eight. The
+unoptimised version of that test is far slower, so the speed check only runs
+on release builds.
+
+* The tests argued back
+
+Some of my tests were wrong, or failed for the wrong reason, and those taught me the most.
+
+- A test of treble partial sharpness passed for weeks. I later found it was
+  passing on noise: the old sustain had partials 3 to 6 all at about -7 dB, the
+  signature of flat noise, and a flat spectrum has something near every
+  expected frequency. Once the noise went, the test had to ask for real
+  structure.
+- The golden-file test compares a render against a stored one. It flagged
+  clipping that a mono peak hid: the left channel reached +1.05 while the
+  right sat at +0.59, which averages to a comfortable 0.82.
+- Measuring late in the note, not early, was the only way to see anything
+  about pedals. The release transients are loud in every case and drown the
+  effect.
+- Tests of the tools mattered as much as tests of the piano. A parabolic
+  peak-picker with a sign error put every B measurement out by 9
+  cents, and I'd have been tuning the piano to fit a broken ruler.
+- When I put the plug-in through a validator, it found two places where a
+  clamp had its limits the wrong way round at very low sample rates, and a
+  phaser that went unstable once its frequency passed half the sample rate.
+  It now survives anything from 1 kHz to 768 kHz.
+
+* Things that fooled me
+
+A few measurements fooled me for longer than they should have.
+
+At C6 the analysis showed a fundamental 19 dB down, a hole that was not there.
+I had told the analyser to expect a perfectly tuned string, but with the
+piano's natural stretch a comb mode of the room at 1046.2 Hz sat 0.3 Hz from
+my prediction and stole the slot. The string was fine.
+
+A bump at 2.7 to 3 kHz looked like a resonance. It was two nearly equal
+partials, one longitudinal and one transverse, 3 to 4 % apart, that a
+peak-picker kept confusing. The soundboard was innocent.
+
+After one rebuild the treble measured identical to 0.1 dB. That was not a
+subtle bug: the plug-in in the host had not been rescanned, so I was
+listening to the old binary.
+
+Then there was my own playing. I compared a recording of it with a reference
+recording and the numbers were miles apart: centroid 5251 Hz against 730 Hz.
+I assumed the synth. I rendered a single note and measured it the same way,
+and it sat with the reference. The difference was me: playing about 1.4 times
+too fast, nothing below E4, one volume throughout, in a dry, narrow
+recording. I changed no code.
+
+* The rest of the box
+
+There's more in there than I have the room to explain properly, so here is
+the short version.
+
+- *Effects:* tremolo, wah, chorus, flanger, phaser, fuzz, delay, amp
+  simulation, compressor and two equalisers. Each is bit-for-bit transparent
+  when off.
+- *Rooms:* a light built-in reverb, and a convolution mode with four
+  synthesised spaces or an impulse response of your own. It adds no latency.
+- *Spatial:* first-order Ambisonics output and a decode to a 7.1.2 bed.
+- *Tuning:* temperaments, Scala files and stretch.
+- *Tools:* an analyser for recordings, a fitter that learns voicing from a
+  recording, and a blind-test page generator.
+- *The fitter:* the engine has hard switches in it (felt, dampers), so I
+  couldn't differentiate it. It estimates gradients by perturbing every
+  parameter at once and rendering twice, a method called SPSA. On a test
+  target it brings the spectral distance down by 20 to 50 % in 40 steps.
+
+* How it holds up
+
+| What                                   | Result                              |
+|----------------------------------------+-------------------------------------|
+| Worst-case pile-up, every effect on    | 11.2 times real time (2-core x86)   |
+| clap-validator                         | 36 passed, 0 failed, 8 skipped      |
+| Sample rates                           | 32 to 96 kHz sound alike            |
+| Survives without crashing              | 1 kHz to 768 kHz                    |
+| Single C1 at full velocity             | peaks at 0.77 of full scale         |
+
+That last row is a trim of 3 dB that I added at the end. A low note at full
+velocity used to go just past full scale before any effects.
+
+#+begin_src rust
+/// Fixed -3 dB master trim, 10^(-3/20), applied with the Volume control.
+pub const OUTPUT_TRIM: f32 = 0.707_945_8;
+// ...
+let vol = self.params.volume * OUTPUT_TRIM;
+#+end_src
+
+* Reading
+
+If you only read five things:
+
+- Julius O. Smith, /Physical Audio Signal Processing/.
+- Bank, Välimäki and colleagues on piano modelling: commuted synthesis,
+  soundboards, dispersion.
+- Chaigne and Askenfelt on numerical hammer and string models.
+- Giordano and Jiang on the hammer-string interaction.
+- Weinreich (1977) on coupled piano strings.

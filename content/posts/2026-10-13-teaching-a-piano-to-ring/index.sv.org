@@ -1,0 +1,378 @@
+#+TITLE: Att lära ett piano att klinga utan samplingar
+#+DATE: <2026-10-13 9:00>
+#+OPTIONS: toc:nil num:nil ^:{}
+#+STARTUP: showall inlineimages
+
+Resonata är ett piano utan några inspelningar i sig. Varje ton du hör räknas
+fram i stunden utifrån en filthammare, en till tre stålsträngar, en
+resonansbotten av trä och ett rum. Det går att köra som plugin eller som
+fristående spelare, och det är gratis och öppen källkod.
+
+Det här är historien om de första dagarna med att få det att låta som något.
+Den handlar mest om saker jag hade bakvänt, och om de tester och mätningar som
+visade det. Jag har behållit siffrorna, eftersom jag senare vill kunna se om
+jag har förstört något.
+
+* Vad som händer när du trycker ner en tangent
+
+#+CAPTION: En tangent, från fingret till högtalaren. Streckade linjer är sådant som lyssnar eller styr.
+[[file:img/signal-flow.svg]]
+
+Varje tangent äger en liten grupp strängar: en i basen, två genom tenoren och
+tre i diskanten. En hammare skickar en kort puls in i dem. De möts alla vid
+stallet, där de påverkar varandra, och stallet driver en resonansbotten. En
+bit vid sidan om väntar några andra strängar på att få klinga med av
+sympati. Därefter är det bara ett rum och de effekter du har slagit på.
+
+Inget av det här är nytt. Julius Smith, Balázs Bank, Vesa Välimäki och andra
+kom fram till det långt innan jag dök upp, och läslistan finns i slutet. Det
+jag kan bidra med är en lista över sätt att göra fel.
+
+* En sträng är en fördröjningslinje
+
+En anslagen sträng är en våg som går fram och tillbaka längs den. I datorn
+blir det en fördröjningslinje lika lång som en sådan färd, med ett filter i
+slingan som förlorar lite energi varje varv. Tonhöjden kommer från den
+totala fördröjningen:
+
+\[ f_0 = \frac{f_s}{D} \]
+
+där $f_s$ är samplingsfrekvensen och $D$ är hela slingans fördröjning i
+samplingar, inklusive den fördröjning som filtren tillför. Den sista delen är
+där jag kom av mig. Jag hade dragit av en fuskvariabel på 1,5 samplingar för
+filtren. Den verkliga fördröjningen i dispersionskaskaden var omkring 7. Vid
+C4 spelade pianot 55 cent för lågt, alltså mer än en halvton, och jag fick
+bara veta det för att anpassningsverktyget sa det. Lösningen var att räkna ut
+varje filters exakta fasfördröjning och låta en intervallhalvering hitta
+decimaldelen. (Vanlig iteration hoppar bara mellan två svar, och att lägga
+till en bråkdel ovanpå räknar den två gånger och kostar ytterligare 5 cent.
+Jag provade båda.) Stämningstestet håller nu C2, C4 och C7 inom 5 cent.
+
+** Riktiga strängar är inte harmoniska
+
+En styv sträng klingar något för högt ju högre upp bland deltonerna man
+kommer:
+
+\[ f_n = n f_0 \sqrt{1 + B n^2} \]
+
+$B$ är inharmonicitetskoefficienten, och den /ökar/ med tonhöjden. Min gick åt
+andra hållet, hög i basen och nästan noll i diskanten. Resultatet blev ett C4
+vars deltoner låg 4 till 9 cent under en ren övertonsserie, vilket ingen styv
+sträng gör, och ett C7 som var nästan en ren sinusvåg. När jag vände kurvan
+rätt och sedan kalibrerade dispersionsfiltren mot slingans verkliga fas
+hamnade C4:ans deltoner 2 till 12 cent över, precis som teorin säger.
+
+En extern granskare upptäckte det här vid första anblicken. Det är uppenbart
+när man väl vet det: en riktig diskantton har hörbart utsträckta deltoner,
+och ett C7 som är nästan en ren sinusvåg har inga alls.
+
+* Att stämma ett piano som aldrig är stämt
+
+Konsertflyglar är inte stämda i liksvävande temperatur. Basen stäms lågt och
+diskanten högt, för att möta de inharmoniska deltonerna halvvägs. Det kallas
+stretch, och pianostämmare följer en kurva som beskrivits av Railsback.
+
+#+CAPTION: Stämningsavvikelse per register, efter rättelsen. De ihåliga ringarna visar var C1 och C2 låg tidigare.
+[[file:img/stretch.svg]]
+
+Jag hade använt en och samma koefficient åt båda hållen och fick C1 på -41 cent
+och C2 på -28. Modellen följde sin egen kurva exakt, vilket är en särskilt
+irriterande sorts fel: strängen var rätt, kurvan fel. Avvikelsen i ändarna av
+en riktig Railsback-kurva är ungefär lika stor, runt 25 till 30 cent, men det
+finns betydligt färre halvtoner ovanför A4 än under, så diskantsidan är
+brantare per halvton. Koefficienten är därför nu 0,20 under A4 och 0,35 över.
+C1 ligger på -23,9 cent och C7 på +21,3.
+
+Samma kontroll över alla oktaver visade att pianots topp klingade för länge.
+C6 varade 2,53 s och C7 1,77 s, och jag ville ha något närmare en halv till en
+sekund. Jag sänkte golvet för avklingningen från 1,2 till 0,9 s och fick 2,08
+respektive 1,41. Det är närmare, men jag litar inte på det än. Det står på min
+lista att jämföra med ett riktigt instrument.
+
+* Där hammaren träffar
+
+Den första versionen av excitationen var en hög med lappkast. Var och en
+förstörde något annat, och ett regressionstest som havererade högljutt var det
+enda sättet jag fick syn på dem.
+
+Först sträckte jag ut en kort hammarpuls över hela slingan. För en puls på 26
+samplingar och en basslinga på 1381 samplingar spelar det upp den ungefär
+femtio gånger för långsamt, så spektrumet föll ihop under 500 Hz och
+starkare toner blev mörkare. Det släppte jag helt. Sedan la jag pulsen i en
+tom slinga, vilket lämnar utsignalen på digital nolla tills vågen kommer
+runt igen. Vid C1 är det omkring 31 ms exakt tystnad i början av varje ton (vid
+44,1 kHz), och det hörs. Sedan kom problemet med starka toner: en vit puls
+vid fortissimo sprider en fast mängd energi över 22 kHz medan slingan bär
+under 1 kHz, så den starka tonen blev svagare än den måttliga.
+
+Den version som överlevde injicerar hammarens kraftpuls på en punkt 1/16 av
+stränglängden framför den plats där stallet läser av strängen, så att den
+första tonen kommer fram på under 2 ms även vid C1. Det finns inget
+förfyllt brus.
+
+#+CAPTION: Deltonen 8 har en nod där en hammare som träffar en åttondel in på strängen slår an. Den exciteras knappt alls, och modellen skär medvetet bort den.
+[[file:img/strike-point.svg]]
+
+Var hammaren träffar spelar roll på ett andra sätt. En hammare som slår an
+vid $1/8$ av strängen lämnar var åttonde deltons nästan tyst, eftersom de
+deltonerna har en nod där. Kamfiltret som åstadkommer det var falskt i mitt
+första försök: jag medelvärdesbildade signalen med en kopia av sig själv
+fördröjd en sampling, vilket är ett milt lågpassfilter och inget notch-filter.
+Nu är det ett riktigt framåtkopplat kamfilter, med dalar vid deltonerna 8, 16
+och 24 och ihåliga toppar däremellan.
+
+* Hammaren ljög om sin ålder
+
+#+CAPTION: Kontakttid vid måttlig anslagsstyrka (0,6), före och efter ombyggnaden av diskanten.
+[[file:img/contact-time.svg]]
+
+Hammarens filt rör vid strängen i några millisekunder, och hur länge avgör
+vilka deltoner som exciteras. Kort kontakt ger ljus diskant. Jag hade
+ungefär 1,7 ms vid varje tonhöjd. Det är ett lågpassfilter med ungefär samma
+gränsfrekvens överallt, så diskantens deltoner från den tredje och uppåt
+drevs av platt brus. Dessutom var hårdhetslagen omvänd: en hårdare hammare
+klingade /längre/.
+
+Nu förkortas kontakttiden med en faktor $2^{-1/2}$ per oktav, ungefär 4,8 ms
+vid C1 och 0,59 ms vid C7 vid måttlig anslagsstyrka (0,6) och neutral
+hårdhet. Hela lagen är fem rader Rust:
+
+#+begin_src rust
+let v = velocity.clamp(0.0, 1.0);
+let h = self.hardness.clamp(0.25, 4.0).sqrt();
+let base_ms = 3.0 - 2.2 * v;                    // hårdare slag, kortare kontakt
+let register = 2f32.powf(-(f32::from(midi) - 60.0) / 24.0);
+let ms = (base_ms / h * register).clamp(0.25, 6.0);
+#+end_src
+
+Att dividera med $\sqrt{h}$ är den andra halvan av rättelsen. Den gamla lagen
+hanterade hårdhet åt fel håll, och därför klingade hårdare hammare längre.
+
+Pulsformen krävde tre försök. En haversine har spektrala nollställen som åt upp
+hela deltoner. En gaussisk puls var för trubbig. Den jag behöll är $u e^{1-u}$ med en kort
+uttoning på slutet, och den har inga nollställen inom det hörbara området.
+
+Diskanten behövde också få sitt slingfilter utbytt. Det är nu ett enpolsfilter
+som löses för varje ton så att deltonen 8 dör ut ungefär tre gånger snabbare
+än deltonen 1, medan grundtonen fortfarande når avklingningstiden i tabellen. Ett
+test kontrollerar att grundtonen hamnar inom 0,2 % och förhållandet inom 5 % vid
+C4, C6 och C7.
+
+* Två strängar som är oense
+
+Slå an en ton med två eller tre strängar och du får inte en enda avklingning.
+Du får ett snabbt fall medan de rör sig tillsammans, och sedan en lång, svag
+svans medan de driver isär och tar ut varandra vid stallet, som då knappt
+rör sig. Pianister kallar svansen för efterljud (aftersound).
+
+#+CAPTION: En skiss, inte en mätning. Unisona strängar klingar i två steg; stallet är det som kopplar ihop dem.
+[[file:img/two-stage-decay.svg]]
+
+Mitt första försök var fel på ett lärorikt sätt. Jag lät strängarna dra ifrån
+sig en andel av sitt medelvärde, vilket tömde energi ur den likfasiga rörelsen,
+alltså den del som ska behålla den vanliga avklingningen. Ett par strängar som
+slår långsamma svävningar håller sig nära det likfasiga tillståndet i flera
+sekunder, så varje ton dog helt enkelt för snabbt. Jag märkte det bara för att
+jag renderade samma toner med föregående bygge. C4 hade gått från 6,57 s till
+2,64 s.
+
+Den version som fungerar lägger till en korrigering i stället för att ta bort en:
+
+\[ y_i \leftarrow y_i + \eta\,(y_i - \bar y), \qquad
+   1 + \eta = \rho^{\,1/P - 1}, \qquad P = 1 + 3c \]
+
+Här är $\bar y$ medelvärdet för strängarna, $\rho$ är den normala slingförstärkningen
+och $c$ är kopplingsgraden. Den likfasiga rörelsen behåller sin vanliga avklingning
+och den motfasiga delen klingar upp till $P$ gånger längre. Med
+något förstämda unisoner har C4:ans första deltone nu ett efterljud på 12,2 s mot
+7,3 s med kopplingen av. Med perfekt stämda strängar ändras ingenting, vilket
+också är rätt. (Modellen är Weinreichs, från 1977.)
+
+I kod är det några få rader. Först förstärkningen, som räknas ut en gång när tonen
+börjar, med ett tak så att en orimlig inställning inte kan skena iväg:
+
+#+begin_src rust
+// Stallkoppling: eta = rho^(1/P - 1) - 1, P = 1 + 3c.
+let p = 1.0 + 3.0 * coupling.clamp(0.0, 1.0);
+let eta = (rho.max(1e-3).powf(1.0 / p - 1.0) - 1.0).clamp(0.0, 0.05);
+#+end_src
+
+Sedan, för varje sampling, knuffas varje strängs utsignal bort från medelvärdet av
+alla strängarna innan den går tillbaka in i sin egen slinga:
+
+#+begin_src rust
+let mean = sum / n;                        // stallets rörelse
+for (s, &v) in strings.iter_mut().zip(&outputs) {
+    s.commit_looped(v, v + eta * (v - mean));
+}
+#+end_src
+
+När strängarna är överens är $y_i - \bar y$ noll och ingenting händer. När de är
+oeniga får oenigheten lite mindre förlust än enigheten.
+
+* Varför det lät som en synt
+
+Vid ett tillfälle sa jag att det lät som en synt. Skälen visade sig vara små och
+specifika.
+
+Varje sträng i ett kor var stämd exakt likadant, vilket är det mest digitala ett piano
+kan göra. Jag lade till en försiktig, deterministisk vandring per tangent, omkring
+2,4 cent i stämning och 6 % i hammarstyrka, likadan varje gång du spelar tangenten.
+Unisona strängar var dessutom förstämda med ett fast antal cent, så att svävningarna
+blev snabbare ju högre upp man kom. Vid C7 var de 3,6 Hz, vilket låter som en
+supersaw genom en chorus-pedal. Förstämningen är nu en konstant svävningshastighet på
+ungefär 0,5 Hz. Den sista rättelsen gällde torrheten: jag
+höjde standardvärdena för rum och sympati något (rum 0,15 till 0,22, sympati 0,5 till
+0,6), eftersom ett piano utan blomning läses som en synt.
+
+Medan jag jagade ett annat problem upptäckte jag också att slingförstärkningen
+räknades ut från fördröjningslinjens längd i stället för slingans period. Det
+räknade fel på hur många gånger vågen gick runt och gjorde avklingningen vid C7 27 %
+för lång. Det är den sortens fel man inte hör som ett fel. Man hör det som
+”hm, något är konstigt med toppen”.
+
+* En motor, sju instrument
+
+Samma maskineri visade sig vara det mesta av ett cembalo, ett klavikord, ett
+fortepiano och en harpa, med andra excitationer och några extra register.
+
+- *Cembalo:* ett fjäderpenneanslag i stället för en hammare, med ett buff-register (lutregister).
+- *Klavikord:* en mässingstangent som ligger kvar mot strängen, så att ett hårdare
+  tryck sedan tonen börjat höjer tonhöjden. Det kallas bebung. Vid fullt tryck
+  böjs tonen upp ungefär 25 cent.
+- *Fortepiano:* lätta läderhammare, en moderator och ett fagottregister som
+  skorrar.
+- *Konsertharpa:* fingerplockade strängar som klingar tills du stoppar dem,
+  med flageoletter och en glissandopedal.
+
+De två elpianona krävde ny fysik. Tinen är en inspänd–fri balk vars moder ligger i
+förhållandet 1 : 6,267 : 17,547, plus en tonstav, avläst av en magnetisk pickup.
+Tungan är slagen stål som avläses av en elektrostatisk. De hade en startspik som
+tog utsignalen upp till 16, eftersom jag deriverade ett flöde som började från noll
+i stället för från vila. Att låta flödet börja på sitt vilovärde löste det.
+
+Alla tio pedalerna fungerar på alla instrumenten, och vilka fyra som helst kan
+läggas på pedalerna på skärmen. De pedaler jag har hittat på (supersostenuto,
+glissando) är definierade i manualen, eftersom det inte finns någon standard
+att följa.
+
+* Realtid, och annat man bara lär sig den hårda vägen
+
+Ljudtråden får inte vänta på något. Inga lås, ingen allokering, inga filer. Jag
+gjorde fel på det, eller något i den stilen, på tre ställen, och upptäckte var och en
+av en slump.
+
+- Den fristående spelaren delade sin motor bakom ett lås och byggde en vektor
+  i varje callback. Nu äger den motorn helt och hållet och tar emot MIDI genom
+  en ringbuffert.
+- Pluginets utjämning gjorde ingenting. Det läste det råa värdet och körde sedan
+  utjämnarna in i en buffert som kastades. Varje vridning av en ratt blev ett
+  steg, så du skulle ha hört zipperbrus på varje parameter. Parametrarna
+  utjämnas nu per block om 64 samplingar.
+- Mätaren avklingade upp till 64 gånger för långsamt, eftersom en faktor per sampling
+  tillämpades en gång per block.
+
+Editorn hade sin egen bugg. Mätaren och lamporna rörde sig bara medan markören
+låg över fönstret. Grafikverktyget ritar en bild bara när en händelse väcker det,
+och ljudtrådens artiga begäran om omritning tittas på först strax före ritningen,
+vilket ingen utlöser. En timer på 15 bilder per sekund löser det.
+
+Ljudet har sin egen budget. En värsta tänkbara ansamling (alla 32 stämmor, med
+sustainpedalen nere och alla effekter på) går ungefär 11 gånger snabbare än realtid på en
+molndator med två kärnor. SIMD stod för det mesta av det: grupper av strängar i en
+instruktion, och resonansbottnens moder i två banker om åtta. Den
+ooptimerade versionen av det testet är mycket långsammare, så hastighetskontrollen körs
+bara på release-byggen.
+
+* Testerna sa emot
+
+Några av mina tester var fel, eller havererade av fel skäl, och de lärde mig mest.
+
+- Ett test av diskantdeltonernas skärpa gick igenom i veckor. Senare fann jag att det
+  gick igenom på brus: det gamla sustainet hade deltonerna 3 till 6 alla på omkring -7 dB,
+  vilket är signaturen för platt brus, och ett platt spektrum har något nära varje
+  förväntad frekvens. När bruset var borta fick testet kräva verklig struktur.
+- Golden-file-testet jämför en rendering med en lagrad. Det flaggade klippning som en
+  mono-topp dolde: vänster kanal nådde +1,05 medan höger låg på +0,59, vilket
+  i medeltal blir ett behagligt 0,82.
+- Att mäta sent i tonen, inte tidigt, var det enda sättet att se något alls om
+  pedalerna. Släpptransienterna är höga i alla fall och dränker effekten.
+- Tester av verktygen betydde lika mycket som tester av pianot. En parabolisk
+  toppväljare med teckenfel förskjöt varje B-mätning med 9
+  cent, och jag hade stämt pianot efter ett trasigt mått.
+- När jag körde pluginet genom en validator hittade den två ställen där en
+  begränsning hade sina gränser åt fel håll vid mycket låga samplingsfrekvenser, och en
+  phaser som blev instabil när frekvensen passerade halva samplingsfrekvensen.
+  Den klarar nu allt från 1 kHz till 768 kHz.
+
+* Saker som lurade mig
+
+Några mätningar lurade mig längre än de borde.
+
+Vid C6 visade analysen en grundton 19 dB nere, ett hål som inte fanns. Jag hade sagt åt
+analysatorn att förvänta sig en perfekt stämd sträng, men med pianots naturliga
+stretch låg ett kammod i rummet vid 1046,2 Hz 0,3 Hz från min förutsägelse och
+stal platsen. Strängen var i sin ordning.
+
+En puckel vid 2,7 till 3 kHz såg ut som en resonans. Det var två nästan lika
+deltoner, en longitudinell och en transversell, 3 till 4 % isär, som en toppväljare
+fortsatte att förväxla. Resonansbottnen var oskyldig.
+
+Efter ett bygge mätte diskanten identiskt på 0,1 dB. Det var ingen subtil bugg:
+pluginet i värden hade inte skannats om, så jag lyssnade på den gamla binären.
+
+Sedan var det mitt eget spelande. Jag jämförde en inspelning av det med en
+referensinspelning och siffrorna låg långt ifrån varandra: tyngdpunkt 5251 Hz mot 730 Hz.
+Jag skyllde på synten. Jag renderade en enstaka ton och mätte den på samma sätt, och
+den låg i linje med referensen. Skillnaden var jag: jag spelade ungefär 1,4 gånger
+för snabbt, ingenting under E4, en enda volym rakt igenom, i en torr, smal
+inspelning. Jag ändrade ingen kod.
+
+* Resten av lådan
+
+Det finns mer där inne än jag har plats att förklara ordentligt, så här kommer
+kortversionen.
+
+- *Effekter:* tremolo, wah, chorus, flanger, phaser, fuzz, delay, förstärkarsimulering,
+  kompressor och två equalizers. Var och en är bit för bit transparent när den är av.
+- *Rum:* en lätt inbyggd efterklang, och ett faltningsläge med fyra syntetiserade rum eller
+  ett eget impulssvar. Det lägger inte till någon latens.
+- *Rumsligt:* Ambisonics av första ordningen som utsignal och en avkodning till en 7.1.2-bädd.
+- *Stämning:* temperaturer, Scala-filer och stretch.
+- *Verktyg:* en analysator för inspelningar, en anpassare som lär sig klangfärg
+  från en inspelning, och en generator för blindtestsidor.
+- *Anpassaren:* motorn har hårda omkopplare (filt, dämpare), så jag kunde
+  inte derivera den. Den uppskattar gradienter genom att störa alla parametrar på
+  en gång och rendera två gånger, en metod som kallas SPSA. På ett testmål sänker den
+  det spektrala avståndet med 20 till 50 % på 40 steg.
+
+* Hur det håller
+
+| Vad                                    | Resultat                            |
+|----------------------------------------+-------------------------------------|
+| Värsta tänkbara ansamling, alla effekter på | 11,2 gånger realtid (2-kärnig x86) |
+| clap-validator                         | 36 godkända, 0 underkända, 8 hoppade över |
+| Samplingsfrekvenser                    | 32 till 96 kHz låter lika           |
+| Klarar sig utan att krascha            | 1 kHz till 768 kHz                  |
+| Enstaka C1 med full anslagsstyrka      | toppar på 0,77 av full skala        |
+
+Den sista raden är en trimning på 3 dB som jag lade till på slutet. En låg ton med
+full anslagsstyrka gick förut precis förbi full skala innan några effekter.
+
+#+begin_src rust
+/// Fast huvudtrim på -3 dB, 10^(-3/20), som tillämpas tillsammans med volymreglaget.
+pub const OUTPUT_TRIM: f32 = 0.707_945_8;
+// ...
+let vol = self.params.volume * OUTPUT_TRIM;
+#+end_src
+
+* Läsning
+
+Om du bara läser fem saker:
+
+- Julius O. Smith, /Physical Audio Signal Processing/.
+- Bank, Välimäki och kollegor om pianomodellering: kommuterad syntes,
+  resonansbottnar, dispersion.
+- Chaigne och Askenfelt om numeriska hammar- och strängmodeller.
+- Giordano och Jiang om samspelet mellan hammare och sträng.
+- Weinreich (1977) om kopplade pianosträngar.

@@ -1,0 +1,397 @@
+#+TITLE: Einem Klavier das Klingen beibringen, ganz ohne Samples
+#+DATE: <2026-10-13 9:00>
+#+OPTIONS: toc:nil num:nil ^:{}
+#+STARTUP: showall inlineimages
+
+Resonata ist ein Klavier ohne eine einzige Aufnahme im Inneren. Jeder Ton, den
+man hört, wird im Moment aus einem Filzhammer, einer bis drei Stahlsaiten,
+einem hölzernen Resonanzboden und einem Raum errechnet. Es läuft als Plug-in
+oder als eigenständiger Player, und es ist kostenlos und quelloffen.
+
+Dies ist die Geschichte der ersten Tage, in denen ich versucht habe, es nach
+etwas klingen zu lassen. Es geht vor allem um Dinge, die ich verkehrt herum
+hatte, und um die Tests und Messungen, die mir das gezeigt haben. Die Zahlen
+habe ich drin gelassen, weil ich später wissen will, ob ich etwas kaputt
+gemacht habe.
+
+* Was passiert, wenn man eine Taste drückt
+
+#+CAPTION: Eine Taste, vom Finger bis zum Lautsprecher. Gestrichelte Linien sind Dinge, die zuhören oder steuern.
+[[file:img/signal-flow.svg]]
+
+Jede Taste besitzt eine kleine Gruppe von Saiten: eine im Bass, zwei im Tenor,
+drei im Diskant. Ein Hammer schickt einen kurzen Impuls hinein. Sie treffen
+sich alle am Steg, wo sie einander beeinflussen, und der Steg treibt einen
+Resonanzboden an. Abseits davon warten andere Saiten darauf, sympathetisch
+mitzuschwingen. Danach bleiben nur noch ein Raum und die Effekte, die man
+eingeschaltet hat.
+
+Nichts davon ist neu. Julius Smith, Balázs Bank, Vesa Välimäki und andere
+haben das längst herausgefunden, bevor ich auf der Bildfläche erschien; die
+Leseliste steht am Ende. Was ich beitragen kann, ist eine Liste von Möglichkeiten,
+es falsch zu machen.
+
+* Eine Saite ist eine Verzögerungsleitung
+
+Eine angeschlagene Saite ist eine Welle, die an ihr hin und her läuft. Im
+Computer wird daraus eine Verzögerungsleitung von der Länge eines Hin- und
+Rückwegs, mit einem Filter in der Schleife, das bei jedem Umlauf ein wenig
+Energie verliert. Die Tonhöhe ergibt sich aus der gesamten Verzögerung:
+
+\[ f_0 = \frac{f_s}{D} \]
+
+Dabei ist $f_s$ die Abtastrate und $D$ die gesamte Schleifenverzögerung in
+Samples, einschließlich der Verzögerung, die die Filter hinzufügen. Dieser
+letzte Teil ist die Stelle, an der ich gescheitert bin. Ich hatte für die
+Filter pauschal 1,5 Samples abgezogen. Die tatsächliche Verzögerung der
+Dispersionskaskade lag bei etwa 7. Bei C4 spielte das Klavier 55 Cent zu tief,
+also mehr als einen halben Halbton, und ich habe es nur bemerkt, weil das
+Fitting-Werkzeug es mir sagte. Die Lösung bestand darin, die exakte
+Phasenverzögerung jedes Filters zu berechnen und den gebrochenen Anteil per
+Intervallhalbierung finden zu lassen. (Einfache Iteration springt nur zwischen
+zwei Ergebnissen hin und her, und einen Bruchteil obendrauf zu addieren zählt
+ihn doppelt und kostet weitere 5 Cent. Beides habe ich probiert.) Der
+Stimmungstest hält C2, C4 und C7 jetzt auf 5 Cent genau.
+
+** Echte Saiten sind nicht harmonisch
+
+Eine steife Saite klingt in ihren Teiltönen nach oben hin leicht zu hoch:
+
+\[ f_n = n f_0 \sqrt{1 + B n^2} \]
+
+$B$ ist der Inharmonizitätskoeffizient, und er /steigt/ mit der Tonhöhe. Bei mir
+lief er umgekehrt: hoch im Bass und fast null im Diskant. Das Ergebnis war ein
+C4, dessen Teiltöne 4 bis 9 Cent unter einer reinen Obertonreihe lagen, was
+keine steife Saite tut, und ein C7, das fast eine Sinuswelle war. Nachdem ich
+die Kurve richtig herum gedreht und anschließend die Dispersionsfilter an der
+tatsächlichen Phase der Schleife kalibriert hatte, lagen die Teiltöne von C4
+2 bis 12 Cent zu hoch, so wie es die Theorie vorhersagt.
+
+Ein externer Gutachter hat das auf den ersten Blick bemerkt. Es ist offensichtlich,
+sobald man es weiß: Ein echter Diskantton hat hörbar gespreizte Teiltöne, und
+ein C7, das fast eine reine Sinuswelle ist, hat gar keine.
+
+* Ein Klavier stimmen, das nie rein gestimmt ist
+
+Konzertflügel werden nicht gleichstufig gestimmt. Der Bass wird tief gestimmt
+und der Diskant hoch, um den inharmonischen Teiltönen auf halbem Weg
+entgegenzukommen. Das nennt man Spreizung (stretch), und Klavierstimmer folgen
+einer Kurve, die Railsback beschrieben hat.
+
+#+CAPTION: Stimmungsabweichung nach Register, nach der Korrektur. Die hohlen Ringe zeigen, wo C1 und C2 vorher lagen.
+[[file:img/stretch.svg]]
+
+Ich hatte einen einzigen Koeffizienten in beide Richtungen benutzt und
+landete bei C1 mit -41 Cent und C2 mit -28. Das Modell traf seine eigene Kurve
+exakt, was eine besonders ärgerliche Sorte Fehler ist: Die Saite stimmte, die
+Kurve nicht. Die Abweichung an den beiden Enden einer echten Railsback-Kurve ist
+ähnlich groß, etwa 25 bis 30 Cent, aber über A4 gibt es viel weniger Halbtöne
+als darunter, sodass die Diskantseite pro Halbton steiler ist. Der Koeffizient
+beträgt deshalb jetzt 0,20 unterhalb von A4 und 0,35 oberhalb. C1 liegt bei
+-23,9 Cent und C7 bei +21,3.
+
+Dieselbe Prüfung über alle Oktaven ergab, dass die Spitze des Klaviers zu lange
+nachklang. C6 hielt 2,53 s und C7 1,77 s, und ich wollte etwas näher an einer
+halben bis ganzen Sekunde. Ich senkte die Untergrenze des Abklingens von 1,2 auf
+0,9 s und bekam 2,08 beziehungsweise 1,41. Das ist näher dran, aber ich traue
+dem noch nicht. Der Vergleich mit einem echten Instrument steht auf meiner Liste.
+
+* Wo der Hammer auftrifft
+
+Die erste Version der Anregung war ein Haufen von Notlösungen. Jede machte etwas
+anderes kaputt, und ein Regressionstest, der laut fehlschlug, war die einzige
+Möglichkeit, sie zu entdecken.
+
+Zuerst dehnte ich einen kurzen Hammerimpuls über die gesamte Schleife. Bei einem
+Impuls von 26 Samples und einer Bassschleife von 1381 Samples wird er etwa
+fünfzigmal zu langsam abgespielt, sodass das Spektrum unterhalb von 500 Hz
+zusammenbrach und lautere Töne dunkler klangen. Das habe ich ganz verworfen.
+Als Nächstes warf ich den Impuls in eine leere Schleife, wodurch die Ausgabe auf
+digitaler Null bleibt, bis die Welle wieder herumkommt. Bei C1 sind das etwa 31 ms
+vollkommene Stille am Anfang jedes Tons (bei 44,1 kHz), und man hört es. Dann gab
+es das Problem mit lauten Tönen: Ein weißer Impuls bei Fortissimo verteilt eine
+feste Energiemenge über 22 kHz, während die Schleife unterhalb von 1 kHz trägt, und so
+wurde der laute Ton leiser als der mittlere.
+
+Die Version, die übrig blieb, speist den Kraftimpuls des Hammers an einem Punkt
+1/16 der Saitenlänge vor der Stelle ein, an der der Steg die Saite abliest, sodass
+der erste Ton selbst bei C1 in weniger als 2 ms eintrifft. Es gibt kein
+vorgefülltes Rauschen.
+
+#+CAPTION: Teilton 8 hat einen Knoten, wo ein Hammer bei einem Achtel der Saite auftrifft. Er wird kaum angeregt, und das Modell kerbt ihn absichtlich aus.
+[[file:img/strike-point.svg]]
+
+Wo der Hammer auftrifft, spielt noch auf eine zweite Weise eine Rolle. Ein Hammer,
+der bei $1/8$ der Saite anschlägt, lässt jeden achten Teilton fast stumm, weil diese
+Teiltöne dort einen Knoten haben. Der Kammfilter, der das bewirkt, war in meinem
+ersten Versuch eine Fälschung: Ich mittelte das Signal mit einer um ein Sample
+verzögerten Kopie seiner selbst, was ein sanfter Tiefpass ist und keine Kerbe. Jetzt
+ist es ein richtiger Feed-forward-Kammfilter, mit Einbrüchen bei den Teiltönen 8,
+16 und 24 und hohlen Spitzen dazwischen.
+
+* Der Hammer hat über sein Alter gelogen
+
+#+CAPTION: Kontaktzeit bei mäßiger Anschlagstärke (0,6), vor und nach dem Umbau des Diskants.
+[[file:img/contact-time.svg]]
+
+Der Filz des Hammers berührt die Saite einige Millisekunden lang, und wie lange,
+bestimmt, welche Teiltöne angeregt werden. Kurzer Kontakt, heller Diskant. Ich
+hatte bei jeder Tonhöhe etwa 1,7 ms. Das ist ein Tiefpass mit überall ungefähr
+derselben Eckfrequenz, sodass die Diskant-Teiltöne ab dem dritten von flachem
+Rauschen angetrieben wurden. Obendrein war das Härtegesetz invertiert: Ein
+härterer Hammer klang /länger/.
+
+Jetzt verkürzt sich die Kontaktzeit pro Oktave um den Faktor $2^{-1/2}$, bei
+mäßiger Anschlagstärke (0,6) und neutraler Härte etwa 4,8 ms bei C1 und 0,59 ms
+bei C7. Das ganze Gesetz besteht aus fünf Zeilen Rust:
+
+#+begin_src rust
+let v = velocity.clamp(0.0, 1.0);
+let h = self.hardness.clamp(0.25, 4.0).sqrt();
+let base_ms = 3.0 - 2.2 * v;                    // härterer Schlag, kürzerer Kontakt
+let register = 2f32.powf(-(f32::from(midi) - 60.0) / 24.0);
+let ms = (base_ms / h * register).clamp(0.25, 6.0);
+#+end_src
+
+Die Division durch $\sqrt{h}$ ist die andere Hälfte der Korrektur. Das alte Gesetz
+behandelte die Härte verkehrt herum, weshalb härtere Hämmer länger klangen.
+
+Die Impulsform brauchte drei Anläufe. Eine Haversine hat spektrale Nullstellen, die
+ganze Teiltöne auffraßen. Eine Gauß-Kurve war zu stumpf. Die, die ich behalten habe, ist
+$u e^{1-u}$ mit einem kurzen Ausblenden am Ende, und sie hat keine Nullstellen
+innerhalb des hörbaren Bereichs.
+
+Auch im Diskant musste das Schleifenfilter ersetzt werden. Es ist jetzt ein
+Einpolfilter, das für jeden Ton so berechnet wird, dass Teilton 8 etwa dreimal
+schneller abklingt als Teilton 1, während der Grundton weiterhin die Abklingzeit
+aus der Tabelle erreicht. Ein Test prüft, dass der Grundton bei C4, C6 und C7 auf
+0,2 % und das Verhältnis auf 5 % genau getroffen wird.
+
+* Zwei Saiten, die sich uneinig sind
+
+Schlägt man einen Ton mit zwei oder drei Saiten an, bekommt man nicht ein einziges
+Abklingen. Man bekommt einen schnellen Abfall, solange sie sich gemeinsam bewegen,
+und dann einen langen, leisen Ausklang, wenn sie auseinanderdriften und sich am Steg
+aufheben, der sich dann kaum noch bewegt. Pianisten nennen diesen Ausklang den
+Nachklang (aftersound).
+
+#+CAPTION: Eine Skizze, keine Messung. Gleichgestimmte Saiten klingen in zwei Phasen aus; der Steg koppelt sie.
+[[file:img/two-stage-decay.svg]]
+
+Mein erster Versuch war auf lehrreiche Weise falsch. Ich ließ die Saiten einen Teil
+ihres Mittelwerts von sich selbst abziehen, was der gleichphasigen Bewegung Energie
+entzog, also genau dem Teil, der das normale Abklingen behalten soll. Ein langsam
+schwebendes Saitenpaar bleibt sekundenlang nahe an diesem gleichphasigen Zustand, und
+so starb einfach jeder Ton zu schnell. Ich habe es nur bemerkt, weil ich dieselben
+Töne mit dem vorherigen Build gerendert habe. C4 war von 6,57 s auf 2,64 s gefallen.
+
+Die Version, die funktioniert, fügt eine Korrektur hinzu, statt eine abzuziehen:
+
+\[ y_i \leftarrow y_i + \eta\,(y_i - \bar y), \qquad
+   1 + \eta = \rho^{\,1/P - 1}, \qquad P = 1 + 3c \]
+
+Hier ist $\bar y$ der Mittelwert der Saiten, $\rho$ die normale Schleifenverstärkung
+und $c$ der Kopplungsgrad. Die gleichphasige Bewegung behält ihr gewöhnliches
+Abklingen, und der gegenphasige Anteil klingt bis zu $P$-mal länger aus. Bei
+leicht verstimmten Unisono-Saiten hat der erste Teilton von C4 jetzt einen
+Nachklang von 12,2 s gegenüber 7,3 s ohne Kopplung. Bei perfekt gestimmten Saiten
+ändert sich nichts, was ebenfalls richtig ist. (Das Modell stammt von Weinreich,
+aus dem Jahr 1977.)
+
+Im Code sind es ein paar Zeilen. Zuerst die Verstärkung, einmal beim Beginn des
+Tons berechnet, mit einer Obergrenze, damit eine unsinnige Einstellung nicht
+davonläuft:
+
+#+begin_src rust
+// Stegkopplung: eta = rho^(1/P - 1) - 1, P = 1 + 3c.
+let p = 1.0 + 3.0 * coupling.clamp(0.0, 1.0);
+let eta = (rho.max(1e-3).powf(1.0 / p - 1.0) - 1.0).clamp(0.0, 0.05);
+#+end_src
+
+Dann wird in jedem Sample die Ausgabe jeder Saite vom Mittelwert aller Saiten
+weggeschoben, bevor sie zurück in die eigene Schleife geht:
+
+#+begin_src rust
+let mean = sum / n;                        // die Bewegung des Stegs
+for (s, &v) in strings.iter_mut().zip(&outputs) {
+    s.commit_looped(v, v + eta * (v - mean));
+}
+#+end_src
+
+Sind sich die Saiten einig, ist $y_i - \bar y$ null, und nichts passiert. Sind sie
+sich uneinig, bekommt die Uneinigkeit etwas weniger Verlust als die Einigkeit.
+
+* Warum es wie ein Synthesizer klang
+
+Irgendwann habe ich gesagt, es klinge wie ein Synthesizer. Die Gründe stellten sich
+als klein und konkret heraus.
+
+Jede Saite eines Chors war exakt gleich gestimmt, und das ist das Digitalste, was
+ein Klavier tun kann. Ich habe ein sanftes, deterministisches Wandern pro Taste
+hinzugefügt, etwa 2,4 Cent in der Stimmung und 6 % in der Hammerstärke, jedes Mal
+gleich, wenn man die Taste spielt. Außerdem waren Unisono-Saiten um eine feste Zahl
+von Cent gegeneinander verstimmt, sodass die Schwebung mit der Tonhöhe schneller
+wurde. Bei C7 waren es 3,6 Hz, was klingt wie ein Supersaw durch ein Chorus-Pedal.
+Die Verstimmung ist jetzt eine konstante Schwebungsrate von etwa 0,5 Hz. Die letzte
+Korrektur betraf die Trockenheit: Ich habe die Standardwerte für Raum und Mitschwingen
+leicht angehoben (Raum 0,15 auf 0,22, Mitschwingen 0,5 auf 0,6), denn ein Klavier, das nicht
+ausblüht, wirkt wie ein Synthesizer.
+
+Bei der Jagd auf ein anderes Problem fand ich außerdem heraus, dass die Schleifenverstärkung
+aus der Länge der Verzögerungsleitung statt aus der Schleifenperiode berechnet wurde.
+Dadurch wurde falsch gezählt, wie oft die Welle herumläuft, und das Abklingen bei C7
+war um 27 % zu lang. Das ist die Art von Fehler, die man nicht als Fehler hört. Man
+hört ihn als „hm, mit der Höhe stimmt etwas nicht“.
+
+* Eine Engine, sieben Instrumente
+
+Dieselbe Maschinerie erwies sich als der größte Teil eines Cembalos, eines Clavichords,
+eines Hammerklaviers und einer Harfe, mit anderen Anregungen und ein paar zusätzlichen
+Registern.
+
+- *Cembalo:* ein Kielanschlag statt eines Hammers, mit einem Lautenzug (Buff-Register).
+- *Clavichord:* eine Messingtangente, die auf der Saite bleibt, sodass stärkeres
+  Drücken nach dem Tonbeginn die Tonhöhe anhebt. Das nennt man Bebung. Bei vollem
+  Druck biegt es den Ton um etwa 25 Cent nach oben.
+- *Hammerklavier:* leichte Lederhämmer, ein Moderator und ein Fagottzug, der
+  schnarrt.
+- *Konzertharfe:* mit den Fingern gezupfte Saiten, die klingen, bis man sie
+  abdämpft, mit Flageoletttönen und einem Glissando-Pedal.
+
+Die beiden E-Pianos brauchten neue Physik. Die Zinke ist ein einseitig eingespannter Balken,
+dessen Moden im Verhältnis 1 : 6,267 : 17,547 stehen, dazu ein Tonbalken, abgenommen von einem
+magnetischen Tonabnehmer. Die Zunge ist angeschlagener Stahl, abgenommen von einem
+elektrostatischen. Sie hatten eine Einschaltspitze, die die Ausgabe auf 16 trieb, weil ich
+einen Fluss differenzierte, der bei null statt in Ruhe begann. Den Fluss auf seinem
+Ruhewert beginnen zu lassen, behob es.
+
+Alle zehn Pedale funktionieren bei allen Instrumenten, und beliebige vier können
+auf den Bildschirmpedalen liegen. Die Pedale, die ich erfunden habe
+(Super-Sostenuto, Glissando), sind im Handbuch definiert, weil es keinen Standard gibt,
+dem man folgen könnte.
+
+* Echtzeit, und andere Dinge, die man nur auf die harte Tour lernt
+
+Der Audio-Thread darf auf nichts warten. Keine Sperren, keine Allokation, keine
+Dateien. Ich habe das an drei Stellen falsch gemacht, oder fast, und jede davon durch
+Zufall entdeckt.
+
+- Der eigenständige Player teilte seine Engine hinter einer Sperre und baute in
+  jedem Callback einen Vektor. Jetzt besitzt er die Engine ganz allein und empfängt
+  MIDI über einen Ringpuffer.
+- Die Glättung des Plug-ins tat nichts. Es las den Rohwert und ließ die Glätter dann
+  in einen Puffer laufen, den es wegwarf. Jede Reglerbewegung war ein Sprung, man
+  hätte also bei jedem Parameter Zipper-Rauschen gehört. Parameter werden jetzt pro
+  Block von 64 Samples geglättet.
+- Die Anzeige klang bis zu 64-mal zu langsam ab, weil ein Faktor pro Sample nur
+  einmal pro Block angewandt wurde.
+
+Der Editor hatte seinen eigenen Fehler. Anzeige und Lämpchen bewegten sich nur, solange
+der Cursor über dem Fenster war. Das Grafik-Toolkit zeichnet nur dann ein Bild, wenn
+ein Ereignis es weckt, und die höfliche Bitte des Audio-Threads um Neuzeichnen wird erst
+kurz vor dem Zeichnen angeschaut, was niemand auslöst. Ein Timer mit 15 Bildern pro
+Sekunde behebt das.
+
+Der Klang hat sein eigenes Budget. Ein Worst-Case-Stau (alle 32 Stimmen, mit getretenem
+Haltepedal und allen Effekten an) läuft auf einer Cloud-Maschine mit zwei Kernen mit
+etwa der 11-fachen Echtzeitgeschwindigkeit. SIMD hat das meiste davon gebracht: Gruppen von
+Saiten in einer Instruktion und die Resonanzbodenmoden in zwei Bänken zu acht. Die
+unoptimierte Version dieses Tests ist weit langsamer, deshalb läuft die Geschwindigkeitsprüfung
+nur bei Release-Builds.
+
+* Die Tests widersprachen
+
+Einige meiner Tests waren falsch oder schlugen aus den falschen Gründen fehl, und aus
+ihnen habe ich am meisten gelernt.
+
+- Ein Test der Diskant-Teiltonschärfe bestand wochenlang. Später stellte ich fest, dass er
+  an Rauschen bestand: Das alte Sustain hatte die Teiltöne 3 bis 6 alle bei etwa -7 dB,
+  die Signatur flachen Rauschens, und ein flaches Spektrum hat in der Nähe jeder erwarteten
+  Frequenz etwas. Sobald das Rauschen weg war, musste der Test echte Struktur verlangen.
+- Der Golden-File-Test vergleicht einen Render mit einem gespeicherten. Er meldete
+  Übersteuerung, die eine Mono-Spitze verbarg: Der linke Kanal erreichte +1,05, während
+  der rechte bei +0,59 lag, was im Mittel angenehme 0,82 ergibt.
+- Spät im Ton zu messen und nicht früh, war die einzige Möglichkeit, bei den Pedalen
+  überhaupt etwas zu sehen. Die Loslass-Transienten sind in jedem Fall laut und
+  übertönen den Effekt.
+- Tests der Werkzeuge waren so wichtig wie Tests des Klaviers. Ein parabolischer
+  Peak-Picker mit einem Vorzeichenfehler verschob jede B-Messung um 9 Cent, und ich
+  hätte das Klavier nach einem kaputten Lineal gestimmt.
+- Als ich das Plug-in durch einen Validator laufen ließ, fand er zwei Stellen, an
+  denen bei sehr niedrigen Abtastraten die Grenzen einer Klammer vertauscht waren,
+  und einen Phaser, der instabil wurde, sobald seine Frequenz die halbe Abtastrate
+  überschritt. Er übersteht jetzt alles von 1 kHz bis 768 kHz.
+
+* Dinge, die mich getäuscht haben
+
+Ein paar Messungen haben mich länger getäuscht, als sie sollten.
+
+Bei C6 zeigte die Analyse einen Grundton, der 19 dB tiefer lag, ein Loch, das nicht
+existierte. Ich hatte dem Analysator gesagt, er solle eine perfekt gestimmte Saite
+erwarten, aber mit der natürlichen Spreizung des Klaviers lag eine Kammmode des Raums
+bei 1046,2 Hz nur 0,3 Hz von meiner Vorhersage entfernt und stahl den Platz. Der Saite
+fehlte nichts.
+
+Eine Beule bei 2,7 bis 3 kHz sah aus wie eine Resonanz. Es waren zwei fast gleiche
+Teiltöne, einer longitudinal und einer transversal, 3 bis 4 % auseinander, die ein
+Peak-Picker immer wieder verwechselte. Der Resonanzboden war unschuldig.
+
+Nach einem Umbau maß der Diskant auf 0,1 dB identisch. Das war kein subtiler Fehler:
+Das Plug-in im Host war nicht neu gescannt worden, ich hörte also die alte Binärdatei.
+
+Dann war da mein eigenes Spiel. Ich verglich eine Aufnahme davon mit einer
+Referenzaufnahme, und die Zahlen lagen meilenweit auseinander: Schwerpunkt 5251 Hz gegen
+730 Hz. Ich verdächtigte den Synthesizer. Ich renderte einen einzelnen Ton und maß ihn
+auf dieselbe Weise, und er lag bei der Referenz. Der Unterschied war ich: Ich spielte etwa
+1,4-mal zu schnell, nichts unter E4, durchgehend eine Lautstärke, in einer trockenen,
+schmalen Aufnahme. Ich habe keinen Code geändert.
+
+* Der Rest der Kiste
+
+Da steckt mehr drin, als ich hier ordentlich erklären kann, deshalb kommt hier die
+Kurzfassung.
+
+- *Effekte:* Tremolo, Wah, Chorus, Flanger, Phaser, Fuzz, Delay, Verstärkersimulation,
+  Kompressor und zwei Equalizer. Jeder ist im ausgeschalteten Zustand bitgenau transparent.
+- *Räume:* ein leichter eingebauter Hall und ein Faltungsmodus mit vier synthetisierten
+  Räumen oder einer eigenen Impulsantwort. Er fügt keine Latenz hinzu.
+- *Räumlich:* Ambisonics-Ausgabe erster Ordnung und eine Dekodierung auf ein 7.1.2-Bett.
+- *Stimmung:* Temperaturen, Scala-Dateien und Spreizung.
+- *Werkzeuge:* ein Analysator für Aufnahmen, ein Fitter, der die Intonation aus einer
+  Aufnahme lernt, und ein Generator für Blindtest-Seiten.
+- *Der Fitter:* In der Engine stecken harte Schalter (Filz, Dämpfer), deshalb konnte ich
+  sie nicht differenzieren. Er schätzt Gradienten, indem er alle Parameter auf einmal
+  stört und zweimal rendert, ein Verfahren namens SPSA. An einem Testziel senkt er den
+  spektralen Abstand in 40 Schritten um 20 bis 50 %.
+
+* Wie es sich schlägt
+
+| Was                                    | Ergebnis                            |
+|----------------------------------------+-------------------------------------|
+| Worst-Case-Stau, alle Effekte an       | 11,2-fache Echtzeit (2-Kern-x86)    |
+| clap-validator                         | 36 bestanden, 0 durchgefallen, 8 übersprungen |
+| Abtastraten                            | 32 bis 96 kHz klingen gleich        |
+| Übersteht ohne Absturz                 | 1 kHz bis 768 kHz                   |
+| Einzelnes C1 bei voller Anschlagstärke | Spitze bei 0,77 des Vollausschlags  |
+
+Die letzte Zeile ist eine Absenkung um 3 dB, die ich ganz am Ende hinzugefügt habe. Ein
+tiefer Ton bei voller Anschlagstärke ging vor allen Effekten knapp über den
+Vollausschlag hinaus.
+
+#+begin_src rust
+/// Feste Master-Absenkung um -3 dB, 10^(-3/20), zusammen mit dem Lautstärkeregler angewandt.
+pub const OUTPUT_TRIM: f32 = 0.707_945_8;
+// ...
+let vol = self.params.volume * OUTPUT_TRIM;
+#+end_src
+
+* Zum Weiterlesen
+
+Wenn man nur fünf Dinge liest:
+
+- Julius O. Smith, /Physical Audio Signal Processing/.
+- Bank, Välimäki und Kollegen zur Klaviermodellierung: kommutierte Synthese,
+  Resonanzböden, Dispersion.
+- Chaigne und Askenfelt zu numerischen Hammer-Saiten-Modellen.
+- Giordano und Jiang zur Wechselwirkung zwischen Hammer und Saite.
+- Weinreich (1977) zu gekoppelten Klaviersaiten.

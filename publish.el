@@ -122,7 +122,8 @@ and written to the feed in that same zone.  Use IANA names such as
   '(("en" :name "English"  :hreflang "en-GB" :locale "en-GB")
     ("is" :name "Íslenska" :hreflang "is"    :locale "is")
     ("sv" :name "Svenska"  :hreflang "sv"    :locale "sv")
-    ("ja" :name "日本語"   :hreflang "ja"    :locale "ja")))
+    ("ja" :name "日本語"   :hreflang "ja"    :locale "ja")
+    ("de" :name "Deutsch"  :hreflang "de"    :locale "de")))
 
 (defvar blog-months
   '(("en" . ["January" "February" "March" "April" "May" "June" "July"
@@ -132,7 +133,9 @@ and written to the feed in that same zone.  Use IANA names such as
     ("sv" . ["januari" "februari" "mars" "april" "maj" "juni" "juli"
              "augusti" "september" "oktober" "november" "december"])
     ("ja" . ["1月" "2月" "3月" "4月" "5月" "6月" "7月"
-             "8月" "9月" "10月" "11月" "12月"])))
+             "8月" "9月" "10月" "11月" "12月"])
+    ("de" . ["Januar" "Februar" "März" "April" "Mai" "Juni" "Juli"
+             "August" "September" "Oktober" "November" "Dezember"])))
 
 ;; Every piece of text the site itself adds around your writing.  Anything
 ;; missing for a language falls back to the default language.  The site title
@@ -185,6 +188,22 @@ and written to the feed in that same zone.  Use IANA names such as
      (archive-lede . "Alla inlägg, nyaste först.") (tags-lede . "Bläddra bland inlägg efter ämne.")
      (related . "Relaterade inlägg") (older . "Äldre inlägg") (newer . "Nyare inlägg")
      (anchor . "Kopiera länk till det här avsnittet") (skip . "Hoppa till innehållet"))
+    ("de"
+     (description . "Notizen über Isländisch, Emacs, Org mode und die kuriosen Projekte, die daraus entstehen.")
+     (home . "Start") (about . "Über mich") (posts . "Beiträge") (all-posts . "Alle Beiträge")
+     (search . "Beiträge durchsuchen") (toc . "Inhaltsverzeichnis")
+     (theme . "Zwischen hellem und dunklem Design wechseln") (language . "Sprache")
+     (read-more . "Weitere Beiträge") (rss . "Per RSS abonnieren")
+     (built . "Gebaut mit Emacs und Org mode.")
+     (all . "Alle") (filter . "Nach Thema filtern")
+     (none-list . "Keine Beiträge gefunden.") (no-match . "Keine Beiträge für „%s“ gefunden.")
+     (unavailable . "Die Suche ist momentan nicht verfügbar.")
+     (read-full . "Den ganzen Beitrag lesen") (date-format . "%d. %s %d")
+     (reading-time . "%d Min. Lesezeit") (copy . "Kopieren") (copied . "Kopiert")
+     (archive . "Archiv") (tags . "Themen")
+     (archive-lede . "Alle Beiträge, neueste zuerst.") (tags-lede . "Beiträge nach Thema durchstöbern.")
+     (related . "Ähnliche Beiträge") (older . "Älterer Beitrag") (newer . "Neuerer Beitrag")
+     (anchor . "Link zu diesem Abschnitt kopieren") (skip . "Zum Inhalt springen"))
     ("ja"
      (description . "アイスランド語、Emacs、Org mode、そしてそこから生まれる風変わりなプロジェクトについてのメモ。")
      (home . "ホーム") (about . "自己紹介") (posts . "記事") (all-posts . "すべての記事")
@@ -750,7 +769,7 @@ because the build copies every asset there."
             (blog-attr (plist-get blog-giscus :category))
             (blog-attr (plist-get blog-giscus :category-id))
             (blog-attr (blog-page-url blog-default-language rel))
-            (if (member lang '("en" "ja")) lang "en"))))
+            (if (member lang '("en" "ja" "de")) lang "en"))))
 
 (defun blog-postamble (info)
   "Footer for every page: post extras and end-of-post links (dated posts only), colophon, dock."
