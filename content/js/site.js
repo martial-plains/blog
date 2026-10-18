@@ -118,7 +118,7 @@
     fn();
     var to = dock.getBoundingClientRect().width;
     if (Math.abs(from - to) < 1 || matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      dock.style.transition = '';
+      dock.style.transition = ''; dock.style.overflow = '';   // don't leave a cancelled morph's clipping behind
       return;
     }
     dock.style.width = from + 'px';

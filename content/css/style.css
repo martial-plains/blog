@@ -478,6 +478,12 @@ h3 { scroll-margin-top: 2rem; }
   .dock a.dock-text span { display: none; }
   .dock a.dock-text { padding: 0; width: 2.2rem; justify-content: center; }
 }
+/* very narrow phones (320px): drop the language label and shrink the search box so the dock fits */
+@media (max-width: 24rem) {
+  .dock .lang > button { width: 2.2rem; padding: 0; justify-content: center; }
+  .dock .lang > button span { display: none; }
+  .dock.searching .dock-search { width: 8.5rem; }
+}
 
 /* ---- printing: just the text ---- */
 @media print {
