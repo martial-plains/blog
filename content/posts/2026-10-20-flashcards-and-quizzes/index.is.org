@@ -1,0 +1,315 @@
+#+title: Minnisspjöld, spurningaleikir og hvers vegna ég hætti að velja á milli
+#+date: <2026-10-20 9:00>
+#+filetags: :languages:learning:flashcards:spaced_repetition:cloze:quizzes:multiple_choice:matching:writing:speaking:
+#+description: Hvað minnisspjöld og spurningaæfingar gera hvort um sig fyrir orðaforða, hvar hvort um sig blekkir þig og hvernig ég raða þeim saman.
+#+language: is
+#+timezone: America/Port_of_Spain
+#+options: toc:nil num:nil ^:{}
+#+startup: showall inlineimages
+
+Tungumálanemendur skiptast gjarnan í tvær fylkingar. Önnur notar minnisspjöld og
+dreifða endurtekningu (e. spaced repetition) og segir þér varðveisluhlutfallið sitt
+án þess að nokkur hafi spurt. Hin fylkingin vill frekar spurningaleiki: krossa-
+spurningar, pörunarleiki, að skrifa svör og að segja hluti upphátt. Hvor
+fylkingin heldur að hin sé að sóa tímanum.
+
+Um tíma hélt ég að ég yrði að ganga í aðra hvora. Nú hef ég notað báðar leiðir
+nógu lengi til að telja að spurningin snúi öfugt. Þær vinna ólík verk, og mest af
+pirringnum kemur af því að nota annað til að vinna verk hins.
+
+Þessi færsla fjallar um hvað hvor leið er í raun góð í, hvernig hvor um sig
+smjaðrar fyrir þér og hvernig ég myndi sameina þær. Ég hef lært íslensku frá
+byrjun síðasta árs, eftir langan tíma með sænsku, þannig að dæmin hallast í þá átt.
+Hugmyndirnar eru ekki háðar tungumálinu.
+
+* Tvær staðreyndir um minnið
+
+Mest af því sem á eftir kemur byggir á tveimur gömlum rannsóknarniðurstöðum, svo
+hér koma þær fyrst.
+
+Prófunaráhrifin segja að það styrki minnið meira að sækja eitthvað upp úr höfðinu
+en að horfa á það aftur. Roediger og Karpicke gerðu þekktustu útgáfuna af þessu:
+nemendur sem prófuðu sig sjálfir á texta mundu merkjanlega meira viku síðar en
+nemendur sem lásu hann bara aftur. Það óvænta var að þeir sem lásu aftur /fundu/
+fyrir meira öryggi.
+
+Dreifingaráhrifin segja að það sé betra að rifja upp með vaxandi millibili en að
+þjappa jafnmörgum endurtekningum saman á eitt kvöld. Ebbinghaus teiknaði
+gleymskuferilinn á níunda áratug nítjándu aldar og niðurstaðan hefur haldið vel síðan.
+
+Minnisspjöld og spurningaleikir eru hvort tveggja leiðir til að nýta þessar tvær
+staðreyndir. Þau gera það bara á ólíkan hátt.
+
+* Til hvers minnisspjald er
+
+Minnisspjald er einfaldasta upprifjunaræfing sem til er. Þú sérð ábendingu, reynir
+að svara, snýrð spjaldinu við og metur af hreinskilni hvort þú hafðir rétt fyrir
+þér. Ekkert annað gerist, og það er allur sjarminn.
+
+** Að muna án nokkurs stuðnings
+
+Ef ég sýni þér 'horse' og þú átt að töfra fram 'hestur' úr engu, án valkosta og án
+fyrsta stafsins, er það frjáls upprifjun. Það er erfiðasta tegund upprifjunar og
+þess vegna sú áhrifaríkasta til að gera minningu varanlega. Hún er líka dálítið
+óþægileg. Spjald sem finnst örlítið of erfitt er yfirleitt að vinna vinnuna sína.
+
+** Tímasetningin er raunverulega varan
+
+Þetta má allt gera með pappírsspjöldum og skókassa. [[https://en.wikipedia.org/wiki/Leitner_system][Leitner-kerfið]] er yndislegt dæmi um
+lágtækni. Hugbúnaður sér þó um bókhaldið betur. [[https://apps.ankiweb.net][Anki]] skráir hversu vel þú kunnir
+hvert spjald og velur næsta upprifjunardag. Auðveld spjöld hverfa í vikur eða
+mánuði. Spjöld sem þú hrasar sífellt á koma aftur innan nokkurra daga. Þú eyðir
+tímanum í það sem þú ert um það bil að gleyma, ekki það sem þú kannt utan að.
+
+Nýrri útgáfur af Anki geta notað tímasetningarkerfi sem heitir [[https://github.com/open-spaced-repetition/fsrs4anki/wiki/ABC-of-FSRS][FSRS]], sem aðlagar
+minnislíkan að hverju spjaldi og stefnir á varðveisluhlutfall að eigin vali, til
+dæmis 90 %. Eldra [[https://super-memory.com/english/ol/sm2.htm][SM-2]]-reikniritið er enn til staðar og virkar vel. Ég myndi ekki
+eyða kvöldi í að velja á milli þeirra.
+
+Íslenski stokkurinn minn er núna með 2200 spjöld, og ég nota FSRS með markið stillt
+á 90 %.
+
+** Spjöld geta verið meira en orð og þýðing
+
+Flestir byrja með orð á annarri hliðinni og merkingu þess á hinni, og það er í lagi
+fyrir fyrstu nokkur hundruð orðin. Eftir það gera eyðufyllingarspjöld (e. cloze)
+miklu meira gagn. Eyðufyllingarspjald felur eitt orð í setningu, þannig að þú sérð:
+
+#+begin_example
+Ég les ___ á kvöldin.
+#+end_example
+
+og átt að fylla inn 'bækur' (eða hvað sem setningin biður um). Þú lærir orðið,
+fallið sem það tekur og dálítið af takti úr raunverulegri setningu, og ekkert af því
+kennir stök þýðing þér. Hljóð á spjaldinu hjálpar líka, og sömuleiðis mynd án texta,
+því hún neyðir þig til að sleppa þýðingarþrepinu.
+
+#+CAPTION: Eyðufyllingarspjald í Anki: fyrst eyðan, svo svarið.
+[[file:images/cloze-card.png]]
+
+Ég skipti yfir í eyðufyllingarspjöld eftir um það bil 300 orð. Ef ég mætti gefa nýjum
+nemanda eitt einasta ráð um minnisspjöld væri það að byrja snemma að gera þau, því
+stokkur með stökum orðum getur ekki sýnt þér í hvaða falli nafnorð er.
+
+** Nógu lítið til að nota í raun
+
+Stokkur býr í símanum, þannig að fimm mínútur í biðröð eða meðan beðið er eftir
+katlinum eru alvöru námslota. Það hljómar léttvægt en er það ekki. Þeir sem gera tíu
+mínútur á hverjum degi hafa betur en þeir sem skipuleggja fullkomna tveggja tíma
+lotu og ná henni tvisvar í mánuði.
+
+* Hvað spurningaleikir bæta við
+
+Með spurningaæfingum á ég við það sem finnst í Learn- og Test-hömum [[https://quizlet.com][Quizlet]], í
+[[https://www.duolingo.com][Duolingo]] og [[https://www.busuu.com][Busuu]] og í flestum öðrum forritum: krossaspurningar, pörun, innslegin
+svör, skrifaðar setningar og töluð verkefni. Þetta er minna ein aðferð en verkfærakassi,
+og hvert verkfæri þjálfar eitthvað örlítið annað.
+
+** Krossaspurningar
+
+Krossaspurningar eru mildasta formið, því þú þarft aðeins að þekkja rétta svarið.
+Það gerir þær góðar fyrir fyrstu kynni af orði, þegar það væri bara pirrandi að
+draga það fram úr engu.
+
+Þær hafa annað hlutverk sem fólk gleymir. Góð röng svör fá þig til að greina á milli
+svipaðra hluta. Ef þú velur á milli 'köttur', 'hundur', 'kýr' og 'hestur' neyða
+villuvalkostirnir þig til að taka eftir því sem raunverulega greinir þau að.
+Veikleikinn er að það er miklu auðveldara að þekkja en að muna. Þú getur staðist
+krossapróf á orðum sem þú gætir aldrei sagt upphátt.
+
+** Pörun
+
+Pörunarleikir, þar sem þú parar orð við þýðingar á móti klukkunni, eru fljótlegir og
+dálítið ávanabindandi. Þeir byggja upp hraða tengingu milli orðs og merkingar þess,
+og tímaþrýstingurinn ýtir þér í átt að sjálfvirkri þekkingu. Ég nota þá sem
+upphitun. Að para tíu orð á þrjátíu sekúndum finnst eins og framfarir og hluti af
+því er raunverulegur, en þetta er bara þekking án upprifjunar, svo gildið minnkar
+eftir því sem þú batnar.
+
+** Að skrifa
+
+Að slá inn eða handskrifa svar er þar sem spurningaleikir verða alvarlegir. Að búa
+til orð staf fyrir staf afhjúpar hverja gloppu, frá vantandi broddstaf til rangrar
+endingar. Þetta eru sköpunaráhrifin (e. generation effect) að verki: það sem þú
+býrð sjálfur til situr yfirleitt betur í þér en það sem þú last bara.
+
+Að skrifa heilar setningar gengur lengra. Ef þú getur skrifað tvær eða þrjár
+setningar með nýju orði geturðu notað það. Ef þú getur það ekki, /þekkirðu/ það
+bara. Það er stærri munur en hann hljómar.
+
+** Að tala
+
+Að segja svör upphátt er æfingin sem fólk sleppir oftast, og sú sem ég myndi verja
+harðast. Hún þjálfar vöðvaminni framburðar, hún lætur þig sækja orð á
+samtalshraða án tíma til að hika, og á nokkrum vikum slítur hún niður óttann við að
+opna munninn. Talæfingar í forritum eru ófullkomnar. Talgreining getur verið
+tæpitungusöm og samanburður við upptöku af innfæddum nær aðeins stutt. Þær koma þér
+samt til að gefa frá þér hljóð, sem slær þögult nám. Kennari eða
+tungumálafélagi er betri, því hugbúnaður getur ekki sagt þér hvort þú hljómir
+eðlilega.
+
+** Fjölbreytni hjálpar ein og sér
+
+Að blanda sniðum hefur kost sem tengist engu einstöku sniði. Þegar þú mætir orði
+séðu, heyrðu, slegnu inn og töluðu fær minnið margar leiðir inn, og líklegra er að
+þú finnir eina þeirra seinna. Bjork kallaði fyrirhöfn sem finnst erfiðari núna en
+borgar sig síðar 'æskilegan erfiðleika' (e. desirable difficulty), og fjölbreytt
+æfing er einn slíkur. Hún heldur líka lotunum ferskum.
+
+* Hvernig hvort um sig smjaðrar fyrir þér
+
+** Minnisspjöld
+
+Minnisspjöld fara í sjálfstýringu. Eftir nokkur hundruð upprifjanir geturðu orðið
+sífellt fljótari með stokkinn án þess að verða betri í tungumálinu. Þau einangra
+líka orð, sem í ensku er vægt vandamál en í íslensku alvarlegt: nafnorð sem þú
+þekkir aðeins í uppflettimynd birtist í þolfalli, þágufalli eða eignarfalli með
+annarri endingu, og þú þekkir ekki þitt eigið minnisspjald. Og óljóst spjald, eða
+spjald með tveimur staðreyndum troðnum saman, fær ósamkvæm svör, sem tímasetningarkerfið
+getur ekki lagað. Ef þú hikar yfir því hvaða svar spjald vill, skiptu því í tvennt.
+
+** Spjald sem ég þurfti að skipta
+
+Eitt af mínum var hlustunarspjald: hljóðið segir /Við töluðum við hvorn annan sí
+og æ/, og aftan á stendur 'We were talking to each other all the time'. Ég hafði
+lært /hvor/ og /annar/ sem uppflettiorð, en hér eru þau í þolfalli sem /hvorn
+annan/, og orðatiltækinu /sí og æ/ ('stöðugt') var troðið á sama spjaldið.
+
+Verra var að það var eitt af tólf nær eins spjöldum, hvert með aðeins einni breyttri
+endingu eða einu orði fluttu til, öll með sömu ensku aftan á. Ég hefði getað merkt
+hvert einasta þeirra 'Good' án þess að taka eftir því hvaða endingu ég hafði heyrt.
+
+Svo ég skipti því: eitt spjald fyrir /sí og æ/, eitt fyrir /hvor annan / hvor aðra /
+hvort annað/ með fallið skrifað út, og ein setning geymd til hlustunaræfinga. Hin
+ellefu eru í bið.
+
+** Spurningaleikir
+
+Spurningaleikir smjaðra á annan hátt. Krossaspurningar og pörun finnast auðveldar, og
+sú auðveldi felur hversu mikið þú hefur ekki lært. Sum spurningaforrit eru líka
+veikari en almennilegt tól fyrir dreifða endurtekningu í langtímatímasetningu, svo
+orð sem þú svaraðir rétt einu sinni getur hljóðlega fölnað án þess að neitt komi því
+aftur. Runur og stig eru hvetjandi en geta umbunað það að mæta fremur en að læra.
+400 daga runa gerð úr tveggja mínútna lotum er ekki það sama og 400 dagar af
+framförum, hversu ánægður sem litli eldurinn lítur út.
+
+Hvort tveggja getur verið leiðinlegt, og leiðindi skipta máli. Aðferð sem þú gefst
+upp á í viku þrjú tapar fyrir verri aðferð sem þér þykir í raun gaman að.
+
+* Hlutir sem blekktu mig
+
+Nokkrir hlutir litu út eins og sönnun framfara lengur en þeir áttu skilið.
+
+Há stigatala í pörunarleik lét mig finnast ég kunna orðahóp. Það sem hún sýndi var
+að ég gat þekkt þau í lista með tíu orðum, sem er miklu lægri þröskuldur. Prófið sem
+skipti máli var hvort ég gæti skrifað orðið klukkustund síðar án þess að hafa neitt
+fyrir framan mig.
+
+Að fá spjald rétt sama dag og ég bjó það til sagði mér líka nánast ekkert.
+Fyrstu bilin hjá tímasetningarkerfinu eru stutt af ástæðu. Spjald sem lifir af
+mánuð er þekking. Spjald sem lifir af tíu mínútur er skammtímaminni sem er kurteist.
+
+Að lesa íslensku og að búa til íslensku skildust líka meira að en ég átti von á. Ég
+gat fylgt setningu og svo mistekist að byggja þá sömu. Spurningaleikur sem bað mig
+bara að velja hefði aldrei sýnt það. Að slá inn svarið gerði það, innan viku. Hjá
+mér var það /Mér leiðist/, 'I'm bored'. Ég skildi það í hvert skipti sem ég heyrði
+það, en þegar ég átti að slá það inn skrifaði ég /Ég er leiður/, sem er fullkomlega
+góð setning sem þýðir 'I'm sad'. Á íslensku hendir leiðindi mann, svo setningin
+byrjar á þágufallinu /mér/ frekar en /ég/. Að þekkja hana hafði aldrei fengið mig
+til að taka eftir því.
+
+* Að setja þetta saman
+
+Stysta útgáfan sem ég get gefið: minnisspjöld eru geymsla og spurningaleikir eru
+þjálfun. Dreifð endurtekning sér til þess að það sem þú lærir haldist lært.
+Spurningaæfingar sjá til þess að það sem er í geymslunni sé hægt að stafa,
+bera fram, setja í setningu og greina frá orðum sem líkjast því.
+
+| Aðferð            | Þjálfar                    | Erfiðleiki | Best fyrir                          |
+|-------------------+----------------------------+------------+-------------------------------------|
+| Minnisspjöld      | Langtímaupprifjun          | Mikill     | Að halda orðaforða til frambúðar    |
+| Eyðufyllingar     | Upprifjun í samhengi       | Mikill     | Málfræði, föll, orðasambönd         |
+| Krossaspurningar  | Þekking                    | Lítill     | Fyrstu kynni, áþekk orð             |
+| Pörun             | Hraði og tengsl            | Lítill     | Upphitun, nýleg orð                 |
+| Skrift            | Stafsetning, málfræði, notkun | Mikill  | Nákvæmni, virkur orðaforði          |
+| Tal               | Framburður, flæði          | Mikill     | Að vera tilbúinn í samtal           |
+
+Í reynd myndi ég fara frá því auðvelda yfir í það erfiða. Hittu nýjan hóp orða
+með krossaspurningum eða pörun, þar sem ekkert er í húfi. Færðu þau sem þú vilt
+halda yfir í minnisspjaldatólið þitt, helst sem eyðufyllingarsetningar með hljóði.
+Rifjaðu upp daglega og segðu svörin upphátt. Það getur fundist kjánalegt í um það
+bil viku. En það er þess virði.
+
+Skiptu svo öðru hverju yfir í framleiðslu. Einu sinni í viku: sláðu orðin inn
+eftir minni og skrifaðu nokkrar setningar með þeim. Taktu þig upp af og til.
+Loks skaltu fara og hitta orðin einhvers staðar í raun, í bók, hlaðvarpi eða
+samtali. Það er þrepið sem fólk sleppir, og það sem sýnir þér hvaða orð eru þín og
+hvaða orð búa aðeins í stokknum þínum.
+
+Ef þú hefðir um hálfa klukkustund á dag gæti vika litið svona út. Breyttu henni
+eftir lífi þínu.
+
+| Hvenær                 | Tími     | Hvað                                                         |
+|------------------------+----------+--------------------------------------------------------------|
+| Alla virka daga        | 10 mín.  | Upprifjun minnisspjalda, svör sögð upphátt                   |
+| Þrjá af þeim dögum     | +10 mín. | Ný orð með krossaspurningum eða pörun, svo inn í stokkinn    |
+| Hina tvo dagana        | +10 mín. | Skrift: sláðu orð inn eftir minni, skrifaðu nokkrar setningar |
+| Helgin                 | Lengur   | Ein lengri lota                                              |
+
+* Mistök sem ég myndi forðast
+
+Að bæta við of mörgum nýjum spjöldum er klassískt. Hvert nýtt spjald býr til hrúgu af
+framtíðarupprifjunum. Ég byrjaði með 20 ný spjöld á dag, og mánuði síðar stóð ég
+frammi fyrir um hundrað upprifjunum hvern morgun og var farinn að gremjast mínum
+eigin stokk. Byrjaðu á færri en þú heldur að þú ráðir við.
+
+Að sækja stokka eftir aðra sparar tíma, en þú missir stóran hluta ávinningsins af því
+að búa spjaldið til sjálfur, því að velja dæmisetninguna er hluti af náminu. Ég
+sótti sameiginlegan stokk, 'Icelandic – 6500 sentences sorted by ease', og skoðaði
+hann almennilega fyrst eftir að ég hafði flutt hann inn. Hljóðið er tölvugert tal í
+stað innfædds málhafa. Sama enska setningin hefur oft tylft nær eins íslenskra
+spjalda sem eru ólík í einni endingu, án þess að neitt segi hvaða ending er hver. Og
+það eru nokkrar villur: /Ég er þreitt/ þar sem á að vera /þreytt/, og /einmanna/ í
+stað /einmana/. Ef ég hefði búið spjöldin til sjálfur hefði ég þurft að fletta upp
+hverju orði og hefði tekið eftir villunum.
+
+Og ekki líta á forritið sem allt námskeiðið þitt. Minnisspjöld og spurningaleikir
+styðja lestur, hlustun og tal; þau geta ekki komið í staðinn fyrir þau.
+
+* Aðrir vettvangar
+
+Ég hef nefnt [[https://apps.ankiweb.net][Anki]] og [[https://quizlet.com][Quizlet]] hér að ofan því þau eru þau tvö sem flestir hafa heyrt um.
+[[https://www.memrise.com][Memrise]] blandar spjöldum saman við stutt myndbrot af innfæddum málhöfum, sem er
+þess virði að skoða ef raunverulegar raddir skipta þig máli. [[https://www.duolingo.com][Duolingo]] og [[https://www.busuu.com][Busuu]] eru
+augljósu nöfnin hjá spurningaleikjunum.
+
+* Svo, hvort?
+
+Bæði. Minnisspjöld gefa þér endingu: með dreifðri endurtekningu haldast orð í
+höfðinu mánuðum og árum saman. Spurningaleikir, skrift og tal gefa þér vídd, því þau
+breyta geymdum orðum í hluti sem þú getur gert. Hvort um sig skilur eftir gloppu.
+Nemandi sem gerir bara minnisspjöld getur kunnað þúsundir orða og frosið í samtali.
+Nemandi sem gerir bara spurningaleiki getur fundist hann altalandi inni í
+forritinu og verið búinn að gleyma mestu mánuði síðar.
+
+Vettvangurinn skiptir miklu minna máli en að mæta reglulega og láta heilann gera
+upprifjunina.
+
+* Lesefni
+
+- Roediger og Karpicke (2006), 'Test-enhanced learning: taking memory tests
+  improves long-term retention'. Rannsóknin á prófunaráhrifunum. [[https://doi.org/10.1111/j.1467-9280.2006.01693.x][DOI]] · [[https://pubmed.ncbi.nlm.nih.gov/16507066/][PubMed]]
+- Cepeda og samstarfsmenn (2006), yfirlit um dreifingaráhrifin. Byrjaðu hér til að
+  sjá hve langt á milli upprifjana á að vera. [[https://doi.org/10.1037/0033-2909.132.3.354][DOI]] · [[https://pubmed.ncbi.nlm.nih.gov/16719566/][PubMed]]
+- Slamecka og Graf (1978), greinin sem nefndi sköpunaráhrifin. Hvers vegna að slá
+  inn slær að þekkja. [[https://doi.org/10.1037/0278-7393.4.6.592][DOI]]
+- Bjork og Bjork um æskilega erfiðleika. Hvers vegna erfiðara sniðið er oft það
+  betra. [[https://bjorklab.psych.ucla.edu/wp-content/uploads/sites/13/2016/04/EBjork_RBjork_2011.pdf][PDF frá Bjork Lab]]
+- Ebbinghaus (1885), /Über das Gedächtnis/, upprunalegi gleymskuferillinn.
+  [[https://projekt-gutenberg.org/authors/hermann-ebbinghaus/books/ueber-das-gedaechtnis][Project Gutenberg-DE]] · [[https://archive.org/details/b28111710][Skönnun hjá Internet Archive]]
+
+* Hvað er næst?
+
+Ég er að ráðgera að smíða mitt eigið tól og færa mig frá bæði Anki og Quizlet, að
+hluta til því ég vil hafa minnisspjöld og fjölbreyttar æfingar á einum stað með
+einu tímasetningarkerfi að baki. Það er önnur færsla.

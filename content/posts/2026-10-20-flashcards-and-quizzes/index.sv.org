@@ -1,0 +1,321 @@
+#+title: Flashcards, quiz och varför jag slutade välja mellan dem
+#+date: <2026-10-20 9:00>
+#+filetags: :languages:learning:flashcards:spaced_repetition:cloze:quizzes:multiple_choice:matching:writing:speaking:
+#+description: Vad flashcards och quizövningar gör för ordförrådet, var de var för sig vilseleder dig och hur jag kombinerar dem.
+#+language: sv
+#+timezone: America/Port_of_Spain
+#+options: toc:nil num:nil ^:{}
+#+startup: showall inlineimages
+
+Språkstuderande brukar delas in i två läger. Det ena använder flashcards och ett
+system för spaced repetition, och berättar gärna hur hög deras retention är utan
+att någon har frågat. Det andra lägret gillar quiz: flervalsfrågor,
+matchningsspel, att skriva in svar och att säga saker högt. Vardera sidan tror
+att den andra slösar bort sin tid.
+
+Ett tag trodde jag att jag måste välja sida. Nu har jag använt båda så länge att
+jag tycker att frågan är felställd. De gör olika jobb, och det mesta av
+frustrationen kommer av att man använder det ena för att göra det andras arbete.
+
+Det här inlägget handlar om vad var och en egentligen är bra på, hur var och en
+smickrar dig på fel sätt, och hur jag skulle kombinera dem. Jag har lärt mig
+isländska sedan i början av förra året, efter lång tid med svenska, så exemplen
+lutar åt det hållet. Idéerna är inte beroende av språket.
+
+* Två fakta om minnet
+
+Det mesta av det som följer vilar på två gamla forskningsresultat, så de kommer
+först.
+
+Testeffekten säger att det stärker minnet mer att hämta fram något ur huvudet än
+att titta på det igen. Roediger och Karpicke gjorde den välkända versionen av
+detta: studenter som testade sig själva på en text mindes märkbart mer en vecka
+senare än studenter som bara läste om den. Det överraskande var att de som läste
+om /kände sig/ säkrare.
+
+Spridningseffekten säger att det är bättre att repetera med växande intervall än
+att proppa in lika många repetitioner under en enda kväll. Ebbinghaus ritade
+glömskekurvan på 1880-talet, och resultatet har hållit väl sedan dess.
+
+Flashcards och quiz är båda sätt att dra nytta av de här två fakta. De gör det
+bara på olika sätt.
+
+* Vad ett flashcard är till för
+
+Ett flashcard är den enklaste hämtningsövningen som finns. Du ser en fråga, du
+försöker svara, du vänder kortet och avgör ärligt om du hade rätt. Ingenting
+annat händer, och det är hela poängen.
+
+** Att komma ihåg utan något att luta sig mot
+
+Om jag visar 'häst' och du ska frambringa 'hestur' ur tomma intet, utan
+alternativ och utan första bokstaven, är det fritt framplockande. Det är den
+svåraste sortens hämtning, och därför den som gör minnet mest hållbart. Den är
+också lite obehaglig. Ett kort som känns precis för svårt gör oftast sitt jobb.
+
+** Schemaläggningen är den egentliga produkten
+
+Du kan göra allt det här med papperskort och en skokartong. [[https://en.wikipedia.org/wiki/Leitner_system][Leitnersystemet]] är en
+härlig bit lågteknologi. Men programvara sköter bokföringen bättre. [[https://apps.ankiweb.net][Anki]]
+registrerar hur väl du kunde varje kort och väljer nästa repetitionsdatum. Lätta
+kort försvinner i veckor eller månader. Kort du hela tiden snubblar på kommer
+tillbaka inom några dagar. Du lägger din tid på det du håller på att glömma,
+inte på det du redan kan utantill.
+
+Nyare versioner av Anki kan använda en schemaläggare som heter [[https://github.com/open-spaced-repetition/fsrs4anki/wiki/ABC-of-FSRS][FSRS]], som anpassar
+en minnesmodell till varje kort och siktar på en retention du själv väljer, till
+exempel 90 %. Den äldre algoritmen [[https://super-memory.com/english/ol/sm2.htm][SM-2]] finns kvar och fungerar utmärkt. Jag skulle
+inte lägga en hel kväll på att välja mellan dem.
+
+Min egen isländska kortlek har just nu 2200 kort, och jag kör FSRS med målet
+satt till 90 %.
+
+** Kort kan vara mer än ett ord och en översättning
+
+De flesta börjar med ett ord på ena sidan och dess betydelse på den andra, och
+det går bra för de första hundratals orden. Därefter gör luckkort (cloze) mycket
+mer nytta. Ett luckkort döljer ett ord i en mening, så du ser:
+
+#+begin_example
+Ég les ___ á kvöldin.
+#+end_example
+
+och ska fylla i 'bækur' (eller vad meningen nu kräver). Du lär dig ordet,
+kasuset det tar och lite av rytmen i en riktig mening, och inget av det lär en
+fristående översättning ut. Ljud på kortet hjälper också, och det gör även en
+bild utan text, eftersom den tvingar dig att hoppa över översättningssteget.
+
+#+CAPTION: Ett luckkort i Anki: luckan först, sedan svaret.
+[[file:images/cloze-card.png]]
+
+Jag bytte till luckkort efter ungefär 300 ord. Om jag fick ge en nybörjare ett
+enda råd om flashcards skulle det vara att börja göra såna tidigt, eftersom en
+kortlek med enstaka ord inte kan visa vilket kasus ett substantiv har på sig.
+
+** Tillräckligt litet för att faktiskt användas
+
+En kortlek bor i telefonen, så fem minuter i en kö eller medan vattnet kokar är
+ett riktigt studiepass. Det låter trivialt men är det inte. Den som gör tio
+minuter varje dag slår den som planerar ett perfekt tvåtimmarspass och lyckas
+genomföra det två gånger i månaden.
+
+* Vad quiz tillför
+
+Med quizövningar menar jag sådant man hittar i lägena Learn och Test på
+[[https://quizlet.com][Quizlet]], i [[https://www.duolingo.com][Duolingo]] och [[https://www.busuu.com][Busuu]] och i de flesta andra appar: flervalsfrågor,
+matchning, inskrivna svar, skrivna meningar och talade uppmaningar. Det är
+mindre en metod än en verktygslåda, och varje verktyg tränar något lite annat.
+
+** Flervalsfrågor
+
+Flervalsfrågor är den snällaste formen, eftersom du bara behöver känna igen rätt
+svar. Det gör dem bra för ett första möte med ett ord, när det bara skulle vara
+frustrerande att plocka fram det från ingenting.
+
+De har ett andra användningsområde som folk förbiser. Bra felaktiga svar får dig
+att skilja på liknande saker. Om du väljer mellan 'köttur', 'hundur', 'kýr' och
+'hestur' tvingar de felaktiga alternativen dig att lägga märke till vad som
+faktiskt skiljer dem åt. Svagheten är att det är mycket lättare att känna igen än
+att minnas. Du kan klara ett flervalsprov på ord som du aldrig skulle kunna säga
+högt.
+
+** Matchning
+
+Matchningsspel, där du parar ihop ord med översättningar mot klockan, går fort och
+är lite beroendeframkallande. De bygger snabb association mellan ett ord och dess
+betydelse, och tidspressen knuffar dig mot automatiskt igenkännande. Jag använder
+dem som uppvärmning. Att para ihop tio ord på trettio sekunder känns som
+framsteg, och en del av det är på riktigt, men det är bara igenkänning, så det är
+värt mindre ju bättre du blir.
+
+** Skriva
+
+Att skriva in eller handskriva ett svar är där quiz blir på allvar. Att producera
+ett ord bokstav för bokstav blottar varje lucka, från ett saknat accenttecken till
+en felaktig ändelse. Det är genereringseffekten i arbete: sådant du själv
+producerar fastnar oftast bättre än sådant du bara läser.
+
+Att skriva hela meningar går ännu längre. Om du kan skriva två eller tre meningar
+med ett nytt ord kan du använda det. Om du inte kan det /känner du bara till/ det.
+Det är en större skillnad än det låter.
+
+** Tala
+
+Att säga svar högt är den övning folk hoppar över mest, och den jag skulle
+försvara hårdast. Den tränar uttalets muskelminne, den får dig att hämta ord i
+samtalstempo utan tid att dra ut på det, och över några veckor nöter den ner
+rädslan för att öppna munnen. Apparnas talövningar är ofullkomliga.
+Taligenkänningen kan vara kinkig, och att jämföra sig med en inspelning av en
+modersmålstalare räcker bara en bit. De får dig ändå att göra ljud, vilket slår
+tyst studerande. En lärare eller språkpartner är bättre, eftersom programvara inte
+kan säga om du låter naturlig.
+
+** Variation hjälper i sig
+
+Att blanda format har en fördel som inte har med något enskilt format att göra.
+När du möter ett ord sett, hört, skrivet och sagt får minnet flera vägar in, och
+det är mer sannolikt att du hittar någon av dem senare. Bjork kallade ansträngning
+som känns svårare nu men lönar sig senare för en 'önskvärd svårighet' (desirable
+difficulty), och varierad övning är en sådan. Det håller också passen fräscha.
+
+* Hur var och en smickrar dig
+
+** Flashcards
+
+Flashcards går på autopilot. Efter några hundra repetitioner kan du bli snabbare
+och snabbare på kortleken utan att bli bättre på språket. De isolerar dessutom
+ord, vilket på engelska är ett lindrigt problem och på isländska ett allvarligt:
+ett substantiv du bara kan i grundform dyker upp i ackusativ, dativ eller genitiv
+med en annan ändelse, och du känner inte igen ditt eget kort. Och ett vagt kort,
+eller ett med två fakta sammanpackade, besvaras inkonsekvent, vilket
+schemaläggaren inte kan rätta till. Om du tvekar över vilket svar ett kort vill
+ha, dela det i två.
+
+** Ett kort jag var tvungen att dela
+
+Ett av mina var ett lyssningskort: ljudet säger /Við töluðum við hvorn annan sí
+og æ/, och baksidan säger 'Vi pratade med varandra hela tiden'. Jag hade lärt mig
+/hvor/ och /annar/ som uppslagsord, men här står de i ackusativ som /hvorn annan/,
+och idiomet /sí og æ/ ('hela tiden') var inklämt på samma kort.
+
+Värre var att det var ett av tolv nästan identiska kort, där vart och ett ändrade
+en enda ändelse eller flyttade ett ord, alla med samma engelska på baksidan. Jag
+hade kunnat markera vartenda ett som 'Good' utan att märka vilken ändelse jag
+hade hört.
+
+Så jag delade det: ett kort för /sí og æ/, ett för /hvor annan / hvor aðra / hvort
+annað/ med kasus utskrivet, och en mening som behölls för lyssningsövning. De
+andra elva är suspenderade.
+
+** Quiz
+
+Quiz smickrar dig på ett annat sätt. Flervalsfrågor och matchning känns lätta, och
+den lättheten döljer hur mycket du inte har lärt dig. Vissa quizappar är också
+sämre än ett riktigt spaced repetition-verktyg på långsiktig schemaläggning, så
+ett ord du svarade rätt på en gång kan tyst blekna bort utan att något tar tillbaka
+det. Streaks och poäng motiverar, men de kan belöna att man dyker upp snarare än
+att man lär sig. En streak på 400 dagar byggd av tvåminuterspass är inte samma sak
+som 400 dagars framsteg, hur nöjd den lilla lågan än ser ut.
+
+Båda kan vara tråkiga, och tråkigt spelar roll. En metod du överger i vecka tre
+förlorar mot en sämre som du faktiskt tycker om.
+
+* Saker som lurade mig
+
+Några saker såg ut som bevis på framsteg längre än de borde.
+
+Ett högt resultat i ett matchningsspel fick mig att känna att jag kunde en
+uppsättning ord. Vad det visade var att jag kunde känna igen dem i en lista på
+tio, vilket är en mycket lägre ribba. Testet som spelade roll var om jag kunde
+skriva ordet en timme senare med ingenting framför mig.
+
+Att få ett kort rätt samma dag som jag gjorde det sa mig nästan ingenting heller.
+Schemaläggarens första intervaller är korta av en anledning. Ett kort som
+överlever en månad är kunskap. Ett kort som överlever tio minuter är
+korttidsminne som är artigt.
+
+Att läsa isländska och att producera isländska skilde sig också mer än jag hade
+väntat mig. Jag kunde följa en mening och sedan misslyckas med att bygga samma
+mening. Ett quiz som bara bad mig välja skulle aldrig ha visat det. Att skriva
+svaret gjorde det, inom en vecka. För mig var det /Mér leiðist/, 'Jag
+har tråkigt'. Jag förstod det varje gång jag hörde det, men när jag skulle skriva
+det skrev jag /Ég er leiður/, som är en alldeles utmärkt mening som betyder 'Jag
+är ledsen'. På isländska händer tristess med en, så meningen börjar med dativen
+/mér/ i stället för /ég/. Att känna igen den hade aldrig fått mig att lägga märke
+till det.
+
+* Att sätta ihop dem
+
+Den kortaste versionen jag kan ge: flashcards är lagring och quiz är träning.
+Spaced repetition ser till att det du lär dig stannar inlärt. Quizövningar ser
+till att det som finns i lagret kan stavas, uttalas, sättas in i en mening och
+skiljas från sina släktingar.
+
+| Metod            | Tränar                     | Svårighet | Bäst för                          |
+|------------------+----------------------------+-----------+-----------------------------------|
+| Flashcards       | Långsiktigt minne          | Hög       | Att behålla ordförråd för gott    |
+| Luckkort         | Minne i sammanhang         | Hög       | Grammatik, kasus, kollokationer   |
+| Flerval          | Igenkänning                | Låg       | Första mötet, liknande ord        |
+| Matchning        | Fart och association       | Låg       | Uppvärmning, nya ord              |
+| Skriva           | Stavning, grammatik, bruk  | Hög       | Precision, aktivt ordförråd       |
+| Tala             | Uttal, flyt                | Hög       | Att vara redo för samtal          |
+
+I praktiken skulle jag gå från lätt till svårt. Möt en ny omgång ord med flerval
+eller matchning, där ingenting står på spel. Flytta de du vill behålla till ditt
+flashcardverktyg, helst som luckmeningar med ljud. Repetera dagligen och säg dina
+svar högt. Det kan kännas fånigt i ungefär en vecka. Men det är värt det.
+
+Byt sedan då och då till produktion. En gång i veckan: skriv orden ur minnet och
+skriv några meningar med dem. Spela in dig själv ibland. Gå till sist och möt
+orden någonstans på riktigt, i en bok, en podd eller ett samtal. Det är steget
+folk hoppar över, och det som visar vilka ord som är dina och vilka som bara bor
+i din kortlek.
+
+Om du hade ungefär en halvtimme om dagen kunde en vecka se ut så här. Ändra den
+efter ditt liv.
+
+| När                  | Tid      | Vad                                                          |
+|----------------------+----------+--------------------------------------------------------------|
+| Varje vardag         | 10 min   | Flashcardrepetition, svaren sagda högt                       |
+| Tre av de dagarna    | +10 min  | Nya ord via flerval eller matchning, sedan in i kortleken    |
+| De andra två dagarna | +10 min  | Skriva: skriv ord ur minnet, skriv några meningar            |
+| Helgen               | Längre   | Ett längre pass                                              |
+
+* Misstag jag skulle undvika
+
+Att lägga till för många nya kort är det klassiska. Varje nytt kort skapar en hög
+framtida repetitioner. Jag började med 20 nya kort om dagen, och en månad senare
+stod jag inför ungefär hundra repetitioner varje morgon och hade börjat känna
+motvilja mot min egen kortlek. Börja med färre än du tror att du klarar.
+
+Att ladda ner andras kortlekar sparar tid, men du förlorar mycket av nyttan med
+att göra kortet själv, eftersom att välja exempelmeningen är en del av
+inlärningen. Jag laddade ner en delad kortlek, 'Icelandic – 6500 sentences sorted
+by ease', och tittade på den ordentligt först efter att jag hade importerat den.
+Ljudet är datorgenererat tal snarare än en modersmålstalare. Samma engelska
+mening har ofta ett dussin nästan identiska isländska kort som skiljer sig åt i
+en ändelse, utan något som säger vilken ändelse som är vilken. Och det finns några
+fel: /Ég er þreitt/ där det ska vara /þreytt/, och /einmanna/ för /einmana/. Hade
+jag gjort korten själv hade jag varit tvungen att slå upp varje ord, och jag hade
+upptäckt felen.
+
+Och behandla inte appen som hela din kurs. Flashcards och quiz stöder läsandet,
+lyssnandet och pratandet; de kan inte ersätta dem.
+
+* Andra plattformar
+
+Jag har nämnt [[https://apps.ankiweb.net][Anki]] och [[https://quizlet.com][Quizlet]] ovan eftersom de är de två flest har hört talas
+om. [[https://www.memrise.com][Memrise]] blandar kort med korta klipp av modersmålstalare, vilket är värt att
+titta på om det är viktigt för dig att höra riktiga röster. [[https://www.duolingo.com][Duolingo]] och [[https://www.busuu.com][Busuu]] är de
+självklara namnen på quizsidan.
+
+* Så, vilket?
+
+Båda. Flashcards ger dig hållbarhet: med spaced repetition stannar orden i huvudet
+i månader och år. Quiz, skrivande och tal ger dig bredd, eftersom de förvandlar
+lagrade ord till saker du kan göra. Var för sig lämnar de ett glapp. Den som bara
+gör flashcards kan kunna tusentals ord och ändå frysa i ett samtal. Den som bara
+gör quiz kan känna sig flytande inne i appen och ha glömt det mesta en månad
+senare.
+
+Plattformen spelar mycket mindre roll än att dyka upp regelbundet och få hjärnan
+att göra hämtningen.
+
+* Läsning
+
+- Roediger och Karpicke (2006), 'Test-enhanced learning: taking memory tests
+  improves long-term retention'. Studien om testeffekten. [[https://doi.org/10.1111/j.1467-9280.2006.01693.x][DOI]] · [[https://pubmed.ncbi.nlm.nih.gov/16507066/][PubMed]]
+- Cepeda med kollegor (2006), en översikt av spridningseffekten. Börja här för
+  hur långt isär repetitionerna bör ligga. [[https://doi.org/10.1037/0033-2909.132.3.354][DOI]] · [[https://pubmed.ncbi.nlm.nih.gov/16719566/][PubMed]]
+- Slamecka och Graf (1978), artikeln som gav genereringseffekten dess namn. Varför
+  att skriva slår att känna igen. [[https://doi.org/10.1037/0278-7393.4.6.592][DOI]]
+- Bjork och Bjork om önskvärda svårigheter. Varför det svårare formatet ofta är
+  det bättre. [[https://bjorklab.psych.ucla.edu/wp-content/uploads/sites/13/2016/04/EBjork_RBjork_2011.pdf][PDF från Bjork Lab]]
+- Ebbinghaus (1885), /Über das Gedächtnis/, den ursprungliga glömskekurvan.
+  [[https://projekt-gutenberg.org/authors/hermann-ebbinghaus/books/ueber-das-gedaechtnis][Project Gutenberg-DE]] · [[https://archive.org/details/b28111710][Internet Archive-skanning]]
+
+* Vad blir nästa?
+
+Jag planerar att bygga ett eget verktyg och lämna både Anki och Quizlet, delvis
+för att jag vill ha flashcards och varierade övningar på ett ställe med en enda
+schemaläggare bakom. Det blir ett annat inlägg.

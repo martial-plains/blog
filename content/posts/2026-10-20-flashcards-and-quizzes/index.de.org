@@ -1,0 +1,339 @@
+#+title: Karteikarten, Quizze und warum ich aufgehört habe, mich zwischen ihnen zu entscheiden
+#+date: <2026-10-20 9:00>
+#+filetags: :languages:learning:flashcards:spaced_repetition:cloze:quizzes:multiple_choice:matching:writing:speaking:
+#+description: Was Karteikarten und Quizübungen jeweils für den Wortschatz leisten, wo sie einen jeweils täuschen und wie ich sie kombiniere.
+#+language: de
+#+timezone: America/Port_of_Spain
+#+options: toc:nil num:nil ^:{}
+#+startup: showall inlineimages
+
+Sprachlernende teilen sich gern in zwei Lager. Die einen nutzen Karteikarten und
+ein Spaced-Repetition-System und nennen dir ungefragt ihre Behaltensquote. Die
+anderen mögen Quizze: Multiple Choice, Zuordnungsspiele, Antworten tippen,
+Sachen laut sagen. Jedes Lager hält das andere für Zeitverschwendung.
+
+Eine Weile dachte ich, ich müsste mich für eines entscheiden. Inzwischen habe ich
+beide lange genug benutzt, um zu glauben, dass die Frage falsch herum gestellt
+ist. Sie erfüllen unterschiedliche Aufgaben, und der meiste Frust entsteht, wenn
+man mit dem einen die Arbeit des anderen erledigen will.
+
+In diesem Beitrag geht es darum, wofür jede Methode wirklich taugt, wie sie einem
+jeweils schmeicheln, und wie ich sie kombinieren würde. Ich lerne seit Anfang
+letzten Jahres Isländisch, nachdem ich lange Schwedisch gelernt hatte, deshalb
+sind die Beispiele entsprechend gefärbt. Die Ideen hängen aber nicht von der
+Sprache ab.
+
+* Zwei Tatsachen über das Gedächtnis
+
+Das meiste Folgende beruht auf zwei alten Befunden, deshalb stehen sie zuerst da.
+
+Der Testeffekt besagt, dass das Abrufen von etwas aus dem Kopf das Gedächtnis
+stärker festigt, als es sich noch einmal anzusehen. Roediger und Karpicke haben
+die bekannte Version davon durchgeführt: Studierende, die sich selbst an einem
+Text prüften, erinnerten sich eine Woche später deutlich besser als solche, die
+ihn nur erneut lasen. Überraschend war, dass sich die Wiederleser /sicherer/
+fühlten.
+
+Der Abstandseffekt (Spacing-Effekt) besagt, dass Wiederholen in wachsenden
+Abständen besser ist, als dieselbe Zahl an Wiederholungen an einem einzigen Abend
+zusammenzupressen. Ebbinghaus zeichnete die Vergessenskurve in den 1880er Jahren,
+und der Befund hat sich seitdem gut gehalten.
+
+Karteikarten und Quizze sind beides Wege, aus diesen zwei Tatsachen Kapital zu
+schlagen. Sie machen es nur unterschiedlich.
+
+* Wofür eine Karteikarte gut ist
+
+Eine Karteikarte ist die einfachste Abrufübung, die es gibt. Du siehst eine
+Aufforderung, versuchst zu antworten, drehst die Karte um und entscheidest ehrlich,
+ob du richtig lagst. Mehr passiert nicht, und genau darin liegt der Reiz.
+
+** Abrufen ohne Stütze
+
+Wenn ich dir 'Pferd' zeige und du 'hestur' aus dem Nichts hervorbringen musst,
+ohne Auswahl und ohne den ersten Buchstaben, ist das freies Abrufen. Es ist die
+schwierigste Art des Abrufens und deshalb die wirksamste, um eine Erinnerung
+dauerhaft zu machen. Es ist auch leicht unangenehm. Eine Karte, die sich ein
+bisschen zu schwer anfühlt, tut meist genau ihren Dienst.
+
+** Die Terminplanung ist das eigentliche Produkt
+
+All das geht auch mit Papierkarten und einem Schuhkarton. Das [[https://de.wikipedia.org/wiki/Leitner-System][Leitner-System]] ist ein
+wunderbares Stück Low-Tech. Software erledigt die Buchführung allerdings besser.
+[[https://apps.ankiweb.net][Anki]] speichert, wie gut du jede Karte konntest, und wählt den nächsten
+Wiederholungstermin. Leichte Karten verschwinden für Wochen oder Monate. Karten,
+bei denen du ständig stolperst, kommen innerhalb weniger Tage zurück. Du
+verbringst deine Zeit mit dem, was du gleich vergessen wirst, und nicht mit dem,
+was du längst im Schlaf kannst.
+
+Neuere Anki-Versionen können einen Scheduler namens [[https://github.com/open-spaced-repetition/fsrs4anki/wiki/ABC-of-FSRS][FSRS]] verwenden, der für jede Karte
+ein Gedächtnismodell anpasst und auf eine von dir gewählte Behaltensquote zielt,
+zum Beispiel 90 %. Der ältere [[https://super-memory.com/english/ol/sm2.htm][SM-2]]-Algorithmus ist weiterhin vorhanden und
+funktioniert gut. Ich würde keinen Abend damit verbringen, zwischen beiden zu
+wählen.
+
+Mein eigenes Isländisch-Deck hat derzeit 2200 Karten, und ich nutze FSRS mit dem
+Zielwert 90 %.
+
+** Karten können mehr sein als ein Wort und eine Übersetzung
+
+Die meisten beginnen mit einem Wort auf der einen und seiner Bedeutung auf der
+anderen Seite, und das ist für die ersten paar hundert Wörter in Ordnung.
+Danach leisten Lückentext-Karten (Cloze) weit mehr. Eine Cloze-Karte verdeckt ein
+Wort in einem Satz, sodass du Folgendes siehst:
+
+#+begin_example
+Ég les ___ á kvöldin.
+#+end_example
+
+und 'bækur' (oder was der Satz eben verlangt) ergänzen musst. Du lernst das Wort,
+den Fall, den es verlangt, und ein bisschen Rhythmus aus einem echten Satz, und
+nichts davon bringt dir eine isolierte Übersetzung bei. Audio auf der Karte hilft
+ebenfalls, ebenso ein Bild ganz ohne Text, weil es dich zwingt, den
+Übersetzungsschritt zu überspringen.
+
+#+CAPTION: Eine Cloze-Karte in Anki: erst die Lücke, dann die Antwort.
+[[file:images/cloze-card.png]]
+
+Ich bin nach etwa 300 Wörtern auf Cloze-Karten umgestiegen. Wenn ich einem neuen
+Lernenden nur einen einzigen Rat zu Karteikarten geben dürfte, wäre es, früh
+damit anzufangen, weil ein Deck aus Einzelwörtern dir nicht zeigen kann, in
+welchem Fall ein Substantiv gerade steht.
+
+** Klein genug, um tatsächlich benutzt zu werden
+
+Ein Deck lebt auf dem Handy, also ist eine Wartezeit von fünf Minuten in einer
+Schlange oder beim Kochen des Teewassers eine echte Lerneinheit. Das klingt
+banal, ist es aber nicht. Wer jeden Tag zehn Minuten macht, schlägt jemanden, der
+die perfekte zweistündige Sitzung plant und sie zweimal im Monat schafft.
+
+* Was Quizze hinzufügen
+
+Mit Quizübungen meine ich das, was man in den Modi Learn und Test von
+[[https://quizlet.com][Quizlet]], in [[https://www.duolingo.com][Duolingo]] und [[https://www.busuu.com][Busuu]] und in den meisten anderen Apps findet: Multiple
+Choice, Zuordnen, getippte Antworten, geschriebene Sätze und gesprochene
+Aufforderungen. Das ist weniger eine Methode als ein Werkzeugkasten, und jedes
+Werkzeug trainiert etwas ein wenig anderes.
+
+** Multiple Choice
+
+Multiple Choice ist die sanfteste Form, weil du die richtige Antwort nur
+wiedererkennen musst. Das macht sie zu einer guten ersten Begegnung mit einem
+Wort, wenn es bloß frustrierend wäre, es aus dem Nichts hervorzuholen.
+
+Sie hat einen zweiten Nutzen, den viele übersehen. Gute falsche Antworten zwingen
+dich, Ähnliches auseinanderzuhalten. Wenn du zwischen 'köttur', 'hundur', 'kýr'
+und 'hestur' wählst, müssen dich die Distraktoren darauf stoßen, was die Wörter
+tatsächlich unterscheidet. Die Schwäche ist, dass Wiedererkennen viel leichter ist
+als Abrufen. Du kannst einen Multiple-Choice-Test mit Wörtern bestehen, die du nie
+laut sagen könntest.
+
+** Zuordnen
+
+Zuordnungsspiele, bei denen du Wörter gegen die Uhr mit Übersetzungen paarst, sind
+schnell und ein bisschen süchtig machend. Sie bauen rasch eine Assoziation
+zwischen einem Wort und seiner Bedeutung auf, und der Zeitdruck schubst dich zum
+automatischen Erkennen. Ich nutze sie zum Aufwärmen. Zehn Wörter in dreißig
+Sekunden zu paaren fühlt sich nach Fortschritt an, und ein Teil davon ist echt,
+aber es ist nur Wiedererkennen und wird deshalb mit wachsendem Können weniger
+wert.
+
+** Schreiben
+
+Beim Tippen oder Handschreiben einer Antwort werden Quizze ernst. Ein Wort Buchstabe
+für Buchstabe zu produzieren, deckt jede Lücke auf, vom fehlenden Akzent bis zur
+falschen Endung. Das ist der Generierungseffekt bei der Arbeit: Was du selbst
+hervorbringst, bleibt tendenziell besser haften als das, was du nur liest.
+
+Ganze Sätze zu schreiben geht noch weiter. Wenn du zwei oder drei Sätze mit einem
+neuen Wort schreiben kannst, kannst du es benutzen. Wenn nicht, /kennst/ du es nur.
+Das ist ein größerer Unterschied, als es klingt.
+
+** Sprechen
+
+Antworten laut zu sagen ist die Übung, die die Leute am häufigsten auslassen, und
+die, die ich am entschiedensten verteidigen würde. Sie trainiert das
+Muskelgedächtnis der Aussprache, sie zwingt dich, im Gesprächstempo abzurufen,
+ohne Zeit zum Zögern, und nach ein paar Wochen nimmt sie dir die Angst, den Mund
+aufzumachen. Sprechübungen in Apps sind unvollkommen. Die Spracherkennung kann
+zickig sein, und der Vergleich mit der Aufnahme einer Muttersprachlerin reicht nur
+ein Stück weit. Sie bringen dich trotzdem dazu, Laute zu produzieren, und das
+schlägt stilles Lernen. Ein Tutor oder ein Sprachpartner ist besser, weil
+Software nicht sagen kann, ob du natürlich klingst.
+
+** Abwechslung hilft schon für sich
+
+Das Mischen von Formaten hat einen Vorteil, der mit keinem einzelnen Format zu tun
+hat. Wenn du einem Wort gesehen, gehört, getippt und gesprochen begegnest, hat das
+Gedächtnis mehrere Zugänge, und die Chance ist größer, dass du später einen davon
+findest. Bjork nannte Anstrengung, die sich jetzt schwerer anfühlt, sich aber
+später auszahlt, eine 'erwünschte Erschwernis' (desirable difficulty), und
+abwechslungsreiches Üben ist eine davon. Es hält die Sitzungen außerdem frisch.
+
+* Wie jede Methode dir schmeichelt
+
+** Karteikarten
+
+Karteikarten laufen auf Autopilot. Nach ein paar hundert Wiederholungen wirst du
+immer schneller im Deck, ohne in der Sprache besser zu werden. Sie isolieren
+außerdem Wörter, was im Englischen ein kleines Problem ist und im Isländischen ein
+ernstes: Ein Substantiv, das du nur in der Wörterbuchform kennst, taucht im
+Akkusativ, Dativ oder Genitiv mit anderer Endung auf, und du erkennst deine eigene
+Karteikarte nicht wieder. Und eine vage Karte, oder eine, in die zwei Fakten
+gestopft sind, wird uneinheitlich beantwortet, was der Scheduler nicht beheben
+kann. Wenn du zögerst, welche Antwort eine Karte will, teile sie in zwei.
+
+** Eine Karte, die ich teilen musste
+
+Eine von meinen war eine Hörkarte: Das Audio sagt /Við töluðum við hvorn annan sí
+og æ/, und auf der Rückseite steht 'Wir haben die ganze Zeit miteinander geredet'.
+Ich hatte /hvor/ und /annar/ als Lemmata gelernt, aber hier stehen sie im Akkusativ
+als /hvorn annan/, und die Redewendung /sí og æ/ ('ständig') war auf dieselbe Karte
+gequetscht.
+
+Schlimmer noch: Es war eine von zwölf nahezu identischen Karten, die jeweils nur
+eine Endung änderten oder ein Wort verschoben, alle mit demselben Englisch auf der
+Rückseite. Ich hätte jede einzelne mit 'Good' bewerten können, ohne zu merken,
+welche Endung ich gehört hatte.
+
+Also habe ich sie aufgeteilt: eine Karte für /sí og æ/, eine für /hvor annan / hvor
+aðra / hvort annað/ mit ausgeschriebenem Fall und einen Satz, den ich für die
+Hörübung behalten habe. Die anderen elf sind pausiert.
+
+** Quizze
+
+Quizze schmeicheln dir anders. Multiple Choice und Zuordnen fühlen sich leicht an,
+und diese Leichtigkeit verbirgt, wie viel du noch nicht gelernt hast. Manche
+Quiz-Apps sind außerdem bei der langfristigen Terminplanung schwächer als ein
+richtiges Spaced-Repetition-Werkzeug, sodass ein Wort, das du einmal richtig hattest,
+still verblassen kann, ohne dass etwas es zurückbringt. Serien und Punkte
+motivieren, belohnen aber womöglich das Erscheinen statt des Lernens. Eine
+400-Tage-Serie aus Zwei-Minuten-Sitzungen ist nicht dasselbe wie 400 Tage
+Fortschritt, so zufrieden die kleine Flamme auch aussieht.
+
+Beide können langweilig sein, und Langeweile zählt. Eine Methode, die du in Woche
+drei aufgibst, verliert gegen eine schlechtere, die dir tatsächlich Spaß macht.
+
+* Dinge, die mich getäuscht haben
+
+Ein paar Dinge sahen länger wie Beweise für Fortschritt aus, als sie sollten.
+
+Ein hoher Punktestand in einem Zuordnungsspiel gab mir das Gefühl, eine Wortgruppe
+zu kennen. Er zeigte nur, dass ich sie in einer Liste von zehn wiedererkennen
+konnte, eine viel niedrigere Hürde. Der Test, der zählte, war, ob ich das Wort eine
+Stunde später aus dem Kopf aufschreiben konnte, ohne etwas vor mir zu haben.
+
+Eine Karte am Tag ihrer Erstellung richtig zu haben, sagte mir ebenfalls fast
+nichts. Die ersten Intervalle des Schedulers sind aus gutem Grund kurz. Eine Karte,
+die einen Monat überlebt, ist Wissen. Eine Karte, die zehn Minuten überlebt, ist
+höfliches Kurzzeitgedächtnis.
+
+Isländisch lesen und Isländisch produzieren lagen auch weiter auseinander, als ich
+erwartet hatte. Ich konnte einem Satz folgen und dann daran scheitern, denselben zu
+bauen. Ein Quiz, das mich nur wählen ließ, hätte das nie gezeigt. Das Tippen der
+Antwort hat es innerhalb einer Woche getan. Bei mir war es /Mér leiðist/, 'Mir ist
+langweilig'. Ich verstand es jedes Mal, wenn ich es hörte, aber als ich es tippen
+sollte, schrieb ich /Ég er leiður/, ein völlig korrekter Satz, der 'Ich bin traurig'
+bedeutet. Im Isländischen geschieht Langeweile einem, deshalb beginnt der Satz mit
+dem Dativ /mér/ statt mit /ég/. Das Wiedererkennen hatte mich nie darauf
+aufmerksam gemacht.
+
+* Beides zusammenbringen
+
+Die kürzeste Fassung, die ich geben kann: Karteikarten sind Speicher, Quizze sind
+Training. Spaced Repetition sorgt dafür, dass das Gelernte gelernt bleibt.
+Quizübungen sorgen dafür, dass das, was im Speicher liegt, geschrieben, ausgesprochen,
+in einen Satz gesetzt und von seinen Doppelgängern unterschieden werden kann.
+
+| Methode          | Trainiert                    | Schwierigkeit | Am besten für                            |
+|------------------+------------------------------+---------------+------------------------------------------|
+| Karteikarten     | Langzeitabruf                | Hoch          | Wortschatz dauerhaft behalten            |
+| Cloze-Karten     | Abruf im Kontext             | Hoch          | Grammatik, Fälle, Kollokationen          |
+| Multiple Choice  | Wiedererkennen               | Niedrig       | Erste Begegnung, ähnliche Wörter         |
+| Zuordnen         | Tempo und Assoziation        | Niedrig       | Aufwärmen, neue Wörter                   |
+| Schreiben        | Rechtschreibung, Grammatik, Gebrauch | Hoch  | Genauigkeit, aktiver Wortschatz          |
+| Sprechen         | Aussprache, Flüssigkeit      | Hoch          | Bereit sein fürs Gespräch                |
+
+In der Praxis würde ich von leicht nach schwer gehen. Begegne einer frischen
+Wortgruppe mit Multiple Choice oder Zuordnen, wo nichts auf dem Spiel steht.
+Verschiebe die, die du behalten willst, in dein Karteikartenwerkzeug, am besten als
+Cloze-Sätze mit Audio. Wiederhole täglich und sprich deine Antworten laut aus. Das
+fühlt sich vielleicht eine Woche lang albern an. Aber es lohnt sich.
+
+Wechsle dann hin und wieder zur Produktion. Einmal pro Woche: tippe die Wörter aus
+dem Gedächtnis und schreibe ein paar Sätze damit. Nimm dich ab und zu auf.
+Und schließlich: Geh hin und begegne den Wörtern irgendwo in der Wirklichkeit, in
+einem Buch, einem Podcast oder einem Gespräch. Das ist der Schritt, den die Leute
+auslassen, und der, der dir zeigt, welche Wörter dir gehören und welche nur in
+deinem Deck wohnen.
+
+Wenn du etwa eine halbe Stunde am Tag hättest, könnte eine Woche so aussehen.
+Passe sie deinem Leben an.
+
+| Wann                  | Zeit     | Was                                                          |
+|-----------------------+----------+--------------------------------------------------------------|
+| Jeden Werktag         | 10 Min.  | Karteikarten-Wiederholungen, Antworten laut gesprochen       |
+| An drei dieser Tage   | +10 Min. | Neue Wörter per Multiple Choice oder Zuordnen, dann ins Deck |
+| An den anderen zwei Tagen | +10 Min. | Schreiben: Wörter aus dem Gedächtnis tippen, ein paar Sätze schreiben |
+| Wochenende            | Länger   | Eine längere Sitzung                                         |
+
+* Fehler, die ich vermeiden würde
+
+Zu viele neue Karten hinzuzufügen ist der Klassiker. Jede neue Karte erzeugt einen
+Stapel künftiger Wiederholungen. Ich habe mit 20 neuen Karten pro Tag angefangen,
+und einen Monat später standen jeden Morgen etwa hundert Wiederholungen an, und ich
+hatte begonnen, mein eigenes Deck zu verabscheuen. Fang mit weniger an, als du
+glaubst bewältigen zu können.
+
+Fremde Decks herunterzuladen spart Zeit, aber du verlierst einen Großteil des
+Nutzens, die Karte selbst zu erstellen, denn das Aussuchen des Beispielsatzes ist
+Teil des Lernens. Ich habe ein geteiltes Deck heruntergeladen, 'Icelandic – 6500
+sentences sorted by ease', und es mir erst genau angesehen, nachdem ich es
+importiert hatte. Das Audio ist computergenerierte Sprache statt einer
+Muttersprachlerin. Zum selben englischen Satz gibt es oft ein Dutzend nahezu
+identischer isländischer Karten, die sich in einer Endung unterscheiden, ohne dass
+etwas sagt, welche Endung welche ist. Und es gibt ein paar Fehler: /Ég er þreitt/,
+wo /þreytt/ stehen müsste, und /einmanna/ statt /einmana/. Hätte ich diese Karten
+selbst gemacht, hätte ich jedes Wort nachschlagen müssen und die Fehler bemerkt.
+
+Und behandle die App nicht als deinen ganzen Kurs. Karteikarten und Quizze
+unterstützen das Lesen, Hören und Sprechen; sie können sie nicht ersetzen.
+
+* Andere Plattformen
+
+Ich habe oben [[https://apps.ankiweb.net][Anki]] und [[https://quizlet.com][Quizlet]] genannt, weil sie die zwei sind, von denen die meisten
+gehört haben. [[https://www.memrise.com][Memrise]] mischt Karten mit kurzen Clips von Muttersprachlern, was einen Blick
+wert ist, wenn dir echte Stimmen wichtig sind. [[https://www.duolingo.com][Duolingo]] und [[https://www.busuu.com][Busuu]] sind die naheliegenden
+Namen auf der Quiz-Seite.
+
+* Also, welches?
+
+Beides. Karteikarten geben dir Haltbarkeit: Mit Spaced Repetition bleiben Wörter
+monate- und jahrelang im Kopf. Quizze, Schreiben und Sprechen geben dir Spielraum,
+weil sie gespeicherte Wörter in Dinge verwandeln, die du tun kannst. Für sich
+allein lässt jedes eine Lücke. Wer nur Karteikarten macht, kann Tausende Wörter
+kennen und im Gespräch trotzdem erstarren. Wer nur Quizze macht, kann sich in der
+App fließend fühlen und einen Monat später das meiste vergessen haben.
+
+Die Plattform spielt eine viel kleinere Rolle als regelmäßiges Dranbleiben und
+dein Gehirn zum Abrufen zu bringen.
+
+* Lesetipps
+
+- Roediger und Karpicke (2006), 'Test-enhanced learning: taking memory tests
+  improves long-term retention'. Die Studie zum Testeffekt. [[https://doi.org/10.1111/j.1467-9280.2006.01693.x][DOI]] · [[https://pubmed.ncbi.nlm.nih.gov/16507066/][PubMed]]
+- Cepeda und Kollegen (2006), ein Überblick zum Abstandseffekt. Hier beginnen, wenn
+  es um die Frage geht, wie weit man Wiederholungen auseinanderlegen sollte. [[https://doi.org/10.1037/0033-2909.132.3.354][DOI]] · [[https://pubmed.ncbi.nlm.nih.gov/16719566/][PubMed]]
+- Slamecka und Graf (1978), die Arbeit, die den Generierungseffekt benannt hat.
+  Warum Tippen besser ist als Wiedererkennen. [[https://doi.org/10.1037/0278-7393.4.6.592][DOI]]
+- Bjork und Bjork zu erwünschten Erschwernissen. Warum das schwerere Format oft das
+  bessere ist. [[https://bjorklab.psych.ucla.edu/wp-content/uploads/sites/13/2016/04/EBjork_RBjork_2011.pdf][PDF vom Bjork Lab]]
+- Ebbinghaus (1885), /Über das Gedächtnis/, die ursprüngliche Vergessenskurve.
+  [[https://projekt-gutenberg.org/authors/hermann-ebbinghaus/books/ueber-das-gedaechtnis][Project Gutenberg-DE]] · [[https://archive.org/details/b28111710][Scan beim Internet Archive]]
+
+* Was kommt als Nächstes?
+
+Ich plane, mein eigenes Werkzeug zu bauen und sowohl Anki als auch Quizlet hinter
+mir zu lassen, zum Teil, weil ich Karteikarten und abwechslungsreiche Übungen an
+einem Ort mit einem einzigen Scheduler dahinter haben möchte. Das ist ein
+anderer Beitrag.
