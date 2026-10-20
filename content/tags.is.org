@@ -5,6 +5,21 @@
 
 #+begin_export html
 <header class="list-head"><h1 class="title">Efnisorð</h1><p class="lede">Skoðaðu færslur eftir efni.</p></header>
+<section><h2 id="music" data-count="1">music</h2><ul class="archive-list">
+<li><a href="/is/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Að kenna píanói að óma án upptaka</span><time>13. október 2026 &middot; 20 mín. lestur</time></a></li>
+</ul></section>
+<section><h2 id="audio" data-count="1">audio</h2><ul class="archive-list">
+<li><a href="/is/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Að kenna píanói að óma án upptaka</span><time>13. október 2026 &middot; 20 mín. lestur</time></a></li>
+</ul></section>
+<section><h2 id="dsp" data-count="1">dsp</h2><ul class="archive-list">
+<li><a href="/is/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Að kenna píanói að óma án upptaka</span><time>13. október 2026 &middot; 20 mín. lestur</time></a></li>
+</ul></section>
+<section><h2 id="rust" data-count="1">rust</h2><ul class="archive-list">
+<li><a href="/is/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Að kenna píanói að óma án upptaka</span><time>13. október 2026 &middot; 20 mín. lestur</time></a></li>
+</ul></section>
+<section><h2 id="piano" data-count="1">piano</h2><ul class="archive-list">
+<li><a href="/is/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Að kenna píanói að óma án upptaka</span><time>13. október 2026 &middot; 20 mín. lestur</time></a></li>
+</ul></section>
 <section><h2 id="icelandic" data-count="1">icelandic</h2><ul class="archive-list">
 <li><a href="/is/posts/2026-09-30-from-icelandic-notes-to-a-published-book/"><span class="t">Frá íslenskum glósum til útgefinnar bókar: Icelandic Vocabulary 🇮🇸📚</span><time>30. september 2026 &middot; 12 mín. lestur</time></a></li>
 </ul></section>

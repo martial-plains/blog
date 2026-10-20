@@ -5,6 +5,21 @@
 
 #+begin_export html
 <header class="list-head"><h1 class="title">タグ</h1><p class="lede">トピック別に記事を見る。</p></header>
+<section><h2 id="music" data-count="1">music</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">サンプルを使わずにピアノを鳴らす</span><time>2026年10月13日 &middot; 読了目安 17分</time></a></li>
+</ul></section>
+<section><h2 id="audio" data-count="1">audio</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">サンプルを使わずにピアノを鳴らす</span><time>2026年10月13日 &middot; 読了目安 17分</time></a></li>
+</ul></section>
+<section><h2 id="dsp" data-count="1">dsp</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">サンプルを使わずにピアノを鳴らす</span><time>2026年10月13日 &middot; 読了目安 17分</time></a></li>
+</ul></section>
+<section><h2 id="rust" data-count="1">rust</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">サンプルを使わずにピアノを鳴らす</span><time>2026年10月13日 &middot; 読了目安 17分</time></a></li>
+</ul></section>
+<section><h2 id="piano" data-count="1">piano</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">サンプルを使わずにピアノを鳴らす</span><time>2026年10月13日 &middot; 読了目安 17分</time></a></li>
+</ul></section>
 <section><h2 id="icelandic" data-count="1">icelandic</h2><ul class="archive-list">
 <li><a href="/ja/posts/2026-09-30-from-icelandic-notes-to-a-published-book/"><span class="t">アイスランド語のノートから出版された1冊の本へ: Icelandic Vocabulary 🇮🇸📚</span><time>2026年9月30日 &middot; 読了目安 9分</time></a></li>
 </ul></section>

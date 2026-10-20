@@ -5,6 +5,51 @@
 
 #+begin_export html
 <header class="list-head"><h1 class="title">Tags</h1><p class="lede">Browse posts by topic.</p></header>
+<section><h2 id="languages" data-count="1">languages</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+</ul></section>
+<section><h2 id="learning" data-count="1">learning</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+</ul></section>
+<section><h2 id="flashcards" data-count="1">flashcards</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+</ul></section>
+<section><h2 id="spaced-repetition" data-count="1">spaced_repetition</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+</ul></section>
+<section><h2 id="cloze" data-count="1">cloze</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+</ul></section>
+<section><h2 id="quizzes" data-count="1">quizzes</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+</ul></section>
+<section><h2 id="multiple-choice" data-count="1">multiple_choice</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+</ul></section>
+<section><h2 id="matching" data-count="1">matching</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+</ul></section>
+<section><h2 id="writing" data-count="1">writing</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+</ul></section>
+<section><h2 id="speaking" data-count="1">speaking</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+</ul></section>
+<section><h2 id="music" data-count="1">music</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Teaching a piano to ring without samples</span><time>13 October 2026 &middot; 15 min read</time></a></li>
+</ul></section>
+<section><h2 id="audio" data-count="1">audio</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Teaching a piano to ring without samples</span><time>13 October 2026 &middot; 15 min read</time></a></li>
+</ul></section>
+<section><h2 id="dsp" data-count="1">dsp</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Teaching a piano to ring without samples</span><time>13 October 2026 &middot; 15 min read</time></a></li>
+</ul></section>
+<section><h2 id="rust" data-count="1">rust</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Teaching a piano to ring without samples</span><time>13 October 2026 &middot; 15 min read</time></a></li>
+</ul></section>
+<section><h2 id="piano" data-count="1">piano</h2><ul class="archive-list">
+<li><a href="/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Teaching a piano to ring without samples</span><time>13 October 2026 &middot; 15 min read</time></a></li>
+</ul></section>
 <section><h2 id="icelandic" data-count="1">icelandic</h2><ul class="archive-list">
 <li><a href="/posts/2026-09-30-from-icelandic-notes-to-a-published-book/"><span class="t">From Icelandic Notes to a Published Book: Icelandic Vocabulary 🇮🇸📚</span><time>30 September 2026 &middot; 8 min read</time></a></li>
 </ul></section>
