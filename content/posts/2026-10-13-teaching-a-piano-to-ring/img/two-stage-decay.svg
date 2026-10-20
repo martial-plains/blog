@@ -1,12 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="Georgia, 'Times New Roman', serif" font-size="14">
-<rect width="760" height="330" fill="#fbf8f1"/>
-<g stroke="#4a3f35" stroke-width="1.6" fill="none"><path d="M70 30V270H720"/>
-<path d="M70 50L230 150L700 238" stroke="#b5532f" stroke-width="2.4"/>
-<path d="M70 50L700 120" stroke="#4a3f35" stroke-dasharray="7 5"/>
-<path d="M230 150L230 270" stroke="#c9bfae" stroke-dasharray="2 4"/></g>
-<g fill="#2b231c"><text x="76" y="24" font-size="13">level (dB)</text><text x="640" y="296" font-size="13">time</text>
-<text x="240" y="130" fill="#b5532f">prompt sound: strings in step, fast loss</text>
-<text x="330" y="244" fill="#b5532f">aftersound: strings out of step, slow loss</text>
-<text x="330" y="62" fill="#4a3f35" font-size="13">no coupling would look like this (one slope)</text>
-<text x="188" y="290" font-size="12" fill="#7a6a5a">the knee</text></g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" font-family="Georgia, 'Times New Roman', serif" font-size="14" viewBox="0 0 760 330"><rect width="760" height="330" fill="#fbf8f1"/><g fill="none" stroke="#4a3f35" stroke-width="1.6"><path d="M70 30V270H720"/><path stroke="#b5532f" stroke-width="2.4" d="M70 50L230 150L700 238"/><path stroke="#4a3f35" stroke-dasharray="7 5" d="M70 50L700 120"/><path stroke="#c9bfae" stroke-dasharray="2 4" d="M230 150L230 270"/></g><g fill="#2b231c"><text x="76" y="24" font-size="13">level (dB)</text><text x="640" y="296" font-size="13">time</text><text x="240" y="130" fill="#b5532f">prompt sound: strings in step, fast loss</text><text x="330" y="244" fill="#b5532f">aftersound: strings out of step, slow loss</text><text x="330" y="62" fill="#4a3f35" font-size="13">no coupling would look like this (one slope)</text><text x="188" y="290" fill="#7a6a5a" font-size="12">the knee</text></g></svg>
