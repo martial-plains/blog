@@ -498,3 +498,8 @@ h3 { scroll-margin-top: 2rem; }
   h2, h3, h4, figure, table, pre { break-inside: avoid; }
   h2, h3, h4 { break-after: avoid; }
 }
+
+figure img, article img {
+  max-width: 100%;
+  height: auto;
+}

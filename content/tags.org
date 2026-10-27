@@ -5,35 +5,54 @@
 
 #+begin_export html
 <header class="list-head"><h1 class="title">Tags</h1><p class="lede">Browse posts by topic.</p></header>
+<section><h2 id="rust" data-count="2">rust</h2><ul class="archive-list">
+<li><a href="/posts/sudoku-variants/sudoku-variants.html"><span class="t">Sudoku Isn't One Game: Discovering Variants and Teaching Code to Play Them</span><time>26 October 2026 &middot; 6 min read</time></a></li>
+<li><a href="/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Teaching a piano to ring without samples</span><time>13 October 2026 &middot; 15 min read</time></a></li>
+</ul></section>
+<section><h2 id="sudoku" data-count="1">sudoku</h2><ul class="archive-list">
+<li><a href="/posts/sudoku-variants/sudoku-variants.html"><span class="t">Sudoku Isn't One Game: Discovering Variants and Teaching Code to Play Them</span><time>26 October 2026 &middot; 6 min read</time></a></li>
+</ul></section>
+<section><h2 id="puzzles" data-count="1">puzzles</h2><ul class="archive-list">
+<li><a href="/posts/sudoku-variants/sudoku-variants.html"><span class="t">Sudoku Isn't One Game: Discovering Variants and Teaching Code to Play Them</span><time>26 October 2026 &middot; 6 min read</time></a></li>
+</ul></section>
+<section><h2 id="gamedev" data-count="1">gamedev</h2><ul class="archive-list">
+<li><a href="/posts/sudoku-variants/sudoku-variants.html"><span class="t">Sudoku Isn't One Game: Discovering Variants and Teaching Code to Play Them</span><time>26 October 2026 &middot; 6 min read</time></a></li>
+</ul></section>
+<section><h2 id="programming" data-count="1">programming</h2><ul class="archive-list">
+<li><a href="/posts/sudoku-variants/sudoku-variants.html"><span class="t">Sudoku Isn't One Game: Discovering Variants and Teaching Code to Play Them</span><time>26 October 2026 &middot; 6 min read</time></a></li>
+</ul></section>
+<section><h2 id="blog" data-count="1">blog</h2><ul class="archive-list">
+<li><a href="/posts/sudoku-variants/sudoku-variants.html"><span class="t">Sudoku Isn't One Game: Discovering Variants and Teaching Code to Play Them</span><time>26 October 2026 &middot; 6 min read</time></a></li>
+</ul></section>
 <section><h2 id="languages" data-count="1">languages</h2><ul class="archive-list">
-<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+<li><a href="/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">Flashcards, quizzes, and why I stopped choosing between them</span><time>20 October 2026 &middot; 12 min read</time></a></li>
 </ul></section>
 <section><h2 id="learning" data-count="1">learning</h2><ul class="archive-list">
-<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+<li><a href="/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">Flashcards, quizzes, and why I stopped choosing between them</span><time>20 October 2026 &middot; 12 min read</time></a></li>
 </ul></section>
 <section><h2 id="flashcards" data-count="1">flashcards</h2><ul class="archive-list">
-<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+<li><a href="/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">Flashcards, quizzes, and why I stopped choosing between them</span><time>20 October 2026 &middot; 12 min read</time></a></li>
 </ul></section>
 <section><h2 id="spaced-repetition" data-count="1">spaced_repetition</h2><ul class="archive-list">
-<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+<li><a href="/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">Flashcards, quizzes, and why I stopped choosing between them</span><time>20 October 2026 &middot; 12 min read</time></a></li>
 </ul></section>
 <section><h2 id="cloze" data-count="1">cloze</h2><ul class="archive-list">
-<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+<li><a href="/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">Flashcards, quizzes, and why I stopped choosing between them</span><time>20 October 2026 &middot; 12 min read</time></a></li>
 </ul></section>
 <section><h2 id="quizzes" data-count="1">quizzes</h2><ul class="archive-list">
-<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+<li><a href="/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">Flashcards, quizzes, and why I stopped choosing between them</span><time>20 October 2026 &middot; 12 min read</time></a></li>
 </ul></section>
 <section><h2 id="multiple-choice" data-count="1">multiple_choice</h2><ul class="archive-list">
-<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+<li><a href="/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">Flashcards, quizzes, and why I stopped choosing between them</span><time>20 October 2026 &middot; 12 min read</time></a></li>
 </ul></section>
 <section><h2 id="matching" data-count="1">matching</h2><ul class="archive-list">
-<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+<li><a href="/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">Flashcards, quizzes, and why I stopped choosing between them</span><time>20 October 2026 &middot; 12 min read</time></a></li>
 </ul></section>
 <section><h2 id="writing" data-count="1">writing</h2><ul class="archive-list">
-<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+<li><a href="/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">Flashcards, quizzes, and why I stopped choosing between them</span><time>20 October 2026 &middot; 12 min read</time></a></li>
 </ul></section>
 <section><h2 id="speaking" data-count="1">speaking</h2><ul class="archive-list">
-<li><a href="/posts/2026-10-19-flash-cards-quizzes-and-why-i-stopped-choosing-between-them/"><span class="t">Flash cards, quizzes, and why I stopped choosing between them</span><time>19 October 2026 &middot; 12 min read</time></a></li>
+<li><a href="/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">Flashcards, quizzes, and why I stopped choosing between them</span><time>20 October 2026 &middot; 12 min read</time></a></li>
 </ul></section>
 <section><h2 id="music" data-count="1">music</h2><ul class="archive-list">
 <li><a href="/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Teaching a piano to ring without samples</span><time>13 October 2026 &middot; 15 min read</time></a></li>
@@ -42,9 +61,6 @@
 <li><a href="/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Teaching a piano to ring without samples</span><time>13 October 2026 &middot; 15 min read</time></a></li>
 </ul></section>
 <section><h2 id="dsp" data-count="1">dsp</h2><ul class="archive-list">
-<li><a href="/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Teaching a piano to ring without samples</span><time>13 October 2026 &middot; 15 min read</time></a></li>
-</ul></section>
-<section><h2 id="rust" data-count="1">rust</h2><ul class="archive-list">
 <li><a href="/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Teaching a piano to ring without samples</span><time>13 October 2026 &middot; 15 min read</time></a></li>
 </ul></section>
 <section><h2 id="piano" data-count="1">piano</h2><ul class="archive-list">

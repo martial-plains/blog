@@ -228,14 +228,14 @@ training. Spaced repetition makes sure what you learn stays learnt.  Quiz-style
 exercises make sure what's in storage can be spelt, pronounced, put into a
 sentence and told apart from its lookalikes.
 
-| Method          | Trains                    | Difficulty | Best for                          |
-|-----------------+---------------------------+------------+-----------------------------------|
-| Flashcards     | Long-term recall          | High       | Keeping vocabulary for good       |
-| Cloze cards     | Recall in context         | High       | Grammar, cases, collocations      |
-| Multiple choice | Recognition               | Low        | First meeting, similar words      |
-| Matching        | Speed and association     | Low        | Warm-ups, recent words            |
-| Writing         | Spelling, grammar, usage  | High       | Accuracy, active vocabulary       |
-| Speaking        | Pronunciation, fluency    | High       | Being ready for conversation      |
+| Method          | Trains                   | Difficulty | Best for                     |
+|-----------------+--------------------------+------------+------------------------------|
+| Flashcards      | Long-term recall         | High       | Keeping vocabulary for good  |
+| Cloze cards     | Recall in context        | High       | Grammar, cases, collocations |
+| Multiple choice | Recognition              | Low        | First meeting, similar words |
+| Matching        | Speed and association    | Low        | Warm-ups, recent words       |
+| Writing         | Spelling, grammar, usage | High       | Accuracy, active vocabulary  |
+| Speaking        | Pronunciation, fluency   | High       | Being ready for conversation |
 
 In practice I'd go from easy to hard. Meet a fresh batch of words with multiple
 choice or matching, where nothing is at stake. Move the ones you want to keep
@@ -252,12 +252,12 @@ which words are yours and which only live in your deck.
 If you had about half an hour a day, one version of the week might look like
 this. Change it to suit your life.
 
-| When               | Time     | What                                                    |
-|--------------------+----------+---------------------------------------------------------|
-| Every weekday      | 10 min   | Flashcard reviews, answers spoken aloud                |
+| When                | Time    | What                                                          |
+|---------------------+---------+---------------------------------------------------------------|
+| Every weekday       | 10 min  | Flashcard reviews, answers spoken aloud                       |
 | Three of those days | +10 min | New words via multiple choice or matching, then into the deck |
-| The other two days | +10 min  | Writing: type words from memory, write a few sentences  |
-| Weekend            | Longer   | One longer session                                      |
+| The other two days  | +10 min | Writing: type words from memory, write a few sentences        |
+| Weekend             | Longer  | One longer session                                            |
 
 * Mistakes I'd avoid
 

@@ -6,6 +6,7 @@
 #+begin_export html
 <header class="list-head"><h1 class="title">Safn</h1><p class="lede">Allar færslur, nýjustu fyrst.</p></header>
 <section><h2 id="2026">2026</h2><ul class="archive-list">
+<li><a href="/is/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">Minnisspjöld, spurningaleikir og hvers vegna ég hætti að velja á milli</span><time>20. október 2026 &middot; 17 mín. lestur</time></a></li>
 <li><a href="/is/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Að kenna píanói að óma án upptaka</span><time>13. október 2026 &middot; 20 mín. lestur</time></a></li>
 <li><a href="/is/posts/2026-09-30-from-icelandic-notes-to-a-published-book/"><span class="t">Frá íslenskum glósum til útgefinnar bókar: Icelandic Vocabulary 🇮🇸📚</span><time>30. september 2026 &middot; 12 mín. lestur</time></a></li>
 </ul></section>

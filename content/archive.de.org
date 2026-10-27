@@ -6,6 +6,7 @@
 #+begin_export html
 <header class="list-head"><h1 class="title">Archiv</h1><p class="lede">Alle Beiträge, neueste zuerst.</p></header>
 <section><h2 id="2026">2026</h2><ul class="archive-list">
+<li><a href="/de/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">Karteikarten, Quizze und warum ich aufgehört habe, mich zwischen ihnen zu entscheiden</span><time>20. Oktober 2026 &middot; 13 Min. Lesezeit</time></a></li>
 <li><a href="/de/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">Einem Klavier das Klingen beibringen, ganz ohne Samples</span><time>13. Oktober 2026 &middot; 15 Min. Lesezeit</time></a></li>
 <li><a href="/de/posts/2026-09-30-from-icelandic-notes-to-a-published-book/"><span class="t">Von isländischen Notizen zum veröffentlichten Buch: Icelandic Vocabulary 🇮🇸📚</span><time>30. September 2026 &middot; 9 Min. Lesezeit</time></a></li>
 </ul></section>

@@ -5,6 +5,36 @@
 
 #+begin_export html
 <header class="list-head"><h1 class="title">タグ</h1><p class="lede">トピック別に記事を見る。</p></header>
+<section><h2 id="languages" data-count="1">languages</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">フラッシュカードとクイズ、そして両者から選ぶのをやめた理由</span><time>2026年10月20日 &middot; 読了目安 14分</time></a></li>
+</ul></section>
+<section><h2 id="learning" data-count="1">learning</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">フラッシュカードとクイズ、そして両者から選ぶのをやめた理由</span><time>2026年10月20日 &middot; 読了目安 14分</time></a></li>
+</ul></section>
+<section><h2 id="flashcards" data-count="1">flashcards</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">フラッシュカードとクイズ、そして両者から選ぶのをやめた理由</span><time>2026年10月20日 &middot; 読了目安 14分</time></a></li>
+</ul></section>
+<section><h2 id="spaced-repetition" data-count="1">spaced_repetition</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">フラッシュカードとクイズ、そして両者から選ぶのをやめた理由</span><time>2026年10月20日 &middot; 読了目安 14分</time></a></li>
+</ul></section>
+<section><h2 id="cloze" data-count="1">cloze</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">フラッシュカードとクイズ、そして両者から選ぶのをやめた理由</span><time>2026年10月20日 &middot; 読了目安 14分</time></a></li>
+</ul></section>
+<section><h2 id="quizzes" data-count="1">quizzes</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">フラッシュカードとクイズ、そして両者から選ぶのをやめた理由</span><time>2026年10月20日 &middot; 読了目安 14分</time></a></li>
+</ul></section>
+<section><h2 id="multiple-choice" data-count="1">multiple_choice</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">フラッシュカードとクイズ、そして両者から選ぶのをやめた理由</span><time>2026年10月20日 &middot; 読了目安 14分</time></a></li>
+</ul></section>
+<section><h2 id="matching" data-count="1">matching</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">フラッシュカードとクイズ、そして両者から選ぶのをやめた理由</span><time>2026年10月20日 &middot; 読了目安 14分</time></a></li>
+</ul></section>
+<section><h2 id="writing" data-count="1">writing</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">フラッシュカードとクイズ、そして両者から選ぶのをやめた理由</span><time>2026年10月20日 &middot; 読了目安 14分</time></a></li>
+</ul></section>
+<section><h2 id="speaking" data-count="1">speaking</h2><ul class="archive-list">
+<li><a href="/ja/posts/2026-10-20-flashcards-and-quizzes/"><span class="t">フラッシュカードとクイズ、そして両者から選ぶのをやめた理由</span><time>2026年10月20日 &middot; 読了目安 14分</time></a></li>
+</ul></section>
 <section><h2 id="music" data-count="1">music</h2><ul class="archive-list">
 <li><a href="/ja/posts/2026-10-13-teaching-a-piano-to-ring/"><span class="t">サンプルを使わずにピアノを鳴らす</span><time>2026年10月13日 &middot; 読了目安 17分</time></a></li>
 </ul></section>
