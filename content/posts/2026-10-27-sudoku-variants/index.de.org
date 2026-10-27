@@ -6,7 +6,7 @@
 #+options: toc:nil num:nil
 #+description: Wie ich herausgefunden habe, dass es Sudoku in Dutzenden von Regelvarianten gibt, und wie ich einem Rust-Spiel beigebracht habe, sie zu spielen.
 #+hero: banner.de.svg
-#+filetags: :sudoku:puzzles:gamedev:rust:programming:
+#+filetags: :puzzles:gamedev:rust:
 
 * Ich dachte, ich kenne Sudoku
 

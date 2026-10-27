@@ -6,7 +6,7 @@
 #+options: toc:nil num:nil
 #+description: 数独には何十種類ものルールのバリエーションがあると知った経緯と、Rust製のゲームでそれらを遊べるようにした方法。
 #+hero: banner.ja.svg
-#+filetags: :sudoku:puzzles:gamedev:rust:programming:
+#+filetags: :puzzles:gamedev:rust:
 
 * 数独なら知っていると思っていた
 

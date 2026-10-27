@@ -6,7 +6,7 @@
 #+options: toc:nil num:nil
 #+description: Hvernig ég komst að því að til eru tugir sudoku-afbrigða með ólíkum reglum, og hvernig ég kenndi Rust-leik að spila þau.
 #+hero: banner.is.svg
-#+filetags: :sudoku:puzzles:gamedev:rust:programming:
+#+filetags: :puzzles:gamedev:rust:
 
 * Ég hélt að ég kynni sudoku
 
