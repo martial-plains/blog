@@ -5,7 +5,7 @@
 #+LANGUAGE: de
 #+OPTIONS: toc:nil num:nil
 #+FILETAGS: :emacs:org-mode:notes:languages:agenda:
-#+HERO: banner.png
+#+HERO: banner.de.png
 #+HERO_ALT: Eine Org-Notiz zu schwedischen en- und ett-Substantiven in einem Emacs-Fenster
 #+DESCRIPTION: Warum Org-Mode für mich der beste Ort für Notizen ist, vor allem für mehrsprachige, und wie Org Agenda aus diesen Notizen einen Plan für den Tag macht.
 

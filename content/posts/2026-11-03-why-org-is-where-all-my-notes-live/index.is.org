@@ -5,7 +5,7 @@
 #+LANGUAGE: is
 #+OPTIONS: toc:nil num:nil
 #+FILETAGS: :emacs:org-mode:notes:languages:agenda:
-#+HERO: banner.png
+#+HERO: banner.is.png
 #+HERO_ALT: Org-glósa um sænsk nafnorð með en og ett, sýnd í Emacs-glugga
 #+DESCRIPTION: Hvers vegna Org-mode er besti staðurinn sem ég hef fundið fyrir glósur, sérstaklega glósur á mörgum tungumálum, og hvernig Org Agenda breytir þeim í áætlun fyrir daginn.
 
