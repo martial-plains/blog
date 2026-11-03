@@ -1,0 +1,372 @@
+#+TITLE: Warum all meine Notizen in Org liegen
+#+SUBTITLE: Mehrsprachige Notizen und die Agenda
+#+DATE: <2026-11-03 09:00>
+#+TIMEZONE: America/Port_of_Spain
+#+LANGUAGE: de
+#+OPTIONS: toc:nil num:nil
+#+FILETAGS: :emacs:org-mode:notes:languages:agenda:
+#+HERO: banner.png
+#+HERO_ALT: Eine Org-Notiz zu schwedischen en- und ett-Substantiven in einem Emacs-Fenster
+#+DESCRIPTION: Warum Org-Mode für mich der beste Ort für Notizen ist, vor allem für mehrsprachige, und wie Org Agenda aus diesen Notizen einen Plan für den Tag macht.
+
+Ich lerne schon lange Sprachen. Zuerst kam Schwedisch, über viele Jahre
+hinweg, und Anfang letzten Jahres habe ich mit Isländisch angefangen.
+Wer eine Sprache ernsthaft lernt, sammelt irgendwann jede Menge Notizen:
+Wörter, Endungen, Beispielsätze, kleine Regeln und hin und wieder eine
+Erklärung an mich selbst, die ich um Mitternacht aufschreibe und später
+hoffentlich noch verstehe.
+
+Diese Notizen müssen irgendwo leben. Ich habe einiges ausprobiert und
+lande immer wieder bei derselben Antwort: in Org-Mode, in Emacs. In
+diesem Beitrag geht es darum, warum das so ist, und um die zweite Hälfte
+der Geschichte, die ich erst später entdeckt habe: Org Agenda. Das ist
+der Teil, der alles in meinen Notizen, was ein Datum oder eine Aufgabe
+hat, in einer einzigen Ansicht zusammenzieht.
+
+* Notizen in mehr als einer Sprache
+
+Das Erste, was man als Sprachlernender von einem Notizwerkzeug braucht,
+ist unspektakulär und trotzdem unverzichtbar: Man muss die Sprache darin
+tippen können.
+
+Isländisch hat Buchstaben wie þ, ð und æ sowie Vokale mit Akzent.
+Schwedisch hat å, ä und ö. Im Deutschen gibt es ß und Umlaute. Für
+Japanisch braucht man eine ganz eigene Art der Texteingabe. Wenn ein
+Werkzeug es einem bei einer dieser Sprachen unnötig schwer macht, gewöhnt
+man sich schnell an, gar nicht erst darin zu schreiben – und das ist das
+genaue Gegenteil von dem, was man will.
+
+** Eingabemethoden
+
+Emacs löst das mit Eingabemethoden, und mir gefällt, wie unkompliziert
+das ist. Das Handbuch beschreibt es nüchtern: =C-\=
+(=toggle-input-method=) schaltet die aktuelle Eingabemethode ein oder
+aus, und wenn man noch keine gewählt hat, wird man danach gefragt. Mit
+=C-x RET C-\= (=set-input-method=) wählt man gezielt eine Methode für den
+aktuellen Buffer. Und wer wissen will, was es alles gibt: =M-x
+list-input-methods= listet sämtliche Methoden auf, jeweils mit dem
+Kürzel, das in der Modeline erscheint, wenn die Methode aktiv ist.
+
+Der Ablauf bei einer mehrsprachigen Notiz sieht bei mir also so aus: Ich
+öffne die Notiz, aktiviere die Eingabemethode für die Sprache, in der ich
+gerade schreibe, und tippe los. Wechsle ich die Sprache, wechsle ich auch
+die Methode. Weil die Eingabemethode zum Buffer gehört, gilt die
+Einstellung für die Notiz und nicht für den ganzen Editor.
+
+Im Handbuch stehen noch ein paar weitere Dinge, die ich nützlich finde:
+
+- *Vorübergehende Eingabe.* =C-x \= (=activate-transient-input-method=)
+  aktiviert eine Eingabemethode für genau ein Zeichen und schaltet sie
+  danach wieder ab. Das ist ideal für den gelegentlichen fremden
+  Buchstaben in einer ansonsten englischen Notiz, und genau das kommt
+  vor, wenn man auf Englisch über eine Sprache schreibt.
+- *Eine Methode nachschlagen.* =C-h I= (=describe-input-method=) zeigt,
+  wie eine Methode funktioniert und welche Tasten welche Zeichen
+  erzeugen. Das geht schneller als Raten.
+- *Standardwerte.* Mit der Wahl einer Sprachumgebung wird auch eine
+  Standard-Eingabemethode gesetzt (=default-input-method=), und über
+  einen Hook lässt sich eine Methode automatisch in einem bestimmten
+  Modus aktivieren. Das Beispiel aus dem Handbuch schaltet im Text-Mode
+  =german-prefix= ein, was die Idee sehr anschaulich macht.
+- *Tasten zu einem Zeichen finden.* =M-x quail-show-key= zeigt die
+  Tastenfolge für das Zeichen hinter dem Cursor. Wenn ich einen
+  Buchstaben sehe und nicht mehr weiß, wie ich ihn tippe, ist das mein
+  Befehl.
+
+Ich benutze hauptsächlich =icelandic-postfix=, =swedish-postfix=,
+=german-postfix= und =japanese=.
+
+** Eine Datei, mehrere Sprachen
+
+Die Eingabemethode ist nur die halbe Miete. Die andere Hälfte: Org ist
+egal, in welcher Sprache die Wörter geschrieben sind. Eine Überschrift
+kann isländisch sein und die Erklärung darunter englisch. Eine Tabelle
+kann eine Spalte mit isländischen Wörtern, eine mit schwedischen und
+eine mit englischen Bedeutungen haben. In einer Liste darf alles
+durcheinander stehen. Es ist einfach Text, und die Struktur drumherum
+funktioniert unabhängig davon, was im Text steht.
+
+Das ist wichtig, weil Sprachnotizen von Natur aus vergleichend sind. Ich
+habe unter anderem deshalb mit Isländisch angefangen, weil ich mich so
+lange mit Schwedisch beschäftigt hatte und verstehen wollte, woher es
+kommt. Isländisch gilt oft als die lebende Sprache, die dem
+Altnordischen am nächsten steht, und deshalb stolpere ich ständig über
+Wörter, die vertraut aussehen und dann doch nicht ganz das bedeuten, was
+ich erwarte. Schwedisch und Isländisch nebeneinander in einer Tabelle,
+dazu eine Anmerkung, worin sie sich unterscheiden: Besser kenne ich
+keinen Weg, damit sich die Verbindung festsetzt.
+
+** Struktur, die zu Vokabeln passt
+
+Mit Org-Überschriften lässt sich gut nach Themen ordnen, mit Tabellen
+nach Mustern. Eine Tabelle mit Verbendungen, eine Wortliste nach Themen
+gruppiert, eine kurze Erklärung zu einem Grammatikpunkt mit Beispielen
+darunter: Das alles ist schnell geschrieben und leicht umzusortieren.
+Einen Abschnitt, mit dem ich fertig bin, klappe ich zu, und zum
+Wiederholen klappe ich ihn wieder auf.
+
+Auch Tags helfen. Eine Überschrift kann Tags wie =:verbs:= oder
+=:icelandic:= tragen, und später suche ich dateiübergreifend nach allem
+mit diesem Tag. Wenn ich alle Notizen zu einem bestimmten Grammatikthema
+will, muss ich nicht durch Ordner wühlen, sondern frage einfach nach dem
+Tag.
+
+** Notizen, aus denen etwas wird
+
+Am wichtigsten ist mir, wohin meine Notizen am Ende gekommen sind. Sie
+haben als Haufen Klartext in Org angefangen, und daraus ist mein
+veröffentlichtes Buch /Icelandic Vocabulary/ geworden. Dafür musste ich
+die Notizen nie erst in ein anderes Format überführen. Ich habe am
+selben Ort und auf dieselbe Weise weitergeschrieben, und aus dem
+Notizhaufen wurde nach und nach eine Struktur, die man veröffentlichen
+kann.
+
+Ich bin nicht sicher, ob ich das Buch geschrieben hätte, wenn der Weg von
+den Notizen zum Buch eine große Migration bedeutet hätte. Es war leicht
+weiterzumachen, also habe ich weitergemacht. Das ist ein großer Teil
+dessen, was Org mir gibt: Der nächste Schritt liegt immer griffbereit.
+
+** Beim Blog ist es genauso
+
+Auch dieser Blog ist in Org geschrieben, und es gibt ihn in mehreren
+Sprachen: Isländisch, Schwedisch, Deutsch und Japanisch neben Englisch.
+Jede Übersetzung ist eine eigene Org-Datei neben dem Original, und die
+Sprache der Seite steht in der Datei selbst. Meine privaten Notizen und
+meine öffentlichen Beiträge schreibe ich also auf dieselbe Weise, und die
+Eingabemethoden, die ich für das eine nutze, funktionieren auch für das
+andere.
+
+* Wo die Notizen aufhören und der Plan anfängt
+
+Lange Zeit waren meine Notizen nur Notizen. Sie beschrieben Dinge und
+lagen herum. Das änderte sich, als ich anfing, Termine und Aufgaben
+hineinzuschreiben und sie mir von Org Agenda wieder vorlesen zu lassen.
+
+Org Agenda ist eine Sicht auf die eigenen Notizen. Sie hat keine eigene
+Datenbank und keine eigenen Dateien. Sie liest die Org-Dateien, die man
+ihr genannt hat, findet die Einträge mit Aufgabenstatus, Termin oder
+Deadline und zeigt sie gemeinsam als Liste für den Tag oder die Woche.
+Die Notizen bleiben genau da, wo sie sind. Die Agenda ist ein Fenster auf
+sie.
+
+** Einschalten
+
+Die Handbuchseite zur Aktivierung ist kurz und macht einen Punkt, den ich
+schätze: Drei Org-Befehle sollten von überall in Emacs erreichbar sein,
+nicht nur innerhalb eines Org-Buffers. Das sind =org-store-link=,
+=org-capture= und =org-agenda=. Org belegt dafür keine Tasten, weil die
+passenden Kürzel vom Rest der eigenen Konfiguration abhängen. Stattdessen
+schlägt das Handbuch vor, diese Zeilen in die Init-Datei zu schreiben:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c c") #'org-capture)
+(global-set-key (kbd "C-c a") #'org-agenda)
+#+end_src
+
+Danach öffnet =C-c a= aus jedem Buffer den Agenda-Dispatcher, egal woran
+ich gerade arbeite. Laut Handbuch kann man die Tasten ändern, und das
+würde ich auch empfehlen. Es ist derselbe Geist wie bei allem anderen in
+Emacs: Die Voreinstellungen sind ein Vorschlag.
+
+Außerdem muss die Agenda wissen, welche Dateien sie lesen soll. Das
+steuert die Variable =org-agenda-files=, eine Liste von Dateien oder
+Verzeichnissen, die durchsucht werden. Ich halte diese Liste bewusst
+kurz und übersichtlich, denn eine Agenda, die alles liest, zeigt alles
+an, und eine Agenda, die alles anzeigt, ist nicht mehr nützlich. Im
+Moment sind meine Agenda-Dateien nur die in meinen Ordnern für Projekte
+und Lebensbereiche.
+
+** Aufgaben, Termine und Deadlines
+
+Drei Ideen decken das meiste ab, was ich damit mache.
+
+*Eine Aufgabe ist eine Überschrift mit einem Status.* Setzt man =TODO=
+an den Anfang einer Überschrift, behandelt Org sie als Aufgabe. Mit
+=C-c C-t= schaltet man sie durch die Status, und wenn ich fertig bin,
+wird daraus =DONE=. Mehr braucht es nicht, damit eine Überschrift in der
+Aufgabenliste der Agenda auftaucht.
+
+*Ein Schedule sagt, wann man anfängt.* =C-c C-s= hängt einer Überschrift
+einen geplanten Termin an, den man in einem kleinen Kalender auswählt,
+sodass ich ihn nicht tippen muss. Ein geplanter Eintrag erscheint an
+diesem Tag in der Agenda und taucht danach jeden Tag wieder auf, bis ich
+ihn erledigt habe. Er kann also nicht einfach unbemerkt verschwinden.
+
+*Eine Deadline sagt, wann etwas fällig ist.* Mit =C-c C-d= fügt man eine
+Deadline hinzu. Die Agenda warnt schon im Voraus vor anstehenden
+Deadlines, ein Fälligkeitsdatum taucht also Tage vorher auf, und die
+Warnung wird dringlicher, je näher der Termin rückt.
+
+Das ist das ganze Vokabular: ein Status, ein Starttermin und ein
+Fälligkeitsdatum. Alles andere sind Details.
+
+** Alles auf einen Blick
+
+Mit =C-c a= öffnet sich ein kleines Menü mit Ansichten. Die beiden, die
+ich am häufigsten nutze, sind einfach:
+
+- *Die Wochen-Agenda* (=C-c a a=) zeigt die Tage der Woche der Reihe
+  nach, mit geplanten Einträgen und Deadlines an ihrem Platz und einem
+  Hinweis darauf, was überfällig ist.
+- *Die globale Aufgabenliste* (=C-c a t=) listet alle offenen Aufgaben
+  aus sämtlichen Agenda-Dateien auf, egal wo sie sich verstecken.
+
+Von beiden Ansichten aus kann ich direkt zu der Überschrift springen,
+aus der eine Zeile stammt, ihren Status ändern, sie verschieben oder als
+erledigt markieren, ohne die Agenda zu verlassen. Agenda und Notizen
+bleiben synchron, weil sie dasselbe sind.
+
+** Warum das so gut zu Notizen passt
+
+Das war der Moment, in dem bei mir der Groschen gefallen ist. Die
+meisten Aufgaben-Apps wollen, dass man Aufgaben und Gedanken trennt. Die
+Aufgabe kommt in die App, das Denken woandershin, und beides driftet
+langsam auseinander. Am Ende steht da ein To-do „Isländische
+Vergangenheit wiederholen“ und man hat keine Ahnung mehr, wo die Notizen
+dazu liegen.
+
+In Org kann die Aufgabe /in/ der Notiz leben, zu der sie gehört. Eine
+Überschrift wie „Vergangenheit der starken Verben wiederholen“ kann
+direkt unter den Notizen zu starken Verben stehen, mit Erklärung,
+Tabellen und Beispielen gleich darunter. Wenn sie in der Agenda
+auftaucht und ich sie öffne, lande ich mitten in dem Material, das ich
+brauche, und nicht in einer leeren Zeile in einer getrennten Liste.
+
+Für das Sprachenlernen passt das hervorragend, weil so viel davon aus
+Wiederholen besteht. Ich komme auf Themen zurück, ich plane Zeit dafür
+ein, und ich will die Notizen dann sofort zur Hand haben. Die Agenda
+erinnert mich daran, wiederzukommen, und die Notizen sind das, wohin ich
+wiederkomme.
+
+In letzter Zeit spiele ich außerdem viel Hay Day, und deshalb baue ich
+mir mit der Agenda einen Zeitplan, um meinen Fortschritt im Spiel von Tag
+zu Tag im Blick zu behalten. Es ist sehr angenehm, alles rund um das
+Spiel an einem Ort zu haben: Meine Notizen zum Levelfortschritt und sogar
+meine Statistiken stehen direkt neben allem anderen.
+
+** Capture, damit nichts verloren geht
+
+Der dritte Befehl, =org-capture=, hält das System ehrlich. Ein Gedanke
+kommt im ungünstigsten Moment: ein Wort, das ich gerade gelernt habe, eine
+Idee für einen Beitrag, etwas, das ich morgen erledigen muss. Mit =C-c c=
+öffnet sich von überall in Emacs ein kleiner Buffer, ich tippe es ein, und
+es wird abgelegt, ohne dass ich aus dem herausgerissen werde, was ich
+gerade tue. Sortieren kann ich später, wenn ich den Kopf frei habe.
+
+Bei jedem Notizsystem ist die Versuchung groß, es zu kompliziert zu
+machen. Capture ist das Gegenteil: ein Eingang ohne Aufwand, aufgeräumt
+wird dann, wenn ich so weit bin.
+
+** Eine kleine wöchentliche Gewohnheit
+
+Die Agenda eignet sich auch gut für einen kurzen Wochenrückblick, und
+diese Gewohnheit würde ich jedem am meisten ans Herz legen, der
+anfängt. Einmal pro Woche öffne ich die Wochenansicht und schaue mir drei
+Dinge an: was überfällig ist, was ansteht und was ganz ohne Datum in der
+Aufgabenliste herumliegt.
+
+Überfällige Einträge sind die ehrlichen. Jeder von ihnen ist eine
+Entscheidung, die noch aussteht. Entweder ich mache es jetzt, ich gebe
+ihm einen neuen Termin, oder ich gebe zu, dass daraus nichts wird, und
+lösche ihn. Anstehende Einträge zeigen mir die Form der Woche, bevor sie
+beginnt, damit ich am Donnerstag nicht überrascht werde. Und Aufgaben
+ohne Datum werden am ehesten vergessen, also bekommen genau die einen
+Termin, und sei er noch so grob.
+
+Das dauert ein paar Minuten. Der Effekt ist, dass die Agenda nicht zu
+einem Haufen verkommt. Eine Liste, die man jede Woche ansieht und
+aufräumt, bleibt vertrauenswürdig, und einer Liste, der man vertraut,
+nutzt man auch. Eine Liste, der man nicht mehr traut, ist nur ein
+weiterer Ort, an dem Dinge verschwinden.
+
+Dieselbe Gewohnheit funktioniert auch für Sprachnotizen. Beim Blick auf
+die Woche sehe ich, welche Themen ich wiederholen wollte, und kann
+entscheiden, ob sie mir noch wichtig sind. Wenn ja, bekommen sie einen
+Termin. Wenn nicht, darf ich sie loslassen, und diese Erleichterung hatte
+ich von einem Planungswerkzeug nicht erwartet.
+
+* Warum ich dem System vertraue
+
+Das alles ist Klartext. Die Notizen, die Aufgaben, die Termine und die
+Deadlines sind Zeilen in Org-Dateien, die ich in jedem Editor lesen
+kann. Die Agenda baut Emacs jedes Mal neu daraus auf, wenn ich danach
+frage. Wenn morgen alles verschwände, hätte ich immer noch meine
+Notizen, und Aufgaben und Termine wären weiterhin auf der Seite lesbar.
+
+Wie viel mir das bedeutet, weiß ich, weil ich es auch schon andersherum
+erlebt habe. Notizen in einer App können wunderbar sein, bis sich die App
+ändert oder eingestellt wird, und dann hängen sie fest, abhängig von den
+Entscheidungen anderer. Ich halte meine Daten lieber in Dateien, die mir
+gehören. Das ist auch der Grund, warum ich meine Notizen nach einem
+Ausflug zu Obsidian zurück nach Emacs geholt habe. Obsidian war eine
+schöne Erfahrung, besonders seit es Bases gibt, aber mir fehlten meine
+Meow-Tastenkürzel, und die kann ich nur in Emacs benutzen. Meine Notizen
+lagen ohnehin als Klartext vor, der Rückzug hat mich also fast nichts
+gekostet. Das ist der stille Vorteil von einfachen Dateien: Man ist nie
+wirklich gefangen und kann dorthin gehen, wo man sich am wohlsten fühlt.
+
+* Die ehrlichen Nachteile
+
+Fairerweise muss ich auch sagen, wo es hakt.
+
+- *Man muss viel lernen.* Besonders Org Agenda hat unzählige Optionen.
+  Die meisten kann man getrost ignorieren, aber am Anfang fühlt man sich
+  leicht erschlagen.
+- *Es ist auf den Desktop zugeschnitten.* Meine Notizen /lese/ ich
+  lieber auf dem Handy, als sie dort zu bearbeiten. Fast alles, was ich
+  schreibe, entsteht ohnehin am Laptop, mir reicht das also. Wer aber
+  überall Notizen schreiben will, stößt hier an eine echte Grenze.
+- *Man muss aufräumen.* Eine Agenda ist nur so gut wie die Dateien
+  dahinter. Wenn sich unerledigte Aufgaben stapeln, füllt sich die
+  Ansicht mit Rauschen. Tags an meinen Einträgen helfen, denn in der
+  Agenda kann ich mit =/= nach Tag oder regulärem Ausdruck filtern.
+- *Es braucht Einrichtung.* Eingabemethoden, Agenda-Dateien und
+  Tastenbelegungen müssen ein wenig konfiguriert werden, bevor sie sich
+  richtig anfühlen.
+
+* Wenn du es ausprobieren willst
+
+Falls du Lust bekommen hast, es auszuprobieren, wäre das hier meine
+kleinstmögliche Version:
+
+1. Leg deine Notizen in ein paar Org-Dateien ab, oder fang mit einer an.
+2. Belege =C-c a=, =C-c c= und =C-c l= mit den drei Zeilen aus dem
+   Handbuch.
+3. Sag Emacs, welche Dateien es lesen soll, indem du =org-agenda-files=
+   setzt.
+4. Setz ein =TODO= an eine Überschrift und gib ihr mit =C-c C-s= einen
+   geplanten Termin.
+5. Drück =C-c a a= und sieh zu, wie sie erscheint.
+6. Wenn du in einer anderen Sprache schreibst, wähl mit =C-\= eine
+   Eingabemethode und probier, eine Notiz darin zu verfassen.
+
+Mach dir keine Sorgen, die Struktur gleich beim ersten Mal richtig
+hinzubekommen. Meine hat sich mehrfach verändert, während ich
+herausgefunden habe, was ich eigentlich brauche, und weil alles Klartext
+ist, heißt Umorganisieren einfach, Überschriften zu verschieben. Fang
+unordentlich an, achte darauf, was dich nervt, und behebe genau diese
+eine Sache.
+
+Das ist die Arbeit eines Abends, und nichts davon bindet dich. Wenn es
+nichts für dich ist, hast du am Ende eine Handvoll Textdateien und
+nichts verloren.
+
+* Was ich mitgenommen habe
+
+Org ist der Ort, an dem ich denke, und auch der, an dem ich plane.
+Beides passiert in denselben Dateien, im selben Editor, in welcher
+Sprache ich gerade auch schreibe. Die Mehrsprachigkeit bedeutet, dass
+ich so schreiben kann, wie ein Sprachlernender wirklich schreibt, mit
+Isländisch, Schwedisch und Englisch durcheinander, ohne dass mir das
+Werkzeug in die Quere kommt. Die Agenda sorgt dafür, dass diese Notizen
+nicht nur herumliegen: Sie sagen mir, was ich als Nächstes vorhatte.
+
+Ich wollte ursprünglich nur eine Sprache lernen. Irgendwo unterwegs habe
+ich ein System bekommen, das mir dabei hilft, und es besteht aus
+Klartext. Wenn du Notizen in mehr als einer Sprache führst oder schon
+einmal eine Aufgabe verloren hast, weil sie getrennt von dem lag,
+worum es ging, dann ist es meiner Meinung nach einen Abend wert.
+
+Mich würde interessieren, wie du deine Notizen führst und was du, falls
+überhaupt, benutzt, um darum herum zu planen.

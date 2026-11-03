@@ -1,0 +1,348 @@
+#+TITLE: Därför bor alla mina anteckningar i Org
+#+SUBTITLE: Flerspråkiga anteckningar och agendan
+#+DATE: <2026-11-03 09:00>
+#+TIMEZONE: America/Port_of_Spain
+#+LANGUAGE: sv
+#+OPTIONS: toc:nil num:nil
+#+FILETAGS: :emacs:org-mode:notes:languages:agenda:
+#+HERO: banner.png
+#+HERO_ALT: En Org-anteckning om svenska en- och ett-ord, visad i ett Emacs-fönster
+#+DESCRIPTION: Varför Org-mode är det bästa stället jag hittat för anteckningar, särskilt flerspråkiga, och hur Org Agenda förvandlar anteckningarna till en plan för dagen.
+
+Jag har lärt mig språk länge. Svenskan kom först, under många år, och i
+början av förra året började jag med isländska. Lär man sig ett språk på
+allvar får man med tiden en hel hög med anteckningar: ord, ändelser,
+exempelmeningar, små regler och då och då en förklaring till sig själv
+som man skriver vid midnatt och hoppas förstå senare.
+
+Anteckningarna måste bo någonstans. Jag har provat några ställen och
+hamnar alltid i samma svar. De bor i Org-mode, i Emacs. Det här inlägget
+handlar om varför, och om den andra halvan av historien, som jag kom på
+först senare: Org Agenda, den del som samlar allt i mina anteckningar som
+har ett datum eller en uppgift kopplad till sig i en enda vy.
+
+* Anteckningar på mer än ett språk
+
+Det första en språkstudent behöver av ett anteckningsverktyg är tråkigt
+och helt avgörande. Man måste kunna skriva språket.
+
+Isländskan har bokstäver som þ, ð och æ, och vokaler med accent.
+Svenskan har å, ä och ö. Tyskan har ß och omljud. Japanska kräver ett
+helt annat sätt att mata in text. Ett verktyg som gör något av detta
+krångligt lär en snabbt att undvika att skriva på språket, vilket är raka
+motsatsen till vad man vill.
+
+** Inmatningsmetoder
+
+Emacs löser det med inmatningsmetoder, och det jag gillar är hur lite
+trams det kräver. Manualen beskriver det rakt och enkelt. =C-\=
+(=toggle-input-method=) slår på eller av den aktuella inmatningsmetoden,
+och har man inte valt någon än frågar den efter en. =C-x RET C-\=
+(=set-input-method=) låter en välja en särskild metod för den aktuella
+bufferten. Vill man se vad som finns listar =M-x list-input-methods=
+samtliga, var och en med den korta sträng som visas i lägesraden när
+metoden är aktiv.
+
+Så arbetsgången för en flerspråkig anteckning är: öppna anteckningen,
+slå på inmatningsmetoden för det språk jag skriver på och börja skriva.
+När jag byter språk byter jag metod. Eftersom inmatningsmetoden hör till
+bufferten följer inställningen anteckningen och inte hela editorn.
+
+Manualen har några fler detaljer som jag tycker är användbara:
+
+- *Tillfällig inmatning.* =C-x \= (=activate-transient-input-method=)
+  slår på en inmatningsmetod för exakt ett tecken och stänger sedan av
+  den igen. Perfekt för den enstaka främmande bokstaven i en i övrigt
+  engelsk anteckning, vilket är precis vad som händer när man skriver om
+  ett språk på engelska.
+- *Beskriva en metod.* =C-h I= (=describe-input-method=) visar hur en
+  metod fungerar, bland annat vilka tangenter som ger vilka tecken. Det
+  går snabbare än att gissa.
+- *Standardval.* Väljer man en språkmiljö sätts också en
+  standardinmatningsmetod (=default-input-method=), och med en hook kan
+  man slå på en metod automatiskt i ett visst läge. Manualens eget
+  exempel aktiverar =german-prefix= i Text mode, vilket gör idén väldigt
+  konkret.
+- *Hitta tangenterna till ett tecken.* =M-x quail-show-key= visar vilken
+  tangentföljd som ger tecknet efter markören. När jag ser en bokstav och
+  inte minns hur man skriver den är det kommandot jag vill ha.
+
+Jag använder mest =icelandic-postfix=, =swedish-postfix=,
+=german-postfix= och =japanese=.
+
+** En fil, flera språk
+
+Inmatningsmetoden är bara halva saken. Den andra halvan är att Org inte
+bryr sig om vilket språk orden är på. En rubrik kan vara på isländska och
+förklaringen under den på engelska. En tabell kan ha en kolumn med
+isländska ord, en med svenska och en med engelska betydelser. En lista
+kan blanda alla tre. Det är bara text, och strukturen runt omkring
+fungerar likadant oavsett vad texten säger.
+
+Det spelar roll, för språkanteckningar är till sin natur jämförande. Jag
+började med isländska delvis för att jag hållit på så länge med svenska
+och ville förstå var det kom ifrån. Isländskan beskrivs ofta som det
+levande språk som ligger närmast fornnordiskan, så jag snubblar hela
+tiden över ord som ser bekanta ut men inte riktigt betyder det jag väntar
+mig. Att ha svenska och isländska sida vid sida i en tabell, med en
+anmärkning om hur de skiljer sig, är det bästa sätt jag vet att få
+sambandet att fastna.
+
+** Struktur som passar glosor
+
+Orgs rubriker gör det lätt att ordna efter tema, och tabellerna gör det
+lätt att ordna efter mönster. En tabell med verbändelser, en lista med
+ord grupperade efter tema, en kort förklaring av en grammatikregel med
+exempel under: allt det går snabbt att skriva och är lätt att flytta
+om. Jag kan fälla ihop ett avsnitt när jag är klar med det och fälla ut
+det igen när jag vill repetera.
+
+Taggar hjälper också. En rubrik kan ha taggar som =:verbs:= eller
+=:icelandic:=, och senare kan jag söka efter allt med den taggen i alla
+filer. Vill jag ha alla anteckningar om ett visst grammatikämne behöver
+jag inte leta bland mappar. Jag ber helt enkelt om taggen.
+
+** Anteckningar som blir något
+
+Det som betyder mest för mig är vart anteckningarna tog vägen. De började
+som en hög ren text i Org och blev min utgivna bok, /Icelandic
+Vocabulary/. Ingenting på den vägen krävde att jag först flyttade
+anteckningarna till ett annat format. Jag fortsatte skriva på samma
+ställe, på samma sätt, och högen anteckningar blev så småningom en
+struktur som gick att ge ut.
+
+Jag vet inte om jag hade skrivit boken om vägen från anteckningar till
+bok hade inneburit en stor flytt. Det var lätt att fortsätta, så jag
+fortsatte. Det är mycket av det Org ger mig: nästa steg ligger alltid
+nära.
+
+** Samma sak gäller bloggen
+
+Den här bloggen är också skriven i Org, och den finns på flera språk:
+isländska, svenska, tyska och japanska vid sidan av engelska. Varje
+översättning är en egen Org-fil bredvid originalet, och sidans språk
+anges i själva filen. Mina privata anteckningar och mina publika inlägg
+skriver jag alltså på samma sätt, och inmatningsmetoderna jag använder
+för det ena fungerar för det andra.
+
+* Där anteckningarna slutar och planen börjar
+
+Länge var mina anteckningar bara anteckningar. De beskrev saker och låg
+där. Det som ändrades var när jag började skriva in datum och uppgifter i
+dem och sedan låta Org Agenda läsa upp dem för mig.
+
+Org Agenda är en vy över ens anteckningar. Den har ingen egen databas och
+inga egna filer. Den läser de Org-filer man har pekat ut, hittar de
+poster som har ett uppgiftstillstånd, ett planerat datum eller en
+deadline och visar dem tillsammans som en lista för dagen eller veckan.
+Anteckningarna ligger kvar precis där de är. Agendan är ett fönster mot
+dem.
+
+** Slå på den
+
+Manualens sida om aktivering är kort, och den gör en poäng jag
+uppskattar: tre Org-kommandon bör gå att nå var som helst i Emacs, inte
+bara inne i en Org-buffert. Det är =org-store-link=, =org-capture= och
+=org-agenda=. Org binder inga tangenter åt en, eftersom de rätta
+tangenterna beror på resten av ens konfiguration. I stället föreslår
+manualen att man lägger de här raderna i sin init-fil:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c c") #'org-capture)
+(global-set-key (kbd "C-c a") #'org-agenda)
+#+end_src
+
+Efter det öppnar =C-c a= agendans meny från vilken buffert som helst,
+oavsett vad jag råkar jobba med. Manualen säger att man kan ändra
+tangenterna efter eget tycke, och det vill jag uppmuntra. Det följer
+samma anda som allt annat i Emacs: standardvalen är ett förslag.
+
+Det andra agendan behöver är att veta vilka filer den ska läsa. Det styrs
+av variabeln =org-agenda-files=, som innehåller en lista med filer eller
+kataloger att söka i. Jag håller medvetet den listan kort och
+överskådlig, för en agenda som läser allt visar allt, och en agenda som
+visar allt slutar vara användbar. Just nu är mina agendafiler bara de som
+ligger i mina mappar för projekt och ansvarsområden.
+
+** Uppgifter, datum och deadlines
+
+Tre idéer täcker det mesta av det jag gör med den.
+
+*En uppgift är en rubrik med ett tillstånd.* Sätter man =TODO= först i en
+rubrik behandlar Org den som en uppgift. Med =C-c C-t= växlar man mellan
+tillstånden, och när jag är klar blir den =DONE=. Mer krävs inte för att
+en rubrik ska dyka upp i agendans uppgiftslista.
+
+*Ett schemalagt datum säger när man ska börja.* =C-c C-s= fäster ett
+planerat datum på en rubrik, valt i en liten kalender så att jag slipper
+skriva det. En schemalagd post visas den dagen i agendan och fortsätter
+visas varje dag efter det tills jag markerar den som klar, så den kan
+inte tyst glida undan.
+
+*En deadline säger när något ska vara klart.* =C-c C-d= lägger till en
+deadline. Agendan varnar i förväg för kommande deadlines, så ett
+förfallodatum syns flera dagar innan det infaller, och varningen blir
+allt mer skarp ju närmare datumet kommer.
+
+Det är hela vokabulären: ett tillstånd, ett startdatum och ett
+slutdatum. Allt annat är detaljer.
+
+** Se allt på en gång
+
+Sedan öppnar =C-c a= en liten meny med vyer. De två jag använder mest är
+enkla:
+
+- *Veckoagendan* (=C-c a a=) visar veckans dagar i ordning, med
+  schemalagda poster och deadlines på rätt plats och en notering om vad
+  som är försenat.
+- *Den globala uppgiftslistan* (=C-c a t=) listar alla öppna uppgifter i
+  alla mina agendafiler, var de än gömmer sig.
+
+Från båda vyerna kan jag hoppa direkt till den rubrik en rad kommer från,
+ändra dess tillstånd, flytta den eller markera den som klar utan att
+lämna agendan. Agendan och anteckningarna hålls i synk eftersom de är en
+och samma sak.
+
+** Varför det fungerar så bra med anteckningar
+
+Det här var delen som fick poletten att trilla ner. De flesta
+uppgiftsappar vill att man skiljer uppgifterna från tänkandet.
+Uppgiften hamnar i appen och tankarna någon annanstans, och de glider
+sakta isär. Till slut har man en att-göra-punkt som säger ”repetera
+isländsk preteritum” och ingen aning om var anteckningarna om den finns.
+
+I Org kan uppgiften bo /inne i/ den anteckning den hör till. En rubrik
+som ”Repetera preteritum för starka verb” kan ligga rakt under
+anteckningarna om starka verb, med förklaringen, tabellerna och
+exemplen precis under. När den dyker upp i agendan och jag öppnar den
+hamnar jag mitt i det material jag behöver, inte på en tom rad i en
+separat lista.
+
+Det passar språkinlärning mycket bra, eftersom så mycket av det handlar
+om att återvända. Jag kommer tillbaka till ämnen, jag planerar tid för
+dem och jag vill ha anteckningarna framför mig när jag gör det. Agendan
+är det som får mig att komma ihåg att återvända, och anteckningarna är
+det jag återvänder till.
+
+Jag har också spelat mycket Hay Day på sistone, så jag använder agendan
+för att bygga ett schema för att hålla koll på min dagliga utveckling i
+spelet. Det är väldigt skönt att ha allt om spelet på ett ställe:
+anteckningarna om hur nivåerna går och till och med min statistik ligger
+bredvid resten av mina anteckningar.
+
+** Capture, så att inget går förlorat
+
+Det tredje kommandot, =org-capture=, är det som håller systemet ärligt.
+En tanke dyker upp vid fel tillfälle: ett ord jag precis stött på, en idé
+till ett inlägg, något jag måste göra i morgon. =C-c c= öppnar en liten
+buffert varifrån som helst i Emacs, jag skriver ner det och det
+arkiveras utan att jag rycks ur det jag höll på med. Jag kan sortera det
+senare, när huvudet är klart.
+
+Frestelsen med alla anteckningssystem är att göra dem för
+genomarbetade. Capture är raka motsatsen: en lättviktig väg in, med
+ordnandet sparat till när jag är redo.
+
+** En liten veckovana
+
+Agendan passar också för en kort veckogenomgång, och den vanan skulle jag
+rekommendera mest till den som är på väg att börja. En gång i veckan
+öppnar jag veckovyn och tittar på tre saker: vad som är försenat, vad som
+väntar och vad som ligger i uppgiftslistan helt utan datum.
+
+De försenade posterna är de ärliga. Var och en är ett beslut som väntar
+på att fattas. Antingen gör jag det nu, så ger jag den ett nytt datum,
+eller så erkänner jag att det inte kommer att bli av och tar bort den.
+Kommande poster låter mig se veckans form innan den börjat, så jag inte
+blir överraskad på torsdagen. Och uppgifter utan datum är de som lättast
+glöms bort, så det är dem jag ger ett datum, även ett ungefärligt.
+
+Det tar några minuter. Det den gör är att hindra agendan från att bli en
+hög. En lista man tittar på och städar varje vecka förblir pålitlig, och
+en lista man litar på är en man faktiskt använder. En lista man slutat
+lita på är bara ännu ett ställe där saker försvinner.
+
+Samma vana funkar för språkanteckningar. När jag tittar på veckan ser jag
+vilka ämnen jag tänkt repetera och kan avgöra om jag fortfarande bryr mig
+om dem. Gör jag det får de ett datum. Gör jag det inte får jag släppa
+dem, vilket är en lättnad jag inte väntat mig av ett planeringsverktyg.
+
+* Därför litar jag på det
+
+Allt detta är ren text. Anteckningarna, uppgifterna, datumen och
+deadlinesen är rader i Org-filer som jag kan läsa i vilken editor som
+helst. Agendan är något Emacs bygger upp av dem varje gång jag ber om
+den. Om allt försvann i morgon skulle jag fortfarande ha mina
+anteckningar, och uppgifterna och datumen skulle gå att läsa på sidan.
+
+Jag vet hur mycket det betyder eftersom jag har gjort tvärtom. Anteckningar
+i en app kan vara härliga tills appen ändras eller läggs ner, och då sitter
+de fast bakom någon annans beslut. Jag håller mycket hellre allt i filer
+jag själv äger. Det är också därför jag flyttade tillbaka mina
+anteckningar till Emacs efter att ha provat Obsidian. Obsidian var en
+trevlig upplevelse, särskilt när Bases kom, men jag saknade mina
+Meow-tangentbindningar, och det enda stället jag kan använda dem är
+Emacs. Mina anteckningar låg redan som ren text, så flytten tillbaka
+kostade nästan ingenting. Det är den tysta fördelen med vanliga filer:
+man sitter aldrig riktigt fast, så man är fri att gå dit man trivs bäst.
+
+* De ärliga nackdelarna
+
+Det är rättvist att säga var det brister.
+
+- *Det är mycket att lära sig.* Framför allt Org Agenda har väldigt många
+  alternativ. De flesta kan man bortse från, men det är lätt att bli
+  överväldigad i början.
+- *Det är skrivbordsformat.* Jag /läser/ hellre mina anteckningar på
+  mobilen än redigerar dem där. Nästan allt jag skriver sker på
+  laptopen, så det passar mig, men vill man skriva anteckningar överallt
+  är det en verklig begränsning.
+- *Man måste hålla ordning.* En agenda är bara så bra som filerna bakom
+  den. Om ogjorda uppgifter hopar sig fylls vyn av brus. Att tagga mina
+  poster hjälper, för i agendan kan jag trycka =/= för att filtrera på
+  tagg eller reguljärt uttryck.
+- *Det kräver inställningar.* Inmatningsmetoder, agendafiler och
+  tangentbindningar behöver lite konfiguration innan de känns rätt.
+
+* Om du vill prova
+
+Om det här väckt lust att prova är det här den minsta version jag skulle
+föreslå:
+
+1. Ha dina anteckningar i några Org-filer, eller i en för att börja med.
+2. Bind =C-c a=, =C-c c= och =C-c l= med de tre raderna från manualen.
+3. Tala om för Emacs vilka filer den ska läsa genom att sätta
+   =org-agenda-files=.
+4. Lägg till ett =TODO= på en rubrik och ge den ett schemalagt datum med
+   =C-c C-s=.
+5. Tryck =C-c a a= och se den dyka upp.
+6. Om du skriver på ett annat språk, välj en inmatningsmetod med =C-\=
+   och försök skriva en anteckning på det.
+
+Oroa dig inte för att få strukturen rätt på första försöket. Min har
+ändrats flera gånger medan jag kom på vad jag egentligen behövde, och
+eftersom allt är ren text betyder omorganisering bara att man flyttar
+rubriker. Börja rörigt, märk vad som irriterar dig och fixa just den
+saken.
+
+Det är en kvällsinsats, och inget i den binder dig. Om det inte är något
+för dig har du några vanliga textfiler och ingenting att förlora.
+
+* Vad jag tar med mig
+
+Org är där jag tänker, och det är också där jag planerar. Båda sakerna
+sker i samma filer, i samma editor, på vilket språk jag än råkar skriva.
+Det flerspråkiga betyder att jag kan skriva som en språkstudent faktiskt
+skriver, med isländska, svenska och engelska om vartannat, utan att
+verktyget kommer i vägen. Agendan gör att anteckningarna inte bara ligger
+där: de talar om för mig vad jag tänkt göra härnäst.
+
+Jag ville egentligen bara lära mig ett språk. Någonstans på vägen fick
+jag ett system som hjälper mig med det, och det är byggt av ren text. Om
+du för anteckningar på mer än ett språk, eller någon gång förlorat en
+uppgift för att den låg separat från det den handlade om, tycker jag att
+det är värt en kväll.
+
+Jag skulle gärna höra hur du för dina egna anteckningar och vad du
+eventuellt använder för att planera kring dem.

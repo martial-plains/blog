@@ -1,0 +1,347 @@
+#+TITLE: Hvers vegna allar glósurnar mínar búa í Org
+#+SUBTITLE: Glósur á mörgum tungumálum og dagskráin
+#+DATE: <2026-11-03 09:00>
+#+TIMEZONE: America/Port_of_Spain
+#+LANGUAGE: is
+#+OPTIONS: toc:nil num:nil
+#+FILETAGS: :emacs:org-mode:notes:languages:agenda:
+#+HERO: banner.png
+#+HERO_ALT: Org-glósa um sænsk nafnorð með en og ett, sýnd í Emacs-glugga
+#+DESCRIPTION: Hvers vegna Org-mode er besti staðurinn sem ég hef fundið fyrir glósur, sérstaklega glósur á mörgum tungumálum, og hvernig Org Agenda breytir þeim í áætlun fyrir daginn.
+
+Ég hef lengi verið að læra tungumál. Sænskan kom fyrst, í mörg ár, og í
+byrjun síðasta árs byrjaði ég á íslensku. Þegar maður lærir tungumál af
+alvöru safnast upp mikið af glósum: orð, endingar, dæmasetningar, litlar
+reglur og stöku útskýring sem maður skrifar handa sjálfum sér um
+miðnætti og vonar að maður skilji seinna.
+
+Þessar glósur þurfa að vera einhvers staðar. Ég hef prófað nokkra staði
+og enda alltaf á sama svarinu. Þær búa í Org-mode, í Emacs. Þessi færsla
+fjallar um hvers vegna, og um seinni hluta sögunnar, sem ég kom að
+síðar: Org Agenda, sem tekur allt í glósunum mínum sem hefur dagsetningu
+eða verkefni og safnar því saman í eina sýn.
+
+* Glósur á fleiri en einu tungumáli
+
+Það fyrsta sem tungumálanemi þarf af glósuforriti er leiðinlegt en
+bráðnauðsynlegt. Maður verður að geta skrifað tungumálið.
+
+Í íslensku eru stafir eins og þ, ð og æ, og sérhljóðar með broddi. Í
+sænsku eru å, ä og ö. Í þýsku eru ß og umlaut. Japanska krefst allt
+annarrar aðferðar við að slá inn texta. Forrit sem gerir eitthvað af
+þessu óþægilegt kennir manni fljótt að forðast að skrifa á málinu, sem
+er andstæðan við það sem maður vill.
+
+** Innsláttaraðferðir
+
+Emacs leysir þetta með innsláttaraðferðum og það sem mér líkar er hversu
+lítið umstang þarf. Handbókin lýsir þessu hreinskilnislega. =C-\=
+(=toggle-input-method=) kveikir eða slekkur á núverandi
+innsláttaraðferð, og ef maður hefur ekki valið neina biður það mann að
+velja. =C-x RET C-\= (=set-input-method=) leyfir manni að velja ákveðna
+aðferð fyrir núverandi biðminni. Vilji maður sjá hvað er í boði telur
+=M-x list-input-methods= upp allar aðferðirnar, hverja með stutta
+strengnum sem birtist í stöðulínunni þegar hún er virk.
+
+Vinnuferlið fyrir glósu á mörgum tungumálum er því: opna glósuna, kveikja
+á innsláttaraðferðinni fyrir tungumálið sem ég er að skrifa á og byrja að
+skrifa. Þegar ég skipti um tungumál skipti ég um aðferð. Þar sem
+innsláttaraðferðin tilheyrir biðminninu fylgir stillingin glósunni en
+ekki ritlinum öllum.
+
+Í handbókinni eru nokkur atriði í viðbót sem mér finnst gagnleg:
+
+- *Tímabundin innsláttaraðferð.* =C-x \=
+  (=activate-transient-input-method=) kveikir á innsláttaraðferð fyrir
+  einn staf og slekkur svo aftur. Fullkomið fyrir stöku erlendan staf í
+  annars enskri glósu, sem er einmitt það sem gerist þegar maður skrifar
+  um tungumál á ensku.
+- *Aðferð útskýrð.* =C-h I= (=describe-input-method=) sýnir hvernig
+  aðferð virkar, meðal annars hvaða lyklar gefa hvaða stafi. Það er
+  fljótlegra en að giska.
+- *Sjálfgefin gildi.* Þegar maður velur tungumálaumhverfi er líka
+  sjálfgefin innsláttaraðferð valin (=default-input-method=) og með
+  hook er hægt að kveikja sjálfkrafa á aðferð í tiltekinni stillingu.
+  Dæmið í handbókinni kveikir á =german-prefix= í Text mode, sem gerir
+  hugmyndina mjög áþreifanlega.
+- *Að finna lyklana á bak við staf.* =M-x quail-show-key= segir hvaða
+  lyklaröð gefur stafinn á eftir bendlinum. Þegar ég sé staf og man ekki
+  hvernig ég skrifa hann er það skipunin sem ég vil.
+
+Ég nota mest =icelandic-postfix=, =swedish-postfix=, =german-postfix= og
+=japanese=.
+
+** Ein skrá, mörg tungumál
+
+Innsláttaraðferðin er bara helmingurinn. Hinn helmingurinn er að Org er
+sama á hvaða tungumáli orðin eru. Fyrirsögn getur verið á íslensku og
+útskýringin undir henni á ensku. Tafla getur haft dálk með íslenskum
+orðum, dálk með sænskum orðum og dálk með enskum merkingum. Listi getur
+blandað öllum þremur. Þetta er bara texti og uppbyggingin í kringum hann
+virkar eins, hvað sem textinn segir.
+
+Þetta skiptir máli því tungumálaglósur eru í eðli sínu samanburðarglósur.
+Ég byrjaði á íslensku að hluta til af því að ég hafði verið svo lengi með
+sænsku og vildi skilja hvaðan hún kom. Íslenska er oft talin vera
+lifandi tungumálið sem stendur næst fornnorrænu, svo ég rekst sífellt á
+orð sem líta kunnuglega út en eru ekki alveg það sem ég bjóst við. Að
+hafa sænsku og íslensku hlið við hlið í einni töflu, með athugasemd um
+muninn, er besta leiðin sem ég þekki til að festa tengslin í minni.
+
+** Uppbygging sem hentar orðaforða
+
+Fyrirsagnir í Org gera auðvelt að raða eftir efni og töflurnar gera
+auðvelt að raða eftir mynstri. Tafla með sagnendingum, orðalisti
+flokkaður eftir þema, stutt útskýring á málfræðiatriði með dæmum undir:
+allt er þetta fljótlegt að skrifa og auðvelt að endurraða. Ég get brotið
+kafla saman þegar ég er búinn með hann og opnað hann aftur þegar ég vil
+rifja upp.
+
+Merki hjálpa líka. Fyrirsögn getur borið merki eins og =:verbs:= eða
+=:icelandic:= og síðar get ég leitað að öllu með því merki í öllum
+skrám. Ef ég vil allar glósurnar mínar um tiltekið málfræðiatriði þarf ég
+ekki að grufla í möppum. Ég bið bara um merkið.
+
+** Glósur sem verða að einhverju
+
+Það sem skiptir mig mestu máli er hvert glósurnar enduðu. Þær byrjuðu sem
+hrúga af hreinum texta í Org og urðu að útgefinni bók minni, /Icelandic
+Vocabulary/. Ekkert á þeirri leið krafðist þess að ég flytti glósurnar
+fyrst í annað snið. Ég hélt áfram að skrifa á sama stað, á sama hátt, og
+glósuhrúgan varð smám saman að uppbyggingu sem hægt var að gefa út.
+
+Ég er ekki viss um að ég hefði skrifað bókina ef leiðin frá glósum til
+bókar hefði þýtt stóran flutning. Það var auðvelt að halda áfram, svo ég
+hélt áfram. Það er stór hluti af því sem Org gefur mér: næsta skref er
+alltaf innan seilingar.
+
+** Sama gildir um bloggið
+
+Þetta blogg er líka skrifað í Org og það kemur út á nokkrum tungumálum:
+íslensku, sænsku, þýsku og japönsku auk ensku. Hver þýðing er sín eigin
+Org-skrá við hliðina á frumtextanum og tungumál hverrar síðu er skráð í
+skránni sjálfri. Ég skrifa því einkaglósurnar mínar og opinberu
+færslurnar á sama hátt og innsláttaraðferðirnar sem ég nota fyrir annað
+virka fyrir hitt.
+
+* Þar sem glósunum lýkur og áætluninni sleppir
+
+Lengi voru glósurnar mínar bara glósur. Þær lýstu hlutum og lágu þar. Það
+sem breyttist var þegar ég fór að setja dagsetningar og verkefni inn í
+þær og láta Org Agenda lesa þær aftur fyrir mig.
+
+Org Agenda er sýn yfir glósurnar manns. Hún hefur engan eigin gagnagrunn
+og engar eigin skrár. Hún les Org-skrárnar sem maður hefur sagt henni
+frá, finnur færslurnar sem hafa verkefnastöðu, áætlaða dagsetningu eða
+skilafrest og sýnir þær saman sem lista fyrir daginn eða vikuna. Glósurnar
+eru áfram nákvæmlega þar sem þær eru. Dagskráin er gluggi á þær.
+
+** Að kveikja á henni
+
+Síða handbókarinnar um virkjun er stutt og hún gerir athugasemd sem ég
+kann að meta: þrjár Org-skipanir ættu að vera aðgengilegar hvar sem er í
+Emacs, ekki bara inni í Org-biðminni. Þær eru =org-store-link=,
+=org-capture= og =org-agenda=. Org úthlutar engum lyklum fyrir þær því
+réttu lyklarnir fara eftir restinni af uppsetningu manns. Í staðinn
+stingur handbókin upp á því að maður setji þessar línur í init-skrána
+sína:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c c") #'org-capture)
+(global-set-key (kbd "C-c a") #'org-agenda)
+#+end_src
+
+Eftir það opnar =C-c a= valmynd dagskrárinnar úr hvaða biðminni sem er,
+sama hvað ég er að vinna í. Handbókin segir að maður megi breyta
+lyklunum að vild og ég hvet til þess. Það er sami andi og í öllu öðru í
+Emacs: sjálfgefnu gildin eru tillaga.
+
+Hitt sem dagskráin þarf er að vita hvaða skrár hún á að lesa. Það er
+breytan =org-agenda-files=, sem geymir lista af skrám eða möppum til að
+leita í. Ég hef þann lista vísvitandi stuttan og skýran, því dagskrá sem
+les allt sýnir allt og dagskrá sem sýnir allt hættir að vera gagnleg. Eins
+og er eru dagskrárskrárnar mínar bara þær sem eru í möppunum mínum fyrir
+verkefni og ábyrgðarsvið.
+
+** Verkefni, dagsetningar og skilafrestir
+
+Þrjár hugmyndir ná yfir mest af því sem ég geri með henni.
+
+*Verkefni er fyrirsögn með stöðu.* Setji maður =TODO= fremst í fyrirsögn
+meðhöndlar Org hana sem verkefni. =C-c C-t= flettir henni í gegnum
+stöðurnar og þegar ég er búinn verður hún =DONE=. Meira þarf ekki til að
+fyrirsögn birtist í verkefnalista dagskrárinnar.
+
+*Áætlun segir hvenær á að byrja.* =C-c C-s= festir áætlaða dagsetningu á
+fyrirsögn, valda úr litlu dagatali svo ég þurfi ekki að skrifa hana. Áætluð
+færsla birtist þann dag í dagskránni og heldur áfram að birtast hvern dag
+eftir það þar til ég merki hana lokið, svo hún getur ekki horfið
+þegjandi og hljóðalaust.
+
+*Skilafrestur segir hvenær eitthvað á að vera tilbúið.* =C-c C-d= bætir
+við skilafresti. Dagskráin varar við komandi skilafrestum með fyrirvara,
+svo gjalddagi birtist dögum áður en hann rennur upp og viðvörunin verður
+brýnni eftir því sem nær dregur.
+
+Þetta er allur orðaforðinn: staða, upphafsdagur og lokadagur. Allt annað
+eru smáatriði.
+
+** Að sjá allt í einu
+
+Svo opnar =C-c a= litla valmynd með sýnum. Þær tvær sem ég nota mest eru
+einfaldar:
+
+- *Vikudagskráin* (=C-c a a=) sýnir daga vikunnar í röð, með áætluðum
+  færslum og skilafrestum á sínum stað og athugasemd um hvað er komið fram
+  yfir tímann.
+- *Altæki verkefnalistinn* (=C-c a t=) telur upp öll opin verkefni í
+  öllum dagskrárskrám mínum, hvar sem þau fela sig.
+
+Úr hvorri sýn sem er get ég stokkið beint á fyrirsögnina sem lína kemur
+frá, breytt stöðu hennar, fært hana til eða merkt hana lokið án þess að
+yfirgefa dagskrána. Dagskráin og glósurnar haldast í takt því þær eru
+eitt og hið sama.
+
+** Hvers vegna þetta fer svona vel með glósum
+
+Þetta var það sem fékk mig til að átta mig. Flest verkefnaforrit vilja
+að maður aðskilji verkefnin frá hugsuninni. Verkefnið fer í forritið og
+hugsunin eitthvert annað og þetta tvennt rekur hægt og rólega í sundur.
+Á endanum situr maður með verkefni sem segir „rifja upp íslenska þátíð“
+og veit ekki hvar glósurnar um hana eru.
+
+Í Org getur verkefnið búið /inni í/ glósunni sem það tilheyrir. Fyrirsögn
+eins og „Rifja upp þátíð sterkra sagna“ getur staðið rétt undir glósunum
+um sterkar sagnir, með útskýringunni, töflunum og dæmunum beint fyrir
+neðan. Þegar hún birtist í dagskránni og ég opna hana lendi ég mitt í því
+efni sem ég þarf, ekki á tómri línu á sérstökum lista.
+
+Þetta hentar tungumálanámi afar vel, því svo mikið af því felst í að
+koma aftur að sama efninu. Ég sný aftur að efnisatriðum, ég áætla tíma
+fyrir þau og vil hafa glósurnar við höndina þegar ég geri það. Dagskráin
+minnir mig á að koma aftur og glósurnar eru það sem ég sný aftur að.
+
+Ég hef líka verið að spila mikið Hay Day upp á síðkastið, svo ég nota
+dagskrána til að búa til tímatöflu til að fylgjast með framvindunni minni
+í leiknum dag frá degi. Það er virkilega þægilegt að hafa allt um leikinn
+á einum stað: glósurnar mínar um framgang í borðum og meira að segja
+tölfræðin mín liggja við hliðina á öllum hinum glósunum.
+
+** Capture, svo ekkert týnist
+
+Þriðja skipunin, =org-capture=, er sú sem heldur kerfinu heiðarlegu.
+Hugsun kemur á óheppilegu augnabliki: orð sem ég var að rekast á, hugmynd
+að færslu, eitthvað sem ég þarf að gera á morgun. =C-c c= opnar lítið
+biðminni hvar sem er í Emacs, ég skrifa það niður og það er skráð án þess
+að kippa mér út úr því sem ég var að gera. Ég get flokkað það seinna þegar
+ég er með skýran haus.
+
+Freistingin við öll glósukerfi er að gera þau of flókin. Capture er
+andstæðan: auðveld leið inn, og skipulagið bíður þar til ég er tilbúinn.
+
+** Lítill vikulegur ávani
+
+Dagskráin hentar líka vel í stutta vikulega yfirferð og þennan ávana
+myndi ég mæla mest með við alla sem eru að byrja. Einu sinni í viku opna
+ég vikusýnina og lít á þrennt: hvað er komið fram yfir tímann, hvað er
+framundan og hvað liggur í verkefnalistanum án nokkurrar dagsetningar.
+
+Færslur sem eru komnar fram yfir tímann eru þær heiðarlegu. Hver þeirra
+er ákvörðun sem bíður þess að vera tekin. Annaðhvort geri ég það núna, ég
+gef henni nýja dagsetningu, eða ég viðurkenni að það verður ekkert úr
+því og eyði henni. Komandi færslur sýna mér lögun vikunnar áður en hún
+hefst, svo ég verði ekki hissa á fimmtudegi. Og verkefni án dagsetningar
+eru þau sem eru líklegust til að gleymast, svo þeim gef ég dagsetningu,
+jafnvel gróflega áætlaða.
+
+Þetta tekur nokkrar mínútur. Það sem það gerir er að koma í veg fyrir að
+dagskráin verði að hrúgu. Listi sem maður lítur á og tekur til í í hverri
+viku helst áreiðanlegur og lista sem maður treystir notar maður í raun og
+veru. Listi sem maður hefur hætt að treysta er bara enn einn staðurinn
+þar sem hlutir hverfa.
+
+Sami ávani virkar fyrir tungumálaglósur. Þegar ég lít á vikuna sé ég hvaða
+efnisatriði ég ætlaði að rifja upp og get ákveðið hvort mér þykir enn
+vænt um þau. Ef svo er fá þau dagsetningu. Ef ekki má ég sleppa þeim, sem
+er léttir sem ég átti ekki von á frá skipulagsverkfæri.
+
+* Hvers vegna ég treysti því
+
+Allt þetta er hreinn texti. Glósurnar, verkefnin, dagsetningarnar og
+skilafrestirnir eru línur í Org-skrám sem ég get lesið í hvaða ritli sem
+er. Dagskráin er eitthvað sem Emacs byggir upp úr þeim í hvert sinn sem
+ég bið um hana. Ef allt hyrfi á morgun ætti ég samt glósurnar mínar og
+verkefnin og dagsetningarnar væru enn læsileg á síðunni.
+
+Ég veit hversu miklu þetta skiptir því ég hef gert þetta á hinn veginn.
+Glósur inni í forriti geta verið yndislegar þar til forritið breytist eða
+hættir og þá sitja þær fastar bak við ákvarðanir einhvers annars. Ég vil
+miklu frekar geyma allt í skrám sem ég á sjálfur. Það er líka ástæðan
+fyrir því að ég flutti glósurnar mínar aftur í Emacs eftir að hafa prófað
+Obsidian. Obsidian var ágæt upplifun, sérstaklega eftir að Bases kom út,
+en ég saknaði Meow-lyklaskipananna minna og eini staðurinn þar sem ég get
+notað þær er Emacs. Glósurnar mínar voru þegar í hreinum texta svo
+flutningurinn til baka kostaði mig nánast ekkert. Það er hljóðláti
+kosturinn við venjulegar skrár: maður er aldrei í raun fastur, svo maður
+er frjáls að fara þangað sem manni líður best.
+
+* Ókostirnir, hreinskilnislega
+
+Það er sanngjarnt að segja hvar þetta bregst.
+
+- *Það er mikið að læra.* Org Agenda sérstaklega hefur ógrynni af
+  valkostum. Flesta þeirra má hunsa, en það er auðvelt að verða yfirbugaður
+  í byrjun.
+- *Þetta er sniðið fyrir borðtölvu.* Ég vil miklu frekar /lesa/ glósurnar
+  mínar í símanum en breyta þeim þar. Næstum allt sem ég skrifa gerist á
+  fartölvunni, svo það hentar mér, en ef maður vill skrifa glósur hvar sem
+  er er þetta raunveruleg takmörkun.
+- *Maður þarf að halda reglu.* Dagskrá er ekki betri en skrárnar á bak við
+  hana. Ef óloknum verkefnum hleðst upp fyllist sýnin af suði. Það hjálpar
+  að merkja færslurnar mínar, því í dagskránni get ég ýtt á =/= til að
+  sía eftir merki eða reglulegri segð.
+- *Það þarf uppsetningu.* Innsláttaraðferðir, dagskrárskrár og lyklaskipanir
+  þurfa smá stillingar áður en þær fara að sitja rétt.
+
+* Ef þig langar að prófa
+
+Ef þetta vekur löngun til að prófa er hér minnsta útgáfan sem ég myndi
+stinga upp á:
+
+1. Hafðu glósurnar þínar í nokkrum Org-skrám, eða einni til að byrja með.
+2. Bittu =C-c a=, =C-c c= og =C-c l= með línunum þremur úr handbókinni.
+3. Segðu Emacs hvaða skrár það á að lesa með því að stilla
+   =org-agenda-files=.
+4. Bættu =TODO= við eina fyrirsögn og gefðu henni áætlaða dagsetningu með
+   =C-c C-s=.
+5. Ýttu á =C-c a a= og sjáðu hana birtast.
+6. Ef þú skrifar á öðru tungumáli, veldu innsláttaraðferð með =C-\= og
+   reyndu að skrifa glósu á því.
+
+Hafðu ekki áhyggjur af því að fá uppbygginguna rétta í fyrstu tilraun. Mín
+breyttist nokkrum sinnum á meðan ég komst að því hvað ég þurfti í raun og
+veru, og þar sem allt er hreinn texti þýðir endurskipulagning bara að
+færa fyrirsagnir til. Byrjaðu í óreiðu, taktu eftir því sem fer í taugarnar
+á þér og lagaðu þann eina hlut.
+
+Þetta er kvöldstund og ekkert í því bindur þig. Ef þetta er ekki fyrir þig
+situr þú uppi með nokkrar venjulegar textaskrár og hefur engu tapað.
+
+* Það sem ég tek með mér
+
+Org er þar sem ég hugsa og líka þar sem ég skipulegg. Hvort tveggja gerist
+í sömu skrám, í sama ritli, á hvaða tungumáli sem ég skrifa. Fjöltyngið
+þýðir að ég get skrifað eins og tungumálanemi skrifar í raun og veru, með
+íslensku, sænsku og ensku í bland, án þess að verkfærið þvælist fyrir.
+Dagskráin þýðir að glósurnar liggja ekki bara þar: þær segja mér hvað ég
+ætlaði að gera næst.
+
+Ég ætlaði bara að læra tungumál. Einhvers staðar á leiðinni endaði ég
+með kerfi sem hjálpar mér við það og það er byggt úr hreinum texta. Ef þú
+heldur glósur á fleiri en einu tungumáli, eða hefur einhvern tímann misst
+verkefni af því það bjó aðskilið frá því sem það snerist um, þá held ég að
+það sé þess virði að eyða kvöldstund í þetta.
+
+Mig langar að heyra hvernig þú heldur þínar eigin glósur og hvað þú notar,
+ef eitthvað, til að skipuleggja í kringum þær.
