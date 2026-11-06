@@ -1,6 +1,6 @@
 #+TITLE: Von isländischen Notizen zum veröffentlichten Buch: /Icelandic Vocabulary/ 🇮🇸📚
 #+DATE: <2026-09-30 Wed>
-#+FILETAGS: :icelandic:emacs:org-mode:books:
+#+FILETAGS: :icelandic:language-learning:publishing:org-mode:emacs:
 #+DESCRIPTION: Wie aus einem Stapel isländischer Lernnotizen in Org mode nach und nach ein veröffentlichtes Buch wurde.
 #+HERO: banner.png
 #+TIMEZONE: America/Port_of_Spain

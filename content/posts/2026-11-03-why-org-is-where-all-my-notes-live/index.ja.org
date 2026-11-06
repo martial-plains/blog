@@ -4,7 +4,7 @@
 #+TIMEZONE: America/Port_of_Spain
 #+LANGUAGE: ja
 #+OPTIONS: toc:nil num:nil
-#+FILETAGS: :emacs:org-mode:notes:languages:agenda:
+#+FILETAGS: :org-mode:emacs:notes:language-learning:planning:
 #+HERO: banner.ja.png
 #+HERO_ALT: スウェーデン語のenとettの名詞についてのOrgノートを表示したEmacsのウィンドウ
 #+DESCRIPTION: Org modeがノート、特に多言語のノートに最適だと思う理由と、Org Agendaがそのノートを一日の計画に変えてくれる仕組みについて。

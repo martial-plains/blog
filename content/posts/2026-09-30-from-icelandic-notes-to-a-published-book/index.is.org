@@ -1,6 +1,6 @@
 #+TITLE: Frá íslenskum glósum til útgefinnar bókar: /Icelandic Vocabulary/ 🇮🇸📚
 #+DATE: <2026-09-30 Wed>
-#+FILETAGS: :icelandic:emacs:org-mode:books:
+#+FILETAGS: :icelandic:language-learning:publishing:org-mode:emacs:
 #+DESCRIPTION: Hvernig hrúga af íslenskum námsglósum í Org mode breyttist smám saman í útgefna bók.
 #+HERO: banner.png
 #+TIMEZONE: America/Port_of_Spain

@@ -1,6 +1,6 @@
 #+title: Flashcards, quizzes, and why I stopped choosing between them
 #+date: <2026-10-20 9:00>
-#+filetags: :languages:learning:flashcards:spaced_repetition:cloze:quizzes:multiple_choice:matching:writing:speaking:
+#+filetags: :language-learning:flashcards:spaced-repetition:quizzes:
 #+description: What flashcards and quiz-style exercises each do for vocabulary, where each one misleads you, and how I fit them together.
 #+timezone: America/Port_of_Spain
 #+options: toc:nil num:nil ^:{}

@@ -4,7 +4,7 @@
 #+TIMEZONE: America/Port_of_Spain
 #+LANGUAGE: sv
 #+OPTIONS: toc:nil num:nil
-#+FILETAGS: :emacs:org-mode:notes:languages:agenda:
+#+FILETAGS: :org-mode:emacs:notes:language-learning:planning:
 #+HERO: banner.sv.png
 #+HERO_ALT: En Org-anteckning om svenska en- och ett-ord, visad i ett Emacs-fönster
 #+DESCRIPTION: Varför Org-mode är det bästa stället jag hittat för anteckningar, särskilt flerspråkiga, och hur Org Agenda förvandlar anteckningarna till en plan för dagen.

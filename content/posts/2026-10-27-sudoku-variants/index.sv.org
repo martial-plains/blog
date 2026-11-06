@@ -6,7 +6,7 @@
 #+options: toc:nil num:nil
 #+description: Hur jag upptäckte att sudoku finns i dussintals regelvarianter, och hur jag lärde ett Rust-spel att spela dem.
 #+hero: banner.sv.svg
-#+filetags: :puzzles:gamedev:rust:
+#+filetags: :puzzles:sudoku:gamedev:
 
 * Jag trodde att jag kunde sudoku
 

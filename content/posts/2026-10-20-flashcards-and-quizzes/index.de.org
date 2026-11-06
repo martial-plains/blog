@@ -1,6 +1,6 @@
 #+title: Karteikarten, Quizze und warum ich aufgehört habe, mich zwischen ihnen zu entscheiden
 #+date: <2026-10-20 9:00>
-#+filetags: :languages:learning:flashcards:spaced_repetition:cloze:quizzes:multiple_choice:matching:writing:speaking:
+#+filetags: :language-learning:flashcards:spaced-repetition:quizzes:
 #+description: Was Karteikarten und Quizübungen jeweils für den Wortschatz leisten, wo sie einen jeweils täuschen und wie ich sie kombiniere.
 #+language: de
 #+timezone: America/Port_of_Spain

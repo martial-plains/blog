@@ -1,6 +1,6 @@
 #+title: Minnisspjöld, spurningaleikir og hvers vegna ég hætti að velja á milli
 #+date: <2026-10-20 9:00>
-#+filetags: :languages:learning:flashcards:spaced_repetition:cloze:quizzes:multiple_choice:matching:writing:speaking:
+#+filetags: :language-learning:flashcards:spaced-repetition:quizzes:
 #+description: Hvað minnisspjöld og spurningaæfingar gera hvort um sig fyrir orðaforða, hvar hvort um sig blekkir þig og hvernig ég raða þeim saman.
 #+language: is
 #+timezone: America/Port_of_Spain

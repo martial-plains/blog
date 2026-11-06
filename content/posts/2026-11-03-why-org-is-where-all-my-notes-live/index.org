@@ -4,7 +4,7 @@
 #+TIMEZONE: America/Port_of_Spain
 #+LANGUAGE: en-GB
 #+OPTIONS: toc:nil num:nil
-#+FILETAGS: :emacs:org-mode:notes:languages:agenda:
+#+FILETAGS: :org-mode:emacs:notes:language-learning:planning:
 #+HERO: banner.png
 #+HERO_ALT: An Org note on Swedish en and ett nouns, shown in an Emacs window
 #+DESCRIPTION: Why Org mode is the best place I've found for notes, especially multilingual ones, and how Org Agenda turns those notes into a plan for the day.

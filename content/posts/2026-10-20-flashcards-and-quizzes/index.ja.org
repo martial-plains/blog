@@ -1,6 +1,6 @@
 #+title: フラッシュカードとクイズ、そして両者から選ぶのをやめた理由
 #+date: <2026-10-20 9:00>
-#+filetags: :languages:learning:flashcards:spaced_repetition:cloze:quizzes:multiple_choice:matching:writing:speaking:
+#+filetags: :language-learning:flashcards:spaced-repetition:quizzes:
 #+description: フラッシュカードとクイズ形式の練習は語彙学習でそれぞれ何をしてくれるのか、どこで錯覚を起こさせるのか、そして私がどう組み合わせているか。
 #+language: ja
 #+timezone: America/Port_of_Spain

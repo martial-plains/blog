@@ -1,6 +1,6 @@
 #+title: Flashcards, quiz och varför jag slutade välja mellan dem
 #+date: <2026-10-20 9:00>
-#+filetags: :languages:learning:flashcards:spaced_repetition:cloze:quizzes:multiple_choice:matching:writing:speaking:
+#+filetags: :language-learning:flashcards:spaced-repetition:quizzes:
 #+description: Vad flashcards och quizövningar gör för ordförrådet, var de var för sig vilseleder dig och hur jag kombinerar dem.
 #+language: sv
 #+timezone: America/Port_of_Spain
