@@ -1,0 +1,244 @@
+#+TITLE: Hvernig þetta blogg er smíðað
+#+SUBTITLE: Org mode, ein Emacs Lisp-skrá og dagleg smíð
+#+DATE: <2026-11-10 09:00>
+#+TIMEZONE: America/Port_of_Spain
+#+LANGUAGE: is
+#+OPTIONS: toc:nil num:nil
+#+FILETAGS: :emacs:org-mode:blogging:web:
+#+HERO: banner.is.png
+#+HERO_ALT: Dökkur borði með titlinum „Hvernig þetta blogg er smíðað“. Til vinstri er Org-frumtexti færslunnar, til hægri fullbúna síðan og ör á milli
+#+DESCRIPTION: Skoðunarferð um það hvernig þetta blogg er smíðað: Org-skrár, ein smíðaforskrift í Emacs Lisp, fimm tungumál, tímasettar færslur og tenglaathugun sem stöðvar gallaða birtingu.
+
+Hver einasta færsla á þessu bloggi er venjuleg Org-skrá og vefurinn er
+smíðaður af Emacs sjálfum. Þar er enginn Hugo, enginn Jekyll og enginn
+Node. Það er bara ein smíðaforskrift, =publish.el=, eitt stílsnið, ein
+JavaScript-skrá og stutt Python-forskrift sem athugar tengla.
+
+Í síðustu viku skrifaði ég um
+[[file:../2026-11-03-why-org-is-where-all-my-notes-live/index.org][hvers
+vegna glósurnar mínar búa í Org]]. Þessi færsla fjallar um hinn endann á
+sömu pípu: hvað gerist þegar ein af þessum skrám verður að vefsíðu, og
+þær fáu ákvarðanir í smíðinni sem ég stend við.
+
+* Hvers vegna ég smíðaði það svona
+
+Org geymir nú þegar allt annað sem ég skrifa. Tungumálaglósurnar mínar
+búa þar og /Icelandic Vocabulary/ óx upp úr þeim án þess að ég þyrfti
+fyrst að flytja þær yfir í annað snið. Ég vildi að bloggið virkaði eins:
+færsla er bara enn ein Org-skrá, skrifuð í sama ritli, með sömu
+innsláttaraðferðum fyrir íslensku, sænsku og þýsku.
+
+Það útilokaði flesta vettvangana sem ég skoðaði, því þeir eru gerðir
+fyrir Markdown. Ég hefði getað skrifað í Org og flutt út í Markdown bara
+til að birta, en það eru of mörg hreyfanleg stykki fyrir blogg. Ég
+notaði Quartz lengi áður en ég byrjaði á þessu og það gengur út frá
+Markdown á sama hátt.
+
+Hin ástæðan er einfaldari: mér finnst gaman að forrita og það að smíða
+vefinn sjálfur var hluti af aðdráttaraflinu. Færslurnar áttu því alltaf
+að vera Org-skrár og spurningin var hvað breytir þeim í vef. Svarið
+reyndist vera Emacs aftur, í gegnum =org-publish=.
+
+* Uppbyggingin
+
+Verkefnið allt er nógu lítið til að komast fyrir á einum skjá:
+
+#+begin_example
+publish.el                 Smíðaforskriftin
+content/
+  index.org, about.org     Heimasíðan og Um mig-síðan
+  posts/foo/index.org      Færsla í sinni eigin möppu
+  posts/foo/index.is.org   ...og íslenska þýðingin hennar
+  posts/foo/banner.png     ...og myndirnar hennar, rétt við hliðina
+  css/style.css            Stílsniðið
+  js/site.js               Tækjastikan (útlit, tungumál, leit, efnisyfirlit)
+scripts/check-links.py     Athugun á biluðum tenglum
+.github/workflows/         Birting á GitHub Pages
+#+end_example
+
+Í tölum: =publish.el= er um 1.600 línur og 87 föll af Emacs Lisp.
+Stílsniðið er um 500 línur, JavaScript-ið um 370 og tenglaathugunin um
+100. Færslurnar eru fimm hingað til, hver á fimm tungumálum, sem gerir
+25 færsluskrár. Þá eru ekki taldar með síðurnar Heim, Um mig, Safn,
+Efnisorð og 404.
+
+Tækjastikan í þessu tré er fljótandi stikan neðst á hverri síðu. Á henni
+eru rofi fyrir útlit, tungumálavalmyndin, leit og efnisyfirlit, og
+mestur hluti JavaScript-sins snýst um hana.
+
+Að smíða vefinn er ein skipun:
+
+#+begin_src sh
+emacs --batch -l publish.el -f blog-publish
+#+end_src
+
+Þetta skrifar fullbúinn vefinn í =public/=. Í fyrstu keyrslu þarf
+nettengingu, því hún setur upp =htmlize= (til að lita kóðablokkir) og
+=org-contrib= (fyrir RSS-strauminn) frá ELPA. Til að skoða útkomuna
+þjóna ég möppunni með innbyggða vefþjóninum í Python á gátt 8000. Ég
+þarf að nota vefþjón í stað þess að opna skrárnar beint, því tenglarnir
+á hverri síðu miðast við rót vefsins.
+
+#+CAPTION: Frá glósu til síðu á vefnum. Strikalínurnar sýna hvað ræsir smíðina og hvað getur stöðvað hana.
+[[file:pipeline.is.svg]]
+
+* Hvað Org gerir og hverju ég bætti við
+
+Org er þegar með útgáfukerfi, =org-publish=. Maður lýsir verkefni og það
+flytur hverja Org-skrá í möppu út í HTML. Það kemur manni langleiðina að
+bloggi eitt og sér.
+
+Allt í kringum greinina er mitt: haus með titlinum, dagsetningunni og
+lestrartímanum, og fótur með efnisorðunum, allt að þremur tengdum
+færslum og tenglum á eldri og nýrri færslu. Tengdu færslurnar eru
+einfaldlega þær sem deila flestum efnisorðum með þeirri sem verið er að
+lesa. Fyrirsagnir fá líka akkeri, þannig að þegar bendillinn er settur
+yfir eina birtist =#= sem afritar tengil á þann kafla. Akkerin eru unnin
+úr texta fyrirsagnarinnar, ekki úr númeri, svo þau breytast ekki þótt ég
+breyti textanum í kring.
+
+Ekkert af þessu er glæsilegt á þann hátt sem sniðmátamál eru glæsileg.
+Þetta eru Emacs Lisp-föll sem skila strengjum af HTML. En það er á máli
+sem ég nota allan daginn hvort sem er og færslurnar sjálfar eru áfram
+hreinn texti sem ég get opnað í hverju sem er.
+
+* Ein skrá fyrir hvert tungumál
+
+Bloggið kemur út á ensku, íslensku, sænsku, japönsku og þýsku. Hver
+þýðing er sín eigin Org-skrá, rétt við hliðina á frumtextanum, með
+tungumálakóðanum á undan skráarendingunni:
+
+#+begin_example
+posts/foo/index.org      ->  /posts/foo/
+posts/foo/index.is.org   ->  /is/posts/foo/
+#+end_example
+
+Síða telst þýdd þegar þýðingarskráin hennar er til. Tungumálavalmyndin á
+tækjastikunni birtist aðeins á síðum sem eru til á fleiri en einu
+tungumáli og valið þitt er munað. Í fyrstu heimsókn sendir lítil
+forskrift þig á útgáfuna á þínu tungumáli: hún notar vistað val ef það
+er til, og annars fyrsta tungumálið á lista vafrans þíns sem síðan er
+til á. Ef ekkert passar verðurðu áfram á ensku útgáfunni.
+
+Að bæta við tungumáli eru þrjú lítil atriði: ein lína í
+=blog-languages=, færsla fyrir orðin sem vefurinn bætir sjálfur við
+(Heim, Safn, „mín. lestur“) og mánaðaheitin, og svo þýddu skrárnar. Allt
+sem ég hef ekki þýtt fellur aftur á ensku.
+
+Þetta kostar sitt: hver færsla er fimm skrár sem þarf að halda í takt.
+Hver þýðing ber sinn eigin haus, með eigin titli, lýsingu, dagsetningu,
+tímabelti og borða, því hver skrá er lesin ein og sér. Efnisorðin eru
+þau sömu og í frumtextanum, svo efnisorðasíðurnar passa saman milli
+tungumála. Sudoku-færslan á flest eintök af öllu. Skýringarmyndirnar í
+henni hafa texta inni í sér, svo hver mynd er til fimm sinnum, einu
+sinni fyrir hvert tungumál.
+
+* Dagsetningar og tímabelti
+
+Þetta er sá hluti sem ég myndi verja harðast. =#+DATE:= færslu er lesið
+sem staðartími í tímabelti færslunnar sjálfrar, sem er stillt með
+=#+TIMEZONE:=. Ef færslan hefur ekkert notar það sjálfgefna gildið efst
+í =publish.el=, sem er =America/Port_of_Spain=.
+
+Það þýðir að ég get flutt til annars lands án þess að nokkuð sem þegar
+er skrifað færist til. Nýjar færslur fá nýja tímabeltið og gamlar halda
+sínu. Síðan sjálf sýnir bara dagsetninguna, svo þú sæir aldrei muninn,
+en tímabeltið ákvarðar nákvæmt augnablik útgáfunnar, sem skiptir máli
+fyrir röð færslna og fyrir dagsetningarnar í RSS-straumnum.
+
+Tímabeltið er gefið upp berum orðum í hvert sinn sem dagsetning er lesin
+eða birt, í stað þess að breyta tímabeltinu fyrir allt Emacs-ferlið. Sú
+leið krefst Emacs 27 eða nýrra. Og það er ein lítil vörn sem ég er
+ánægður með. Ef maður gefur Emacs tímabeltisheiti sem það þekkir ekki,
+meðhöndlar það það þegjandi sem UTC. Innsláttarvilla gæti sett færslu á
+rangan dag án nokkurrar viðvörunar. Þess vegna ber smíðin nafnið saman
+við tímabeltisgagnagrunn kerfisins og stoppar með villu. Ég vil miklu
+frekar smíð sem bilar með látum en færslu sem lendir á röngum degi.
+
+* Drög og tímasettar færslur
+
+Bættu =#+DRAFT: t= við færslu, eða gefðu henni dagsetningu í
+framtíðinni, og hún er skilin út undan alls staðar: á vefnum, í
+straumunum, í leitinni, í vefkortinu, á síðunum Safn og Efnisorð,
+jafnvel myndirnar hennar. Til að sjá drög á meðan ég skrifa smíða ég með
+~BLOG_DRAFTS=1~.
+
+Tímasetningin virkar vegna þess hvernig birtingin er sett upp. GitHub
+Actions-vinnuflæði smíðar og birtir vefinn við hvert push á =main= og
+líka einu sinni á dag klukkan 13:05 UTC. Port of Spain er fjórum tímum á
+eftir UTC, svo það er 09:05 hér. GitHub lofar ekki að tímasett keyrsla
+hefjist á nákvæmlega réttri mínútu og keyrslur geta verið seinar þegar
+mikið er að gera, svo færsla sem er dagsett 09:00 fer í loftið í smíð
+þess dags, um níuleytið. Ég get skrifað færslu daginn áður, pushað henni
+og látið hana birtast þegar ég vil.
+
+#+CAPTION: Færsla með dagsetningu í framtíðinni helst utan allra smíða þar til dagsetningin er liðin.
+[[file:schedule.is.svg]]
+
+* Leit án netþjóns
+
+Bloggið er kyrrstæður vefur án netþjóns, svo það er ekkert sem
+leitarreitur getur spurt. Ég bætti við leit ef einhver vill fletta
+einhverju upp og hún keyrir alfarið í vafranum. Við smíði skrifar
+forskriftin =search-index.json= fyrir hvert tungumál, með titli,
+vistfangi, dagsetningu, efnisorðum, lýsingu og öllum texta hverrar
+færslu. Leitin á tækjastikunni hleður þeirri skrá í vafranum og síar
+hana þar. Skráin er aðeins sótt þegar smellt er í leitarreitinn, svo
+gestur sem aldrei leitar hleður henni aldrei niður. Þar sem hún
+inniheldur allan texta hverrar færslu stækkar hún með blogginu; í bili
+er enski textinn um 12.000 orð.
+
+Textinn er gerður að smástöfum, broddar og önnur áherslumerki eru
+fjarlægð og íslenskir stafir felldir saman svo leitin passi frjálslegar.
+Samfellingin er einn stafur fyrir einn staf, svo staðsetning samsvörunar
+passar enn við upprunalega textann.
+
+Á löngum síðum sýnir tækjastikan líka heiti kaflans sem maður er í, við
+hlið lítils framvinduhrings, og á síðunni Færslur er efnisorðasía. Síðan
+sjálf er í hlýjum gráum lit, í einum dálki, í ljósri og dökkri útgáfu.
+Letrið er Inter, borið fram af vefnum sjálfum, svo allir sjá sama letur
+og engin beiðni fer til Google. Lestrartími miðast við 230 orð á mínútu
+og japanska er talin í táknum, 500 á mínútu.
+
+* Athuganir áður en nokkuð fer í loftið
+
+Python-forskriftin er um hundrað línur. Hún gengur í gegnum smíðaða
+vefinn, les hverja síðu og athugar alla innri tengla, myndir og
+=#kafli=-tengla. Ef einhver er bilaður hættir hún með villu og
+birtingarvinnuflæðið stoppar áður en nokkuð fer á netið. Hún sleppir
+ytri tenglum viljandi, svo hún sé fljótleg og bili aldrei vegna þess að
+vefur einhvers annars liggi niðri. Það á líka við um ytri myndir. Hún
+afkóðar þó slóðir með URL-kóðun fyrst, svo tengill með =%20= eða kóðuðum
+staf með broddi leysist enn rétt.
+
+Þetta er hófleg athugun og hún hefur takmörk. Ef ég endurnefni fyrirsögn
+breytist akkerið hennar og allir tenglar á það gamla hætta að skruna á
+réttan stað. Forskriftin finnur mína eigin bilaða tengla á hana. Hún
+getur ekki fundið þá sem aðrir hafa vistað.
+
+* Hvað það gerir ekki
+
+- Það keyrir ekki kóðablokkir við smíði, svo allt úttak þarf að líma inn
+  í færsluna í höndunum.
+- Athugasemdir og vefgreining eru báðar innbyggðar, með giscus og
+  GoatCounter, og hvort tveggja er slökkt. Ég held að skrifin mín séu
+  ekki komin á það stig að fólk vilji skrifa athugasemdir, svo það getur
+  beðið.
+- Ytri tenglar eru ekki athugaðir.
+- Allar þýðingar eru handvirkar. Ekkert lætur mig vita þegar enski
+  textinn hefur breyst en sá sænski ekki.
+- Fyrsta smíð á nýrri vél krefst nettengingar.
+
+* Er það þess virði?
+
+Ég held ekki að allir þurfi að smíða sitt eigið útgáfukerfi. Org gefur
+manni nú þegar góða byrjun með =org-publish= og fjöldi bloggkerfa krefst
+miklu minna viðhalds. En mér líkar að vita að skrárnar á tölvunni minni
+eru hin raunverulega uppspretta vefsins. Ég get opnað þær í Emacs eða
+hvaða öðrum ritli sem er, flutt verkefnið annað og endursmíðað allt
+hvenær sem ég vil. Það er sama ástæðan og fyrir því að glósurnar mínar
+búa í Org og fyrir mig er það þess virði að halda 1.600 lína Emacs
+Lisp-skrá í lagi.
+
+Ef þú rekur líka blogg á =org-publish= þætti mér gaman að heyra hverju
+þú hefur bætt við sem ég hef ekki gert.

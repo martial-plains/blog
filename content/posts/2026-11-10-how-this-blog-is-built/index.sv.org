@@ -1,0 +1,242 @@
+#+TITLE: Så byggs den här bloggen
+#+SUBTITLE: Org mode, en Emacs Lisp-fil och ett dagligt bygge
+#+DATE: <2026-11-10 09:00>
+#+TIMEZONE: America/Port_of_Spain
+#+LANGUAGE: sv
+#+OPTIONS: toc:nil num:nil
+#+FILETAGS: :emacs:org-mode:blogging:web:
+#+HERO: banner.sv.png
+#+HERO_ALT: En mörk banner med titeln Så byggs den här bloggen. Till vänster Org-källan till inlägget, till höger den färdiga sidan, med en pil emellan
+#+DESCRIPTION: En rundtur i hur den här bloggen byggs: Org-filer, ett enda byggskript i Emacs Lisp, fem språk, schemalagda inlägg och en länkkontroll som stoppar en dålig publicering.
+
+Varje inlägg på den här bloggen är en vanlig Org-fil, och sajten byggs
+av Emacs självt. Det finns varken Hugo, Jekyll eller Node. Det finns ett
+enda byggskript, =publish.el=, en stilmall, en JavaScript-fil och ett
+kort Python-skript som kontrollerar länkar.
+
+Förra veckan skrev jag om
+[[file:../2026-11-03-why-org-is-where-all-my-notes-live/index.org][varför
+mina anteckningar bor i Org]]. Det här inlägget handlar om andra änden
+av samma rör: vad som händer när en av de filerna blir en webbsida, och
+de få beslut i bygget som jag står för.
+
+* Varför jag byggde den så här
+
+Org rymmer redan allt annat jag skriver. Mina språkanteckningar bor där,
+och /Icelandic Vocabulary/ växte fram ur de anteckningarna utan att jag
+först behövde flytta dem till något annat format. Jag ville att bloggen
+skulle fungera likadant: ett inlägg är bara en Org-fil till, skriven i
+samma editor, med samma inmatningsmetoder för isländska, svenska och
+tyska.
+
+Det uteslöt de flesta plattformar jag tittade på, eftersom de är gjorda
+för Markdown. Jag hade kunnat skriva i Org och exportera till Markdown
+bara för att publicera, men det är många rörliga delar för en blogg. Jag
+använde Quartz länge innan det här, och det utgår från Markdown på samma
+sätt.
+
+Den andra anledningen är enklare: jag gillar att programmera, och att
+bygga sajten själv var en del av charmen. Inläggen skulle alltså alltid
+vara Org-filer, och frågan var vad som gör dem till en webbplats. Svaret
+blev Emacs igen, genom =org-publish=.
+
+* Uppbyggnaden
+
+Hela projektet är litet nog att rymmas på en skärm:
+
+#+begin_example
+publish.el                 Byggskriptet
+content/
+  index.org, about.org     Startsidan och Om mig
+  posts/foo/index.org      Ett inlägg, i sin egen mapp
+  posts/foo/index.is.org   ...och dess isländska översättning
+  posts/foo/banner.png     ...och dess bilder, precis intill
+  css/style.css            Stilmallen
+  js/site.js               Dockan (tema, språk, sök, innehåll)
+scripts/check-links.py     Kontroll av trasiga länkar
+.github/workflows/         Publicering till GitHub Pages
+#+end_example
+
+I siffror: =publish.el= är ungefär 1 600 rader och 87 funktioner i Emacs
+Lisp. Stilmallen är ungefär 500 rader, JavaScriptet ungefär 370 och
+länkkontrollen ungefär 100. Det finns fem inlägg hittills, vart och ett
+på fem språk, vilket blir 25 inläggsfiler. Då är inte sidorna Hem, Om
+mig, Arkiv, Ämnen och 404 inräknade.
+
+Dockan i det trädet är det flytande fältet längst ned på varje sida. Där
+finns temaväxlaren, språkmenyn, sökningen och innehållsförteckningen,
+och det mesta av JavaScriptet handlar om den.
+
+Att bygga sajten är ett enda kommando:
+
+#+begin_src sh
+emacs --batch -l publish.el -f blog-publish
+#+end_src
+
+Det skriver den färdiga sajten till =public/=. Första körningen kräver
+en nätverksanslutning, eftersom den installerar =htmlize= (för att färga
+kodblock) och =org-contrib= (för RSS-flödet) från ELPA. För att titta på
+resultatet serverar jag mappen med Pythons inbyggda webbserver på port
+8000. Jag måste använda en server i stället för att öppna filerna
+direkt, eftersom länkarna på varje sida utgår från roten.
+
+#+CAPTION: Från en anteckning till en publicerad sida. De streckade linjerna visar vad som startar bygget och vad som kan stoppa det.
+[[file:pipeline.sv.svg]]
+
+* Vad Org gör och vad jag har lagt till
+
+Org har redan ett publiceringssystem, =org-publish=. Man beskriver ett
+projekt, och det exporterar varje Org-fil i en mapp till HTML. Det
+räcker en bra bit på väg mot en blogg redan på egen hand.
+
+Allt runt själva artikeln är mitt: ett sidhuvud med titel, datum och
+lästid, och en sidfot med ämnen, upp till tre relaterade inlägg och
+länkar till äldre och nyare inlägg. De relaterade inläggen är helt
+enkelt de som delar flest ämnen med det aktuella. Rubrikerna får också
+ankare, så när man håller muspekaren över en syns ett =#= som kopierar
+en länk till det avsnittet. Ankarna kommer från rubrikens text, inte
+från ett nummer, så de ändras inte när jag redigerar runt omkring.
+
+Inget av det här är elegant på det sätt som ett mallspråk är elegant.
+Det är Emacs Lisp-funktioner som returnerar strängar med HTML. Men det
+är på ett språk jag redan använder hela dagarna, och inläggen själva
+förblir ren text som jag kan öppna i vad som helst.
+
+* En fil per språk
+
+Bloggen finns på engelska, isländska, svenska, japanska och tyska. En
+översättning är en egen Org-fil, placerad precis intill originalet med
+språkkoden före filändelsen:
+
+#+begin_example
+posts/foo/index.org      ->  /posts/foo/
+posts/foo/index.is.org   ->  /is/posts/foo/
+#+end_example
+
+En sida räknas som översatt när dess översättningsfil finns. Språkmenyn
+i dockan visas bara på sidor som finns på mer än ett språk, och ditt val
+kommer ihåg. Vid första besöket skickar ett litet skript dig till
+versionen på ditt språk: det använder det sparade valet om det finns
+ett, och annars det första språket i webbläsarens lista som sidan finns
+på. Om inget matchar stannar du på den engelska versionen.
+
+Att lägga till ett språk är tre små saker: en rad i =blog-languages=, en
+post för de ord som sajten själv lägger till (Hem, Arkiv, ”min läsning”)
+och månadsnamnen, och sedan de översatta filerna. Allt jag inte har
+översatt faller tillbaka på engelska.
+
+Det har ett pris: varje inlägg är fem filer som måste hållas i takt.
+Varje översättning har sitt eget sidhuvud, med egen titel, beskrivning,
+datum, tidszon och banner, eftersom varje fil läses för sig. Ämnena är
+desamma som i originalet, så ämnessidorna stämmer överens mellan
+språken. Sudoku-inlägget har flest kopior av allt. Dess diagram har text
+inuti, så varje diagram finns fem gånger, en gång per språk.
+
+* Datum och tidszoner
+
+Det här är den del jag försvarar hårdast. Ett inläggs =#+DATE:= läses
+som lokal tid i inläggets egen zon, som anges med =#+TIMEZONE:=. Saknas
+den används standardvärdet överst i =publish.el=, som är
+=America/Port_of_Spain=.
+
+Det betyder att jag kan flytta till ett annat land utan att något som
+redan är skrivet förskjuts. Nya inlägg får den nya zonen, och gamla
+behåller sin. Sidan visar bara datumet, så man ser aldrig skillnaden,
+men zonen avgör den exakta publiceringstidpunkten, vilket spelar roll
+för inläggens ordning och för datumen i RSS-flödet.
+
+Zonen skickas med uttryckligen varje gång ett datum läses eller visas, i
+stället för att byta zon för hela Emacs-processen. Det sättet kräver
+Emacs 27 eller senare. Och det finns ett litet skydd jag är nöjd med. Om
+man ger Emacs ett tidszonsnamn det inte känner igen tolkar det det tyst
+som UTC. Ett skrivfel kan lägga ett inlägg på fel dag utan någon
+varning. Därför kontrollerar bygget namnet mot systemets zondatabas och
+avbryter med ett felmeddelande. Jag vill mycket hellre ha ett bygge som
+havererar högljutt än ett inlägg som hamnar på fel datum.
+
+* Utkast och schemalagda inlägg
+
+Lägg till =#+DRAFT: t= i ett inlägg, eller ge det ett datum i framtiden,
+så utelämnas det överallt: från sajten, flödena, sökningen, sajtkartan,
+sidorna Arkiv och Ämnen, till och med dess bilder. För att se utkast
+medan jag skriver bygger jag med ~BLOG_DRAFTS=1~.
+
+Schemaläggningen fungerar tack vare hur publiceringen är uppsatt. Ett
+GitHub Actions-arbetsflöde bygger och publicerar sajten vid varje push
+till =main=, och dessutom en gång om dagen klockan 13:05 UTC. Port of
+Spain ligger fyra timmar efter UTC, så det är 09:05 här. GitHub lovar
+inte att en schemalagd körning startar på exakt rätt minut, och
+körningar kan bli försenade när det är mycket att göra, så ett inlägg
+daterat 09:00 går live i den dagens bygge, runt nio. Jag kan skriva ett
+inlägg dagen innan, pusha det och låta det dyka upp när jag vill.
+
+#+CAPTION: Ett inlägg med datum i framtiden hålls utanför varje bygge tills datumet har passerat.
+[[file:schedule.sv.svg]]
+
+* Sökning utan server
+
+Bloggen är en statisk sajt utan server, så det finns inget för en
+sökruta att fråga. Jag lade till sökning ifall någon vill slå upp något,
+och den körs helt i webbläsaren. Vid bygget skriver skriptet en
+=search-index.json= för varje språk, med varje inläggs titel, adress,
+datum, ämnen, beskrivning och hela texten. Dockans sökning läser in den
+filen i webbläsaren och filtrerar där. Filen hämtas först när man
+klickar i sökrutan, så en besökare som aldrig söker laddar aldrig ner
+den. Eftersom den innehåller hela texten i varje inlägg växer den med
+bloggen; just nu blir den engelska texten ungefär 12 000 ord.
+
+Texten görs om till gemener, accenter tas bort och isländska bokstäver
+slås ihop så att sökningar matchar friare. Ihopslagningen sker tecken
+för tecken, så en träffs position stämmer fortfarande med
+originaltexten.
+
+På långa sidor visar dockan också namnet på avsnittet du är i, bredvid
+en liten förloppsring, och sidan Inlägg har ett ämnesfilter. Själva
+sidan är varmgrå med en enda kolumn, i en ljus och en mörk variant.
+Typsnittet är Inter, serverat från sajten själv, så alla ser samma
+typsnitt och ingen förfrågan går till Google. Lästiden räknas med 230
+ord i minuten, och japanska räknas i tecken, 500 i minuten.
+
+* Kontroller innan något går live
+
+Python-skriptet är ungefär hundra rader. Det går igenom den byggda
+sajten, tolkar varje sida och kontrollerar varje intern länk, bild och
+=#avsnitt=-länk. Om någon är trasig avslutas det med ett fel, och
+publiceringsarbetsflödet stoppas innan något går ut på nätet. Det hoppar
+medvetet över externa länkar, så att det går snabbt och aldrig
+misslyckas för att någon annans sajt ligger nere. Det gäller även
+externa bilder. Det avkodar däremot URL-kodade sökvägar först, så en
+länk med =%20= eller en kodad bokstav med accent i sig går ändå att lösa
+upp.
+
+Det är en blygsam kontroll, och den har gränser. Om jag döper om en
+rubrik ändras dess ankare, och alla länkar till det gamla slutar scrolla
+till rätt ställe. Skriptet fångar mina egna trasiga länkar dit. Det kan
+inte fånga dem som andra har sparat.
+
+* Vad det inte gör
+
+- Det kör inte kodblock under bygget, så all utdata måste klistras in i
+  inlägget för hand.
+- Kommentarer och statistik är båda inbyggda, med giscus och
+  GoatCounter, och båda är avstängda. Jag tror inte att mitt skrivande
+  har kommit till det stadiet att folk känner för att kommentera än, så
+  de får vänta.
+- Externa länkar kontrolleras inte.
+- Översättningarna är helt manuella. Inget säger till mig när den
+  engelska texten har gått vidare och den svenska inte.
+- Ett första bygge på en ny maskin kräver en nätverksanslutning.
+
+* Är det värt det?
+
+Jag tror inte att alla behöver bygga sitt eget publiceringssystem. Org
+ger redan en bra start med =org-publish=, och många bloggplattformar
+kräver mycket mindre underhåll. Men jag gillar att veta att filerna på
+min dator är den verkliga källan till sajten. Jag kan öppna dem i Emacs
+eller vilken annan editor som helst, flytta projektet någon annanstans
+och bygga om hela sajten när jag vill. Det är samma skäl som gör att
+mina anteckningar bor i Org, och för mig är det värt att hålla en Emacs
+Lisp-fil på 1 600 rader i fungerande skick.
+
+Om du också kör en blogg på =org-publish= vill jag gärna höra vad du har
+lagt till som jag inte har.

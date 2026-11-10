@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xml:lang="sv" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" viewBox="0 0 1200 350" width="1200" height="350" role="img">
+<title>Ett schemalagt inlägg: det pushas kvällen innan, hålls utanför bygget tills datumet har passerat och går sedan live i nästa dagliga bygge.</title>
+<style>
+  :root { --card:#f8f7f4; --edge:#d9d7d1; --node:#ffffff; --node-edge:#cfcdc6; --fg:#111110; --muted:#6f6d68;
+          --arrow:#4b4a47; --green:#2a6e3f; --amber:#8a5a00; --live-text:#ffffff; --hatch:#e4e2dc; }
+  @media (prefers-color-scheme: dark) {
+    :root { --card:#1e1e1d; --edge:#2c2c2a; --node:#282827; --node-edge:#3b3b38; --fg:#f3f2ef; --muted:#9a9893;
+            --arrow:#bcbab5; --green:#8fd19e; --amber:#e3b86a; --live-text:#0f2a17; --hatch:#323230; }
+  }
+  .card  { fill:var(--card); stroke:var(--edge); stroke-width:1.5; }
+  .axis  { stroke:var(--node-edge); stroke-width:2.5; }
+  .dotP  { fill:var(--card); stroke:var(--arrow); stroke-width:3; }
+  .dotD  { fill:var(--card); stroke:var(--amber); stroke-width:3; }
+  .dotB  { fill:var(--green); stroke:var(--green); stroke-width:3; }
+  .h     { fill:var(--fg); font-weight:700; }
+  .sub   { fill:var(--muted); }
+  .when  { fill:var(--muted); }
+  .whenA { fill:var(--amber); }
+  .whenG { fill:var(--green); }
+  .hid   { fill:url(#hid); stroke:var(--node-edge); stroke-width:1.5; }
+  .hidT  { fill:var(--arrow); font-weight:600; }
+  .liveB { fill:var(--green); }
+  .liveT { fill:var(--live-text); font-weight:800; }
+  .hbg   { fill:var(--node); }
+  .hln   { stroke:var(--hatch); stroke-width:3; }
+</style>
+<defs>
+  <pattern id="hid" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect class="hbg" width="10" height="10"/><line class="hln" x1="0" y1="0" x2="0" y2="10"/>
+  </pattern>
+</defs>
+<rect class="card" x="0.75" y="0.75" width="1198.5" height="348.5" rx="20"/>
+
+<!-- timeline -->
+<path class="axis" d="M60 106H1140"/>
+<circle class="dotP" cx="200"  cy="106" r="10"/>
+<circle class="dotD" cx="600"  cy="106" r="10"/>
+<circle class="dotB" cx="1000" cy="106" r="10"/>
+
+<g text-anchor="middle">
+  <text class="when"  x="200" y="44" font-size="17">Måndag kväll</text>
+  <text class="h"     x="200" y="73" font-size="23">Pusha inlägget</text>
+  <text class="sub"   x="200" y="150" font-size="17">daterat tisdag 09:00,</text>
+  <text class="sub"   x="200" y="173" font-size="17">så det ligger fortfarande i framtiden</text>
+
+  <text class="whenA" x="600" y="44" font-size="17">Tisdag 09:00</text>
+  <text class="h"     x="600" y="73" font-size="23">Datumet passerar</text>
+  <text class="sub"   x="600" y="150" font-size="17">läses i inläggets #+TIMEZONE:,</text>
+  <text class="sub"   x="600" y="173" font-size="17">alltså 13:00 UTC</text>
+
+  <text class="whenG" x="1000" y="44" font-size="17">Tisdag 09:05</text>
+  <text class="h"     x="1000" y="73" font-size="23">Det dagliga bygget körs</text>
+  <text class="sub"   x="1000" y="150" font-size="17">13:05 UTC. Är GitHub hårt belastat</text>
+  <text class="sub"   x="1000" y="173" font-size="17">kan det starta lite senare</text>
+</g>
+
+<!-- on the site -->
+<text class="sub" x="60" y="232" font-size="17" font-weight="600">Inlägget på sajten</text>
+<rect class="hid" x="60" y="246" width="940" height="52" rx="12"/>
+<text class="hidT" x="530" y="279" font-size="19" text-anchor="middle">Utelämnat från sajten, flöden, sök, sajtkarta och Arkiv</text>
+<rect class="liveB" x="1000" y="246" width="140" height="52" rx="12"/>
+<text class="liveT" x="1070" y="279" font-size="19" text-anchor="middle">Live</text>
+
+<text class="sub" x="60" y="328" font-size="16.5">Varje push bygger också, men tills datumet har passerat hålls inlägget utanför.</text>
+</svg>

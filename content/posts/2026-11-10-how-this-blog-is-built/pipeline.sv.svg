@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xml:lang="sv" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" viewBox="0 0 1200 440" width="1200" height="440" role="img">
+<title>Från en Org-anteckning till en publicerad sida: Org-filer, publish.el, public/, länkkontroll, GitHub Pages. En push eller den dagliga körningen startar bygget, och en trasig länk stoppar publiceringen.</title>
+<style>
+  :root { --card:#f8f7f4; --edge:#d9d7d1; --node:#ffffff; --node-edge:#cfcdc6; --fg:#111110; --muted:#6f6d68;
+          --arrow:#4b4a47; --blue:#1d5fa6; --green:#2a6e3f; --amber:#8a5a00; --red:#b03a2e; }
+  @media (prefers-color-scheme: dark) {
+    :root { --card:#1e1e1d; --edge:#2c2c2a; --node:#282827; --node-edge:#3b3b38; --fg:#f3f2ef; --muted:#9a9893;
+            --arrow:#bcbab5; --blue:#7db4ee; --green:#8fd19e; --amber:#e3b86a; --red:#f0928a; }
+  }
+  .card  { fill:var(--card); stroke:var(--edge); stroke-width:1.5; }
+  .node  { fill:var(--node); stroke:var(--node-edge); stroke-width:1.5; }
+  .build { fill:var(--node); stroke:var(--blue);  stroke-width:2.5; }
+  .live  { fill:var(--node); stroke:var(--green); stroke-width:2.5; }
+  .trig  { fill:none; stroke:var(--amber); stroke-width:2; stroke-dasharray:7 5; }
+  .stop  { fill:none; stroke:var(--red);   stroke-width:2; stroke-dasharray:7 5; }
+  .h     { fill:var(--fg); font-weight:700; }
+  .sub   { fill:var(--muted); }
+  .subA  { fill:var(--amber); }
+  .subR  { fill:var(--red); }
+  .flow  { stroke:var(--arrow); stroke-width:2.2; fill:none; }
+  .flowA { stroke:var(--amber); stroke-width:2.2; fill:none; stroke-dasharray:7 5; }
+  .flowR { stroke:var(--red);   stroke-width:2.2; fill:none; stroke-dasharray:7 5; }
+  .mk    { fill:var(--arrow); }
+  .mkA   { fill:var(--amber); }
+  .mkR   { fill:var(--red); }
+</style>
+<defs>
+  <marker id="arw"  viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="mk"  d="M0 0L10 5L0 10z"/></marker>
+  <marker id="arwA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="mkA" d="M0 0L10 5L0 10z"/></marker>
+  <marker id="arwR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="mkR" d="M0 0L10 5L0 10z"/></marker>
+</defs>
+<rect class="card" x="0.75" y="0.75" width="1198.5" height="438.5" rx="20"/>
+
+<!-- triggers (dashed, amber) -->
+<rect class="trig" x="120" y="26" width="220" height="64" rx="14"/>
+<text class="h" x="230" y="57" font-size="22" text-anchor="middle">Push till main</text>
+<text class="subA" x="230" y="79" font-size="16.5" text-anchor="middle">varje commit</text>
+
+<rect class="trig" x="372" y="26" width="300" height="64" rx="14"/>
+<text class="h" x="522" y="57" font-size="22" text-anchor="middle">Varje dag, 13:05 UTC</text>
+<text class="subA" x="522" y="79" font-size="16.5" text-anchor="middle">09:05 i Port of Spain</text>
+
+<path class="flowA" d="M230 90V132H337V176" marker-end="url(#arwA)"/>
+<path class="flowA" d="M522 90V132H397V176" marker-end="url(#arwA)"/>
+
+<!-- main pipeline -->
+<rect class="node" x="40" y="180" width="188" height="104" rx="14"/>
+<text class="h" x="134" y="222" font-size="24" text-anchor="middle">Org-filer</text>
+<text class="sub" x="134" y="252" font-size="15.7" text-anchor="middle">inlägg + översättningar</text>
+
+<rect class="build" x="273" y="180" width="188" height="104" rx="14"/>
+<text class="h" x="367" y="222" font-size="24" text-anchor="middle">publish.el</text>
+<text class="sub" x="367" y="252" font-size="16.5" text-anchor="middle">emacs --batch</text>
+
+<rect class="node" x="506" y="180" width="188" height="104" rx="14"/>
+<text class="h" x="600" y="222" font-size="24" text-anchor="middle">public/</text>
+<text class="sub" x="600" y="252" font-size="16.5" text-anchor="middle">HTML, flöden, sök</text>
+
+<rect class="node" x="739" y="180" width="188" height="104" rx="14"/>
+<text class="h" x="833" y="222" font-size="24" text-anchor="middle">Länkkontroll</text>
+<text class="sub" x="833" y="252" font-size="16.5" text-anchor="middle">check-links.py</text>
+
+<rect class="live" x="972" y="180" width="188" height="104" rx="14"/>
+<text class="h" x="1066" y="222" font-size="23" text-anchor="middle">GitHub Pages</text>
+<text class="sub" x="1066" y="252" font-size="16.5" text-anchor="middle">den publika sajten</text>
+
+<path class="flow" d="M230 232H270" marker-end="url(#arw)"/>
+<path class="flow" d="M463 232H503" marker-end="url(#arw)"/>
+<path class="flow" d="M696 232H736" marker-end="url(#arw)"/>
+<path class="flow" d="M929 232H969" marker-end="url(#arw)"/>
+
+<text class="sub" x="367" y="314" font-size="16.5" text-anchor="middle">utkast och inlägg med</text>
+<text class="sub" x="367" y="336" font-size="16.5" text-anchor="middle">framtida datum utelämnas</text>
+
+<!-- stop (dashed, red) -->
+<path class="flowR" d="M833 284V340" marker-end="url(#arwR)"/>
+<text class="subR" x="849" y="318" font-size="16.5">om någon länk är trasig</text>
+<rect class="stop" x="673" y="344" width="320" height="72" rx="14"/>
+<text class="h" x="833" y="374" font-size="22" text-anchor="middle">Publiceringen stoppas</text>
+<text class="subR" x="833" y="398" font-size="16.5" text-anchor="middle">inget går ut på nätet</text>
+</svg>

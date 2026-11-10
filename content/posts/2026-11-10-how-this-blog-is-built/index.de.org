@@ -1,0 +1,260 @@
+#+TITLE: Wie dieser Blog gebaut wird
+#+SUBTITLE: Org mode, eine Emacs-Lisp-Datei und ein täglicher Build
+#+DATE: <2026-11-10 09:00>
+#+TIMEZONE: America/Port_of_Spain
+#+LANGUAGE: de
+#+OPTIONS: toc:nil num:nil
+#+FILETAGS: :emacs:org-mode:blogging:web:
+#+HERO: banner.de.png
+#+HERO_ALT: Ein dunkles Banner mit dem Titel „Wie dieser Blog gebaut wird“. Links der Org-Quelltext des Beitrags, rechts die fertige Seite, dazwischen ein Pfeil
+#+DESCRIPTION: Ein Rundgang durch den Bau dieses Blogs: Org-Dateien, ein einziges Build-Skript in Emacs Lisp, fünf Sprachen, geplante Beiträge und ein Link-Check, der ein fehlerhaftes Deployment stoppt.
+
+Jeder Beitrag in diesem Blog ist eine einfache Org-Datei, und die Seite
+wird von Emacs selbst gebaut. Es gibt kein Hugo, kein Jekyll und kein
+Node. Es gibt ein einziges Build-Skript, =publish.el=, ein Stylesheet,
+eine JavaScript-Datei und ein kurzes Python-Skript, das Links prüft.
+
+Letzte Woche habe ich darüber geschrieben,
+[[file:../2026-11-03-why-org-is-where-all-my-notes-live/index.org][warum
+meine Notizen in Org liegen]]. In diesem Beitrag geht es um das andere
+Ende derselben Leitung: was passiert, wenn eine dieser Dateien zu einer
+Webseite wird, und um die paar Entscheidungen im Build, hinter denen ich
+stehe.
+
+* Warum ich es so gebaut habe
+
+Org enthält bereits alles andere, was ich schreibe. Meine Sprachnotizen
+liegen dort, und /Icelandic Vocabulary/ ist aus diesen Notizen
+entstanden, ohne dass ich sie erst in ein anderes Format hätte umziehen
+müssen. Beim Blog wollte ich es genauso haben: Ein Beitrag ist einfach
+eine weitere Org-Datei, geschrieben im selben Editor, mit denselben
+Eingabemethoden für Isländisch, Schwedisch und Deutsch.
+
+Damit schieden die meisten Plattformen aus, die ich mir angesehen habe,
+denn die sind auf Markdown ausgelegt. Ich hätte in Org schreiben und nur
+zum Veröffentlichen nach Markdown exportieren können, aber das sind für
+einen Blog zu viele bewegliche Teile. Vor diesem Blog habe ich lange
+Quartz benutzt, und das geht genauso von Markdown aus.
+
+Der andere Grund ist simpler: Ich programmiere gern, und die Seite
+selbst zu bauen gehörte für mich zum Reiz. Die Beiträge sollten also von
+Anfang an Org-Dateien sein, und die Frage war, was daraus eine Webseite
+macht. Die Antwort war wieder Emacs, und zwar über =org-publish=.
+
+* Der Aufbau
+
+Das ganze Projekt ist klein genug, um auf einen Bildschirm zu passen:
+
+#+begin_example
+publish.el                 Das Build-Skript
+content/
+  index.org, about.org     Start- und Über-mich-Seite
+  posts/foo/index.org      Ein Beitrag, in einem eigenen Ordner
+  posts/foo/index.is.org   ...und seine isländische Übersetzung
+  posts/foo/banner.png     ...und seine Bilder, gleich daneben
+  css/style.css            Das Stylesheet
+  js/site.js               Das Dock (Design, Sprache, Suche, Inhalt)
+scripts/check-links.py     Prüfung auf kaputte Links
+.github/workflows/         Deployment auf GitHub Pages
+#+end_example
+
+In Zahlen: =publish.el= umfasst etwa 1.600 Zeilen und 87 Funktionen in
+Emacs Lisp. Das Stylesheet hat etwa 500 Zeilen, das JavaScript etwa 370
+und der Link-Checker etwa 100. Bisher gibt es fünf Beiträge, jeweils in
+fünf Sprachen, das macht 25 Beitragsdateien. Die Seiten Start, Über
+mich, Archiv, Themen und 404 sind dabei nicht mitgezählt.
+
+Das Dock ist in diesem Baum die schwebende Leiste am unteren Rand jeder
+Seite. Sie enthält den Design-Umschalter, das Sprachmenü, die Suche und
+das Inhaltsverzeichnis, und der größte Teil des JavaScripts dreht sich
+um sie.
+
+Gebaut wird mit einem einzigen Befehl:
+
+#+begin_src sh
+emacs --batch -l publish.el -f blog-publish
+#+end_src
+
+Damit wird die fertige Seite nach =public/= geschrieben. Beim ersten
+Lauf braucht man eine Netzwerkverbindung, weil dabei =htmlize= (zum
+Einfärben von Codeblöcken) und =org-contrib= (für den RSS-Feed) aus ELPA
+installiert werden. Um mir das Ergebnis anzusehen, serviere ich den
+Ordner mit dem eingebauten Webserver von Python auf Port 8000. Ich muss
+einen Server verwenden, statt die Dateien direkt zu öffnen, weil die
+Links auf jeder Seite relativ zur Wurzel des Servers angegeben sind.
+
+#+CAPTION: Von einer Notiz zur Live-Seite. Gestrichelte Linien zeigen, was den Build startet und was ihn stoppen kann.
+[[file:pipeline.de.svg]]
+
+* Was Org leistet und was ich ergänzt habe
+
+Org hat bereits ein Publishing-System, =org-publish=. Man beschreibt ein
+Projekt, und es exportiert jede Org-Datei in einem Ordner nach HTML.
+Damit kommt man allein schon ein gutes Stück in Richtung Blog.
+
+Alles rund um den Artikel stammt von mir: ein Kopfbereich mit Titel,
+Datum und Lesezeit sowie eine Fußzeile mit den Themen, bis zu drei
+ähnlichen Beiträgen und Links zum älteren und zum neueren Beitrag.
+Ähnliche Beiträge sind einfach die, die die meisten Themen mit dem
+aktuellen teilen. Überschriften bekommen außerdem Anker: Fährt man mit
+der Maus darüber, erscheint ein =#=, das einen Link auf diesen Abschnitt
+kopiert. Die Anker werden aus dem Text der Überschrift abgeleitet und
+nicht aus einer Nummer, sodass sie sich nicht ändern, wenn ich drumherum
+etwas bearbeite.
+
+Nichts davon ist elegant, so wie eine Template-Sprache elegant ist. Es
+sind Emacs-Lisp-Funktionen, die Strings mit HTML zurückgeben. Aber es
+ist eine Sprache, die ich ohnehin den ganzen Tag benutze, und die
+Beiträge selbst bleiben reiner Text, den ich mit allem öffnen kann.
+
+* Eine Datei pro Sprache
+
+Der Blog erscheint auf Englisch, Isländisch, Schwedisch, Japanisch und
+Deutsch. Eine Übersetzung ist eine eigene Org-Datei, die direkt neben
+dem Original liegt, mit dem Sprachkürzel vor der Dateiendung:
+
+#+begin_example
+posts/foo/index.org      ->  /posts/foo/
+posts/foo/index.is.org   ->  /is/posts/foo/
+#+end_example
+
+Eine Seite gilt als übersetzt, wenn ihre Übersetzungsdatei existiert.
+Das Sprachmenü im Dock erscheint nur auf Seiten, die in mehr als einer
+Sprache vorliegen, und deine Auswahl wird gespeichert. Beim ersten
+Besuch leitet dich ein winziges Skript zur Version in deiner Sprache
+weiter: Es nimmt die gespeicherte Auswahl, falls es eine gibt, und sonst
+die erste Sprache in der Liste deines Browsers, in der die Seite
+vorhanden ist. Passt nichts, bleibst du bei der englischen Version.
+
+Eine Sprache hinzuzufügen besteht aus drei kleinen Schritten: eine Zeile
+in =blog-languages=, ein Eintrag für die Wörter, die die Seite selbst
+ergänzt (Start, Archiv, „Min. Lesezeit“), samt den Monatsnamen, und dann
+die übersetzten Dateien. Was ich nicht übersetzt habe, fällt auf
+Englisch zurück.
+
+Das hat seinen Preis: Jeder Beitrag besteht aus fünf Dateien, die
+synchron bleiben müssen. Jede Übersetzung hat ihren eigenen Header mit
+eigenem Titel, eigener Beschreibung, eigenem Datum, eigener Zeitzone und
+eigenem Banner, weil jede Datei für sich gelesen wird. Die Themen sind
+dieselben wie im Original, damit die Themenseiten über Sprachen hinweg
+zusammenpassen. Der Sudoku-Beitrag hat von allem die meisten Kopien.
+Seine Diagramme enthalten Text, deshalb gibt es jedes Diagramm fünfmal,
+einmal pro Sprache.
+
+* Datum und Zeitzonen
+
+Das ist der Teil, den ich am entschiedensten verteidigen würde. Das
+=#+DATE:= eines Beitrags wird als Ortszeit in der Zeitzone des Beitrags
+gelesen, die mit =#+TIMEZONE:= gesetzt wird. Fehlt sie, gilt der
+Standard am Anfang von =publish.el=, nämlich =America/Port_of_Spain=.
+
+Das heißt, ich kann das Land wechseln, ohne dass sich etwas verschiebt,
+was schon geschrieben ist. Neue Beiträge bekommen die neue Zone, alte
+behalten ihre. Auf der Seite selbst steht nur das Datum, du würdest den
+Unterschied also nie sehen, aber die Zone legt den genauen
+Veröffentlichungszeitpunkt fest, und der ist wichtig für die Reihenfolge
+der Beiträge und für die Daten im RSS-Feed.
+
+Die Zone wird jedes Mal ausdrücklich übergeben, wenn ein Datum gelesen
+oder angezeigt wird, statt die Zone für den ganzen Emacs-Prozess
+umzustellen. Dieser Weg setzt Emacs 27 oder neuer voraus. Und es gibt
+eine kleine Absicherung, über die ich mich freue. Wenn man Emacs einen
+Zeitzonennamen gibt, den es nicht kennt, behandelt es ihn
+stillschweigend als UTC. Ein Tippfehler könnte einen Beitrag ohne jede
+Warnung auf den falschen Tag legen. Deshalb gleicht der Build den Namen
+mit der Zeitzonendatenbank des Systems ab und bricht mit einem Fehler
+ab. Mir ist ein Build, der laut scheitert, viel lieber als ein Beitrag,
+der am falschen Datum landet.
+
+* Entwürfe und geplante Beiträge
+
+Ein =#+DRAFT: t= im Beitrag oder ein Datum in der Zukunft, und der
+Beitrag fehlt überall: auf der Seite, in den Feeds, in der Suche, in der
+Sitemap, auf den Seiten Archiv und Themen, sogar seine Bilder. Um
+Entwürfe beim Schreiben zu sehen, baue ich mit ~BLOG_DRAFTS=1~.
+
+Das Planen funktioniert wegen der Art, wie das Deployment eingerichtet
+ist. Ein GitHub-Actions-Workflow baut und veröffentlicht die Seite bei
+jedem Push auf =main= und außerdem einmal täglich um 13:05 UTC. Port of
+Spain liegt vier Stunden hinter UTC, also ist es hier 09:05. GitHub
+verspricht nicht, dass ein geplanter Lauf genau zur Minute startet, und
+bei viel Betrieb kann er sich verspäten, deshalb geht ein Beitrag mit
+dem Datum 09:00 im Build des jeweiligen Tages online, gegen neun. Ich
+kann einen Beitrag am Vortag schreiben, pushen und ihn dann erscheinen
+lassen, wann ich will.
+
+#+CAPTION: Ein Beitrag mit Datum in der Zukunft bleibt aus jedem Build heraus, bis sein Datum erreicht ist.
+[[file:schedule.de.svg]]
+
+* Suche ohne Server
+
+Der Blog ist eine statische Seite ohne Server, also gibt es nichts, was
+ein Suchfeld fragen könnte. Ich habe eine Suche eingebaut, falls jemand
+etwas nachschlagen will, und sie läuft komplett im Browser. Beim Build
+schreibt das Skript für jede Sprache eine =search-index.json= mit Titel,
+Adresse, Datum, Themen, Beschreibung und vollem Text jedes Beitrags. Die
+Suche im Dock lädt diese Datei im Browser und filtert dort. Die Datei
+wird erst abgerufen, wenn man ins Suchfeld klickt, sodass jemand, der
+nie sucht, sie nie herunterlädt. Weil sie den vollen Text aller Beiträge
+enthält, wächst sie mit dem Blog; im Moment umfasst der englische Text
+etwa 12.000 Wörter.
+
+Der Text wird in Kleinbuchstaben umgewandelt, von Akzenten befreit, und
+isländische Buchstaben werden zusammengeführt, damit Suchanfragen
+großzügiger treffen. Die Zusammenführung geschieht Zeichen für Zeichen,
+sodass die Position eines Treffers weiterhin zum Originaltext passt.
+
+Auf langen Seiten zeigt das Dock außerdem den Namen des Abschnitts, in
+dem man gerade ist, neben einem kleinen Fortschrittsring, und die
+Beitragsseite hat einen Themenfilter. Die Seite selbst ist warmgrau und
+einspaltig, in einer hellen und einer dunklen Variante. Die Schrift ist
+Inter, von der Seite selbst ausgeliefert, sodass alle dieselbe Schrift
+sehen und keine Anfrage an Google geht. Die Lesezeit rechnet mit 230
+Wörtern pro Minute, und Japanisch wird nach Zeichen gezählt, mit 500 pro
+Minute.
+
+* Prüfungen, bevor etwas online geht
+
+Das Python-Skript hat etwa hundert Zeilen. Es durchläuft die gebaute
+Seite, parst jede Seite und prüft jeden internen Link, jedes Bild und
+jeden =#Abschnitt=-Link. Ist einer kaputt, bricht es mit einem Fehler
+ab, und der Deployment-Workflow stoppt, bevor irgendetwas online geht.
+Externe Links überspringt es absichtlich, damit es schnell ist und nie
+scheitert, nur weil die Seite von jemand anderem gerade nicht erreichbar
+ist. Das gilt auch für externe Bilder. Pfade mit URL-Kodierung dekodiert
+es aber zuerst, sodass ein Link mit =%20= oder einem kodierten
+Buchstaben mit Akzent trotzdem aufgelöst wird.
+
+Es ist eine bescheidene Prüfung, und sie hat Grenzen. Wenn ich eine
+Überschrift umbenenne, ändert sich ihr Anker, und jeder Link auf den
+alten scrollt nicht mehr an die richtige Stelle. Das Skript findet meine
+eigenen kaputten Links darauf. Die, die andere gespeichert haben, findet
+es nicht.
+
+* Was es nicht kann
+
+- Es führt beim Bauen keine Codeblöcke aus, deshalb muss jede Ausgabe
+  von Hand in den Beitrag eingefügt werden.
+- Kommentare und Analytics sind beide eingebaut, mit giscus und
+  GoatCounter, und beide sind ausgeschaltet. Ich glaube nicht, dass mein
+  Schreiben schon so weit ist, dass Leute Lust haben zu kommentieren,
+  also können sie warten.
+- Externe Links werden nicht geprüft.
+- Übersetzungen sind komplett manuell. Nichts sagt mir Bescheid, wenn
+  der englische Text weitergezogen ist und der schwedische nicht.
+- Ein erster Build auf einem neuen Rechner braucht eine
+  Netzwerkverbindung.
+
+* Lohnt sich das?
+
+Ich glaube nicht, dass jeder sein eigenes Publishing-System bauen muss.
+Org bietet mit =org-publish= schon einen guten Start, und viele
+Blog-Plattformen brauchen viel weniger Pflege. Aber ich weiß gern, dass
+die Dateien auf meinem Rechner die eigentliche Quelle der Seite sind.
+Ich kann sie in Emacs oder jedem anderen Editor öffnen, das Projekt
+woanders hinziehen und das Ganze jederzeit neu bauen. Das ist derselbe
+Grund, aus dem meine Notizen in Org liegen, und für mich lohnt es sich,
+eine Emacs-Lisp-Datei mit 1.600 Zeilen in Schuss zu halten.
+
+Wenn du auch einen Blog mit =org-publish= betreibst, würde ich gern
+hören, was du ergänzt hast, das bei mir fehlt.
