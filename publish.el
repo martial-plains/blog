@@ -1066,6 +1066,17 @@ because the build copies every asset there."
 (defun blog-delete-if-exists (file)
   (when (file-exists-p file) (delete-file file)))
 
+;; Org headline tags may only contain letters, digits and _ @ # %, so a tag such as
+;; "self-improvement" is written as self_improvement.  ox-rss turns a headline's tags into
+;; <category> elements, which is how feed readers (and the n8n sharing workflow) see them.
+(defun blog-rss-tag-string (tags)
+  "TAGS as an Org headline tag suffix (\" :a:b:\"), or \"\" when there are none."
+  (let ((clean (delete-dups
+                (mapcar (lambda (tag)
+                          (replace-regexp-in-string "[^[:alnum:]_@#%]+" "_" tag))
+                        tags))))
+    (if clean (concat " :" (mapconcat #'identity clean ":") ":") "")))
+
 ;; ox-rss turns every top-level headline of one Org file into a feed item.
 ;; Our posts are one file each, so before publishing we write a small
 ;; .cache/rss/<lang>/rss.org with a headline per post (title, date,
@@ -1086,9 +1097,10 @@ because the build copies every asset there."
         (dolist (entry entries)
           (let* ((meta (cdr entry))
                  (path (blog-post-url-path entry)))
-            (insert (format (concat "* %s\n:PROPERTIES:\n:RSS_PERMALINK: %s\n"
+            (insert (format (concat "* %s%s\n:PROPERTIES:\n:RSS_PERMALINK: %s\n"
                                     ":PUBDATE: %s\n:ID: %s\n:END:\n")
                             (blog-plain-title (plist-get meta :title))
+                            (blog-rss-tag-string (plist-get meta :tags))
                             path
                             ;; ox-rss reads this back in the build's own zone
                             ;; (blog-timezone, set in `blog-publish'), so write
@@ -1545,6 +1557,45 @@ The text is cut to 20000 characters (enough for search) unless WHOLE is non-nil.
       (with-temp-file (blog-path "public/robots.txt")
         (insert "User-agent: *\nAllow: /\n\nSitemap: " blog-origin "/sitemap.xml\n")))))
 
+;; Feed images.  ox-rss has no option for a picture, so once the feed is written, add an
+;; <enclosure> to each item whose post has a #+HERO: image.  Feed readers show it, and the
+;; n8n sharing workflow uses it as the thumbnail on Bluesky link cards (Bluesky does not
+;; read og:image itself, and only accepts images under about 1 MB).
+(defun blog-image-mime (file)
+  (pcase (downcase (or (file-name-extension file) ""))
+    ((or "jpg" "jpeg") "image/jpeg")
+    ("png" "image/png")
+    ("webp" "image/webp")
+    ("gif" "image/gif")
+    ("avif" "image/avif")
+    ("svg" "image/svg+xml")
+    (_ "image/jpeg")))
+
+(defun blog-add-feed-images (lang)
+  "Add an <enclosure> for each post's hero image to LANG's rss.xml."
+  (let ((feed (expand-file-name "rss.xml" (blog-lang-out lang)))
+        (coding-system-for-read 'utf-8)
+        (coding-system-for-write 'utf-8))
+    (when (file-exists-p feed)
+      (with-temp-buffer
+        (insert-file-contents feed)
+        (dolist (entry (blog-post-entries lang))
+          (let ((hero (plist-get (cdr entry) :hero)))
+            (when (and hero (not (string-empty-p hero)))
+              (goto-char (point-min))
+              (if (re-search-forward
+                   (concat "<guid[^>]*>" (regexp-quote (blog-post-url-path entry)) "</guid>")
+                   nil t)
+                  (let ((url (blog-asset-url (car entry) hero)))
+                    (insert (format "\n<enclosure url=\"%s\" length=\"0\" type=\"%s\" />"
+                                    (blog-xml (if (string-match-p "\\`[a-z][a-z0-9+.-]*:" url)
+                                                  url
+                                                (concat blog-origin url)))
+                                    (blog-image-mime hero))))
+                (message "Warning: no feed item found for %s, so its image was not added"
+                         (file-relative-name (car entry) blog-root))))))
+        (write-region (point-min) (point-max) feed nil 'silent)))))
+
 ;; ---------------------------------------------------------------
 ;; Entry point
 ;; ---------------------------------------------------------------
@@ -1565,6 +1616,7 @@ The text is cut to 20000 characters (enough for search) unless WHOLE is non-nil.
   (dolist (code (blog-codes))
     (when (blog-lang-exists-p code)
       (blog-copy-post-assets code)
+      (blog-add-feed-images code)
       (blog-write-json-feed code)
       (blog-write-search-index code)))
   (blog-write-sitemap)
