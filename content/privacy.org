@@ -1,0 +1,67 @@
+#+TITLE: Privacy Policy
+#+DESCRIPTION: What this blog does and doesn't collect about you, in plain language.
+#+LANGUAGE: en-GB
+
+/Last updated: 17 November 2026/
+
+This is a small personal blog written by Allister Isaiah Harvey ("I", "me"). It is a static site: there are no accounts, no sign-up forms and no database of visitors. This page explains what happens to your information when you visit it.
+
+* The short version
+
+- I don't ask you for any personal information, and I don't run advertising.
+- This site sets no cookies of its own. A post with an embedded YouTube video can involve YouTube's cookies, as explained under Third parties.
+- I don't run analytics or tracking scripts, so I don't know who reads which post.
+- The only things stored in your browser are your theme and language choices, and they never leave your device.
+
+* What I collect
+
+Nothing, directly. There is no form, newsletter or login, so the site never receives your name, email address or anything else you type, apart from the search box described below.
+
+** Server logs
+
+The site is hosted on GitHub Pages. Like any web host, GitHub receives technical information when your browser requests a page, such as your IP address, the page you asked for, your browser type and the time. I don't have access to these logs. How GitHub handles them is covered in [[https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement][GitHub's privacy statement]].
+
+** Search
+
+The search box (Ctrl or Cmd + K) works entirely in your browser. When you first use it, your browser downloads a file listing the blog's posts and then searches that file locally. What you type is not sent to me or to anyone else.
+
+* What is stored in your browser
+
+The site uses your browser's local storage, not cookies, to remember two choices:
+
+| Item     | Why                                          | Lasts until                  |
+|----------+----------------------------------------------+------------------------------|
+| =theme=  | Remembers light or dark mode                 | You clear your site data     |
+| =lang=   | Remembers the language you picked            | You clear your site data     |
+
+These values stay on your device. I can't read them, and the site doesn't need them to work. You can delete them at any time through your browser's settings.
+
+* Third parties
+
+- *Fonts.* The Inter typeface is hosted on this site itself, so loading it sends nothing to Google or any other font service.
+- *Maths.* A post that contains mathematical formulas loads the MathJax library from a public content delivery network (CDN). Your browser contacts that CDN, which can see your IP address, as with any file you load from a third-party server. Posts without formulas make no such request.
+- *Videos.* Clips I host myself are served from this site and send nothing elsewhere. A post that embeds a YouTube video loads the player from YouTube, using the privacy-enhanced address (youtube-nocookie.com). Your browser then contacts YouTube, which can see your IP address and, once you play the video, may store cookies or similar data on your device under [[https://policies.google.com/privacy][Google's privacy policy]]. Posts without an embedded video make no such request.
+- *Links.* Posts link to other websites, such as articles, tools and shops. Once you follow a link, that site's own privacy policy applies, not this one.
+- *Feeds.* If you subscribe through RSS, your feed reader fetches the feed from this site. Which reader you use and how often it checks is between you and that reader.
+
+* Comments and analytics
+
+Neither is switched on at the moment. If I add comments or analytics later, I will update this page, and change the date at the top, before they go live.
+
+* Children
+
+This blog is written for a general audience and isn't aimed at children under 13. It collects no personal information from anyone, children included.
+
+* Your rights
+
+Because I hold no personal information about you, there is normally nothing to access, correct or delete. If you have written to me directly, you can ask me to delete that correspondence and I will. Depending on where you live, you may also have rights under local data-protection law, and you can contact your local data-protection authority if you have a concern.
+
+* Changes to this policy
+
+If I change how the site works in a way that affects your privacy, I'll update this page and the "Last updated" date.
+
+* Contact
+
+Questions about this policy? Get in touch using the contact details on the [[file:about.org][About page]].
+
+See also the [[file:terms.org][Terms of Service]].

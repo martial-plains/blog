@@ -1,4 +1,4 @@
-/* Dock behaviour: theme toggle, language menu, site search, tag filter, table of contents, reading progress. */
+/* Dock behaviour: theme toggle, language menu, search palette, tag filter, table of contents, reading progress. */
 (function () {
   var doc = document, root = doc.documentElement;
   var $ = function (sel, ctx) { return (ctx || doc).querySelector(sel); };
@@ -102,10 +102,7 @@
   var heads = $$('#content h2, #content h3');
   var label = $('#dock-label'), bar = $('.ring .bar');
   var reading = !list && heads.length > 0 && label && bar;   // long page: show the section name
-  if (dock) {
-    dock.classList.toggle('reading', !!reading);
-    dock.classList.toggle('searching', !reading);              // short pages: search box is always open
-  }
+  if (dock) dock.classList.toggle('reading', !!reading);
 
   // Run fn (which changes the dock's contents or classes) and animate the dock from its
   // old width to its new one, so it grows and shrinks instead of jumping.
@@ -200,21 +197,20 @@
     });
   }
 
-  /* ---------- search ---------- */
-  var input = $('#dock-search'), results = $('#search-results'), openBtn = $('#search-open');
-  var kbd = $('.dock-search kbd');
-  if (kbd && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent)) kbd.textContent = '\u2318 K';
-
-  var index = null, loading = null, active = -1, shown = [];
+  /* ---------- search palette ---------- */
+  // The Search button (or Ctrl/Cmd+K) opens a centred palette: pages, matching posts and a
+  // theme switch in one list.  Posts are searched in the browser from search-index.json.
+  var openBtn = $('#search-open');
+  var index = null, loading = null;
   // Lower-case, drop accents, and fold Icelandic letters one-for-one so offsets stay aligned.
   var fold = function (s) {
-    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
-            .replace(/\u00f0/g, 'd').replace(/\u00fe/g, 't').replace(/\u00e6/g, 'a');
+    return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+            .replace(/ð/g, 'd').replace(/þ/g, 't').replace(/æ/g, 'a');
   };
   var load = function () {
     if (index) return Promise.resolve(index);
     if (loading) return loading;
-    loading = fetch(input.getAttribute('data-index'))
+    loading = fetch(openBtn.getAttribute('data-index'))
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (data) {
         index = data.map(function (p) {
@@ -233,7 +229,7 @@
     for (i = 0; i < terms.length && at < 0; i++) at = post._text.indexOf(terms[i]);
     if (at < 0) return (post.description || '').slice(0, 140);
     var from = Math.max(0, at - 50), to = Math.min(post.text.length, at + 90);
-    return (from > 0 ? '\u2026' : '') + post.text.slice(from, to) + (to < post.text.length ? '\u2026' : '');
+    return (from > 0 ? '…' : '') + post.text.slice(from, to) + (to < post.text.length ? '…' : '');
   };
   var mark = function (el, text, terms) {
     var f = fold(text), spans = [];
@@ -251,92 +247,176 @@
     el.appendChild(doc.createTextNode(text.slice(pos)));
   };
 
-  var closeResults = function () { results.hidden = true; active = -1; input.removeAttribute('aria-activedescendant'); };
-  var setActive = function (n) {
-    var items = $$('li', results);
-    if (!items.length) return;
-    active = (n + items.length) % items.length;
-    items.forEach(function (li, i) { li.classList.toggle('is-active', i === active); });
-    items[active].scrollIntoView({ block: 'nearest' });
+  var ICONS = {
+    home: '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',
+    about: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+    posts: '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+    privacy: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    terms: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/>',
+    post: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>',
+    theme: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+    search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>'
   };
-  var render = function (query) {
-    results.textContent = '';
-    var terms = fold(query).split(/\s+/).filter(Boolean);
-    if (!terms.length) { closeResults(); return; }
-    shown = [];
-    (index || []).forEach(function (p) {
-      var score = 0;
-      for (var i = 0; i < terms.length; i++) {
-        var t = terms[i], s = 0;
-        if (p._title.indexOf(t) > -1) s += 10;
-        if (p._tags.indexOf(t) > -1) s += 5;
-        if (p._desc.indexOf(t) > -1) s += 3;
-        if (p._text.indexOf(t) > -1) s += 1;
-        if (!s) return;                       // every word must match somewhere
-        score += s;
-      }
-      shown.push({ post: p, score: score });
-    });
-    shown.sort(function (a, b) { return b.score - a.score; });
-    if (!shown.length) {
-      var none = doc.createElement('li'); none.className = 'none';
-      none.textContent = index
-        ? (dock.getAttribute('data-no-match') || 'No posts match \u201c%s\u201d.').replace('%s', query)
-        : (dock.getAttribute('data-unavailable') || 'Search is unavailable right now.');
-      results.appendChild(none);
-    }
-    shown.slice(0, 6).forEach(function (r) {
-      var li = doc.createElement('li'), a = doc.createElement('a');
-      a.href = r.post.url; li.setAttribute('role', 'option');
-      var t = doc.createElement('span'); t.className = 'r-title'; mark(t, r.post.title, terms);
-      var d = doc.createElement('span'); d.className = 'r-snip'; mark(d, snippet(r.post, terms), terms);
-      a.appendChild(t); a.appendChild(d); li.appendChild(a); results.appendChild(li);
-    });
-    results.hidden = false; active = -1;
+  var svg = function (name) {
+    return '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" ' +
+           'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[name] + '</svg>';
   };
 
-  var openSearch = function () {
-    if (!input) return;
-    if (dock && !dock.classList.contains('searching')) {
-      morph(function () {
-        if (tocOpen) { tocOpen = false; dock.classList.remove('toc-open'); if (panel) panel.inert = true; if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false'); }
-        dock.classList.add('searching');
+  var pages = [];
+  try { pages = JSON.parse(attr('data-pages', '[]')); } catch (e) {}
+  var pageIcons = ['home', 'about', 'posts', 'privacy', 'terms'];
+
+  var overlay = null, field, listEl, hlEl, rows = [], active = 0, returnFocus = null;
+
+  var matches = function (text, terms) {
+    var f = fold(text);
+    return terms.every(function (t) { return f.indexOf(t) > -1; });
+  };
+
+  // What to show for the current text: pages, then posts, then the theme switch.
+  var gather = function (query) {
+    var terms = fold(query).split(/\s+/).filter(Boolean), out = [];
+    pages.forEach(function (p, i) {
+      if (matches(p.label, terms)) out.push({ group: attr('data-pages-label', 'Pages'), icon: pageIcons[i] || 'post', label: p.label, href: p.url, terms: terms });
+    });
+    var posts = [];
+    if (!terms.length) {
+      posts = (index || []).slice(0, 5).map(function (p) { return { post: p, score: 0 }; });
+    } else {
+      (index || []).forEach(function (p) {
+        var score = 0;
+        for (var i = 0; i < terms.length; i++) {
+          var t = terms[i], s = 0;
+          if (p._title.indexOf(t) > -1) s += 10;
+          if (p._tags.indexOf(t) > -1) s += 5;
+          if (p._desc.indexOf(t) > -1) s += 3;
+          if (p._text.indexOf(t) > -1) s += 1;
+          if (!s) return;                       // every word must match somewhere
+          score += s;
+        }
+        posts.push({ post: p, score: score });
       });
+      posts.sort(function (a, b) { return b.score - a.score; });
+      posts = posts.slice(0, 6);
     }
-    input.focus(); input.select();
-    load();
-  };
-  var closeSearch = function () {
-    input.value = ''; closeResults(); input.blur();
-    if (dock && reading) morph(function () { dock.classList.remove('searching'); });
+    posts.forEach(function (r) {
+      out.push({ group: attr('data-posts-label', 'Posts'), icon: 'post', label: r.post.title, hint: terms.length ? '' : r.post.date,
+                 snip: terms.length ? snippet(r.post, terms) : '', href: r.post.url, terms: terms });
+    });
+    var themeLabel = attr('data-theme-label', 'Toggle theme');
+    if (matches(themeLabel, terms)) out.push({ group: '⚙', icon: 'theme', label: themeLabel, run: function () { var b = $('#theme-toggle'); if (b) b.click(); }, terms: terms });
+    return out;
   };
 
-  if (input && results) {
-    input.addEventListener('focus', load);
-    input.addEventListener('input', function () {
-      var q = input.value;
-      load().then(function () { if (input.value === q) render(q); });
+  var setActive = function (n, instant) {
+    if (!rows.length) return;
+    active = (n + rows.length) % rows.length;
+    rows.forEach(function (r, i) { r.li.setAttribute('aria-selected', i === active ? 'true' : 'false'); });
+    var el = rows[active].li;
+    field.setAttribute('aria-activedescendant', el.id);
+    if (instant) { hlEl.style.transition = 'none'; }
+    hlEl.style.height = el.offsetHeight + 'px';
+    hlEl.style.transform = 'translateY(' + el.offsetTop + 'px)';
+    hlEl.style.opacity = '1';
+    if (instant) { void hlEl.offsetWidth; hlEl.style.transition = ''; }
+    el.scrollIntoView({ block: 'nearest' });
+  };
+
+  var render = function () {
+    var q = field.value, items = gather(q);
+    listEl.textContent = '';
+    hlEl = doc.createElement('div'); hlEl.className = 'cmd-hl'; hlEl.setAttribute('aria-hidden', 'true');
+    listEl.appendChild(hlEl);
+    rows = [];
+    var last = null;
+    items.forEach(function (it, i) {
+      if (it.group !== last) {
+        var h = doc.createElement('li'); h.setAttribute('role', 'presentation');
+        h.className = it.group ? 'cmd-group' : 'cmd-gap';
+        h.textContent = it.group;
+        listEl.appendChild(h); last = it.group;
+      }
+      var li = doc.createElement('li'); li.id = 'cmd-' + i; li.setAttribute('role', 'option');
+      var row = doc.createElement(it.href ? 'a' : 'button');
+      row.className = 'cmd-row';
+      if (it.href) row.href = it.href; else row.type = 'button';
+      row.tabIndex = -1;
+      var main = doc.createElement('span'); main.className = 'cmd-main';
+      var ic = doc.createElement('span'); ic.className = 'cmd-ic'; ic.innerHTML = svg(it.icon);
+      var txt = doc.createElement('span'); txt.className = 'cmd-txt';
+      var t = doc.createElement('span'); t.className = 'cmd-title'; mark(t, it.label, it.terms);
+      txt.appendChild(t);
+      if (it.snip) { var sn = doc.createElement('span'); sn.className = 'cmd-snip'; mark(sn, it.snip, it.terms); txt.appendChild(sn); }
+      main.appendChild(ic); main.appendChild(txt); row.appendChild(main);
+      if (it.hint) { var hn = doc.createElement('span'); hn.className = 'cmd-hint'; hn.textContent = it.hint; row.appendChild(hn); }
+      li.appendChild(row); listEl.appendChild(li);
+      row.addEventListener('click', function (e) {
+        if (it.run) { e.preventDefault(); close(true); it.run(); }
+      });
+      li.addEventListener('mousemove', function () { if (active !== i) setActive(i); });
+      rows.push({ li: li, row: row, item: it });
     });
-    input.addEventListener('keydown', function (e) {
+    if (!rows.length) {
+      var none = doc.createElement('li'); none.className = 'cmd-none'; none.setAttribute('role', 'presentation');
+      none.textContent = index || !q.trim()
+        ? attr('data-no-match', 'No posts match “%s”.').replace('%s', q.trim())
+        : attr('data-unavailable', 'Search is unavailable right now.');
+      listEl.appendChild(none);
+      hlEl.style.opacity = '0';
+      field.removeAttribute('aria-activedescendant');
+      return;
+    }
+    setActive(0, true);
+  };
+
+  var open = function () {
+    if (overlay) return;
+    if (tocOpen) setToc(false);
+    returnFocus = doc.activeElement;
+    overlay = doc.createElement('div'); overlay.className = 'cmd';
+    var placeholder = attr('data-search', 'Search');
+    overlay.innerHTML =
+      '<div class="cmd-box" role="dialog" aria-modal="true">' +
+      '<div class="cmd-field">' + svg('search') + '<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" ' +
+      'role="combobox" aria-expanded="true" aria-controls="cmd-list"></div>' +
+      '<ul id="cmd-list" class="cmd-list" role="listbox"></ul>' +
+      '<div class="cmd-foot"><span></span><span></span></div></div>';
+    var box = $('.cmd-box', overlay);
+    box.setAttribute('aria-label', placeholder);
+    field = $('input', overlay);
+    field.placeholder = placeholder; field.setAttribute('aria-label', placeholder);
+    listEl = $('.cmd-list', overlay);
+    var foot = $$('.cmd-foot span', overlay);
+    foot[0].textContent = attr('data-hint-move', '↑↓ to move, ↵ to open');
+    foot[1].textContent = attr('data-hint-close', 'Esc to close');
+    overlay.addEventListener('mousedown', function (e) { if (e.target === overlay) close(); });
+    field.addEventListener('input', render);
+    field.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowDown') { e.preventDefault(); setActive(active + 1); }
       else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(active - 1); }
-      else if (e.key === 'Enter') {
-        var link = $$('li a', results)[Math.max(active, 0)];
-        if (link) { e.preventDefault(); location.href = link.href; }
-      }
+      else if (e.key === 'Enter' && rows[active] && !e.isComposing) { e.preventDefault(); rows[active].row.click(); }
+      else if (e.key === 'Tab') e.preventDefault();       // keep focus in the box
     });
-    input.addEventListener('blur', function () {
-      // Wait a moment so a click on a result still registers.
-      setTimeout(function () {
-        if (doc.activeElement === input) return;
-        closeResults();
-        if (reading && dock && !input.value && dock.classList.contains('searching')) morph(function () { dock.classList.remove('searching'); });
-      }, 150);
-    });
-    if (openBtn) openBtn.addEventListener('click', openSearch);
+    doc.body.appendChild(overlay);
+    openBtn.setAttribute('aria-expanded', 'true');
+    render();
+    field.focus();
+    load().then(function () { if (overlay) render(); });   // posts appear as soon as the index arrives
+  };
+  var close = function (keepFocus) {
+    if (!overlay) return;
+    var el = overlay; overlay = null;
+    openBtn.setAttribute('aria-expanded', 'false');
+    el.classList.add('is-closing');
+    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 160);
+    if (!keepFocus && returnFocus && returnFocus.focus) returnFocus.focus();
+  };
+
+  if (openBtn) {
+    openBtn.addEventListener('click', open);
     doc.addEventListener('keydown', function (e) {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openSearch(); }
-      else if (e.key === 'Escape' && doc.activeElement === input) closeSearch();
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); if (overlay) close(); else open(); }
+      else if (e.key === 'Escape' && overlay) { e.preventDefault(); close(); }
     });
   }
 

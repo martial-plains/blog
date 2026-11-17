@@ -1,0 +1,64 @@
+#+TITLE: Användarvillkor
+#+DESCRIPTION: Spelreglerna för att läsa, dela och använda det som finns på den här bloggen.
+#+LANGUAGE: sv
+
+/Senast uppdaterad: 17 november 2026/
+
+Välkommen. Det här är en personlig blogg skriven av Allister Isaiah Harvey (”jag”). Genom att använda webbplatsen godkänner du de här villkoren. Om du inte gör det, använd den inte.
+
+* Webbplatsen
+
+Bloggen är gratis att läsa. Jag skriver om saker jag bygger och lär mig, bland annat programmering, språk, vetenskap, matematik och musik. Inläggen speglar vad jag vet och tänker när jag skriver dem, och jag kan ändra, flytta eller ta bort vilken sida som helst utan förvarning.
+
+* Ingen professionell rådgivning
+
+Allt här är allmän information och underhållning. Det är inte juridisk, finansiell, medicinsk eller annan professionell rådgivning, och webbplatsen skapar ingen rådgivningsrelation mellan oss. Om du agerar på något du läst gör du det på egen risk, så kontrollera de detaljer som spelar roll, särskilt när det gäller hälsa, pengar eller säkerhet.
+
+* Riktighet
+
+Jag försöker göra rätt och länka till källor, men jag gör misstag och saker förändras. Webbplatsen tillhandahålls ”i befintligt skick”, utan löfte om att den är fullständig, aktuell eller felfri eller att den alltid är tillgänglig.
+
+* Innehåll och upphovsrätt
+
+Om inte ett inlägg säger något annat är texterna, bilderna och musiken på den här bloggen mitt eget arbete och © Allister Isaiah Harvey, alla rättigheter förbehållna.
+
+Du får:
+
+- Citera korta stycken, med källhänvisning och en länk till originalinlägget.
+- Länka till vilken sida som helst.
+- Dela inlägg i sociala medier eller i ett nyhetsbrev, så länge du länkar till originalet.
+- Använda de korta kodexemplen i inläggen i dina egna projekt.
+
+Publicera inte hela inlägg på nytt och utge inte mina texter, min musik eller mina bilder för att vara dina egna utan att fråga mig först. Material från tredje part, som logotyper, skärmbilder och citat, tillhör sina ägare och visas för kommentar eller illustration.
+
+* Länkar till andra webbplatser
+
+Inlägg länkar till webbplatser och tjänster som jag inte kontrollerar. Jag står inte bakom allt som finns där och ansvarar inte för deras innehåll, tillgänglighet eller integritetspraxis.
+
+* Kommentarer och meddelanden
+
+Om kommentarer är aktiverade för ett inlägg ansvarar du för det du skriver. Var vänlig och hövlig. Jag kan ta bort kommentarer som är kränkande, olagliga, skräppost eller ämnesfrämmande, och blockera personer som upprepade gånger skriver sådana. Skriv inget du inte vill ska bli offentligt.
+
+* Ansvarsfull användning
+
+Försök inte slå ut webbplatsen, överbelasta den med automatiska förfrågningar eller leta efter säkerhetshål i den. Vanlig användning, inklusive RSS-läsare och sökmotorers robotar som följer =robots.txt=, är i sin ordning. Om du hittar ett säkerhetsproblem, berätta för mig i stället för att utnyttja det.
+
+* Ansvarsbegränsning
+
+I den utsträckning lagen tillåter ansvarar jag inte för förlust eller skada som uppstår genom att du använder webbplatsen eller förlitar dig på dess innehåll, inklusive indirekt skada och följdskada. Ingenting här utesluter ansvar som lagligen inte kan uteslutas.
+
+* Integritet
+
+Hur webbplatsen hanterar uppgifter om dig förklaras i [[file:privacy.org][integritetspolicyn]], som ingår i de här villkoren.
+
+* Tillämplig lag
+
+De här villkoren regleras av Trinidad och Tobagos lagar, och tvister om dem avgörs av domstolarna i Trinidad och Tobago, om inte lagen där du bor ger dig rättigheter som inte kan avstås från.
+
+* Ändringar
+
+Jag kan uppdatera villkoren då och då. Datumet ”Senast uppdaterad” ovan visar när. Om du fortsätter använda webbplatsen efter en ändring godkänner du de nya villkoren.
+
+* Kontakt
+
+Frågor om villkoren? Hör av dig via kontaktuppgifterna på [[file:../about.org][Om mig-sidan]] (på engelska).

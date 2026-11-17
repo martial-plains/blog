@@ -1,0 +1,67 @@
+#+TITLE: Integritetspolicy
+#+DESCRIPTION: Vad den här bloggen samlar in om dig och vad den inte samlar in, med enkla ord.
+#+LANGUAGE: sv
+
+/Senast uppdaterad: 17 november 2026/
+
+Det här är en liten personlig blogg skriven av Allister Isaiah Harvey (”jag”). Det är en statisk webbplats: det finns inga konton, inga registreringsformulär och ingen besöksdatabas. Den här sidan förklarar vad som händer med dina uppgifter när du besöker den.
+
+* Kort version
+
+- Jag ber inte om några personuppgifter och jag visar ingen reklam.
+- Webbplatsen sätter inga egna cookies. Ett inlägg med inbäddad YouTube-video kan innebära cookies från YouTube, som förklaras under Tredje parter.
+- Jag använder inga analys- eller spårningsskript, så jag vet inte vem som läser vilket inlägg.
+- Det enda som sparas i din webbläsare är dina val av tema och språk, och de lämnar aldrig din enhet.
+
+* Vad jag samlar in
+
+Ingenting, direkt. Det finns inget formulär, inget nyhetsbrev och ingen inloggning, så webbplatsen får aldrig ditt namn, din e-postadress eller något annat du skriver, förutom i sökrutan som beskrivs nedan.
+
+** Serverloggar
+
+Webbplatsen ligger på GitHub Pages. Som alla webbhotell får GitHub teknisk information när din webbläsare hämtar en sida, till exempel din IP-adress, sidan du bad om, din webbläsartyp och tidpunkten. Jag har inte tillgång till de här loggarna. Hur GitHub hanterar dem beskrivs i [[https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement][GitHubs sekretesspolicy]].
+
+** Sök
+
+Sökfunktionen (Ctrl eller Cmd + K) fungerar helt i din webbläsare. Första gången du använder den hämtar webbläsaren en fil med en lista över bloggens inlägg och söker sedan i den lokalt. Det du skriver skickas inte till mig eller någon annan.
+
+* Vad som sparas i din webbläsare
+
+Webbplatsen använder webbläsarens lokala lagring, inte cookies, för att komma ihåg två val:
+
+| Post     | Varför                                       | Sparas tills                       |
+|----------+----------------------------------------------+------------------------------------|
+| =theme=  | Kommer ihåg ljust eller mörkt läge           | Du rensar webbplatsdata            |
+| =lang=   | Kommer ihåg vilket språk du valt             | Du rensar webbplatsdata            |
+
+Värdena stannar på din enhet. Jag kan inte läsa dem, och webbplatsen behöver dem inte för att fungera. Du kan ta bort dem när som helst i webbläsarens inställningar.
+
+* Tredje parter
+
+- *Typsnitt.* Typsnittet Inter ligger på den här webbplatsen, så när det laddas skickas ingenting till Google eller någon annan typsnittstjänst.
+- *Matematik.* Ett inlägg som innehåller matematiska formler laddar biblioteket MathJax från ett publikt innehållsleveransnätverk (CDN). Din webbläsare kontaktar det CDN:et, som kan se din IP-adress, precis som vid vilken fil som helst som hämtas från en tredjepartsserver. Inlägg utan formler gör ingen sådan förfrågan.
+- *Videor.* Klipp som jag lägger upp själv levereras från den här webbplatsen och skickar ingenting vidare. Ett inlägg med en inbäddad YouTube-video laddar spelaren från YouTube, via den integritetsvänliga adressen (youtube-nocookie.com). Din webbläsare kontaktar då YouTube, som kan se din IP-adress och, när du spelar upp videon, kan lagra cookies eller liknande data på din enhet enligt [[https://policies.google.com/privacy][Googles integritetspolicy]]. Inlägg utan inbäddad video gör ingen sådan förfrågan.
+- *Länkar.* Inlägg länkar till andra webbplatser, till exempel artiklar, verktyg och butiker. När du följer en länk gäller den webbplatsens egen integritetspolicy, inte den här.
+- *Flöden.* Om du prenumererar via RSS hämtar din flödesläsare flödet från den här webbplatsen. Vilken läsare du använder och hur ofta den kollar är en sak mellan dig och läsaren.
+
+* Kommentarer och statistik
+
+Ingetdera är aktiverat just nu. Om jag senare lägger till kommentarer eller statistik uppdaterar jag den här sidan, och datumet överst, innan de tas i bruk.
+
+* Barn
+
+Bloggen skrivs för en allmän publik och riktar sig inte till barn under 13 år. Den samlar inte in personuppgifter från någon, barn inkluderade.
+
+* Dina rättigheter
+
+Eftersom jag inte har några personuppgifter om dig finns det normalt inget att ta del av, rätta eller radera. Om du har skrivit till mig direkt kan du be mig radera den korrespondensen, och det gör jag. Beroende på var du bor kan du också ha rättigheter enligt lokal dataskyddslagstiftning, och du kan kontakta din lokala dataskyddsmyndighet om du har en oro.
+
+* Ändringar i policyn
+
+Om jag ändrar hur webbplatsen fungerar på ett sätt som påverkar din integritet uppdaterar jag den här sidan och datumet ”Senast uppdaterad”.
+
+* Kontakt
+
+Frågor om den här policyn? Hör av dig via kontaktuppgifterna på [[file:../about.org][Om mig-sidan]] (på engelska).
+
+Se även [[file:terms.org][användarvillkoren]].

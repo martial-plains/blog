@@ -125,6 +125,36 @@ build prints a warning if it can't find the file.
   the deploy instead of going live. External links are not checked.
 - **Favicon** (`content/favicon.svg`) and a browser theme colour for light and dark.
 
+## Videos and audio
+
+Put the file in the post's folder (`.mp4`, `.m4v`, `.mov`, `.webm`, `.mp3`, `.ogg` and `.wav` are
+copied to the site, and so are `.vtt` caption files) and add a `<video>` through Org's raw HTML block.
+Org alone only turns `[[file:clip.mp4]]` into a text link.
+
+```org
+#+begin_export html
+<video controls preload="metadata" poster="poster.png">
+  <source src="clip.mp4" type="video/mp4">
+  <track kind="captions" src="clip.en.vtt" srclang="en" label="English" default>
+</video>
+#+end_export
+```
+
+- Add a short `poster` image so the page doesn't load the whole video just to show a frame, and
+  keep `preload="metadata"`. Compress clips for the web (H.264 `.mp4`) because the site is static
+  and every visitor downloads the file as it is.
+- For a caption under it, wrap it in `<figure>...<figcaption>text</figcaption></figure>`. A video
+  that is only an animation can use `autoplay muted loop playsinline` instead of `controls`.
+- `<audio controls src="song.mp3"></audio>` works the same way.
+- In a translation, repeat the block in that language's file; the video files are shared, as
+  images are.
+- YouTube and Vimeo embeds are `<iframe loading="lazy" src="..." allowfullscreen>`. Use
+  `https://www.youtube-nocookie.com/embed/ID` for YouTube. An embed contacts that service, so the
+  "Third parties" section of the Privacy Policy (`privacy.org` and its translations) already says
+  so for YouTube. Update it if you use another service. Printed pages leave embeds out.
+- The stylesheet makes `<video>` and `<iframe>` fill the column with rounded corners (iframes
+  are 16:9). The link checker checks the `src` of `<video>`, `<audio>` and `<source>`.
+
 ## Org features that work
 
 Checked by building a post that uses them: links to other posts
@@ -206,10 +236,9 @@ list of posts, and a floating bar at the bottom instead of a header.
   hero image beside the list. The pills filter by tag.
 - **Post page:** hero image, title, then the date on the left and the author on the
   right, then the text. At the end are "Read more posts" and "Subscribe via RSS" links.
-- **Bottom dock:** a floating bar on every page with a light/dark toggle (remembered in
-  the browser) and buttons for Home, About and Posts. On short pages (home, About, the
-  Posts page) it holds the search box. On a long post it shows the section you're
-  reading with a progress ring, and a search button opens the box in its place.
+- **Bottom dock:** a floating bar on every page with a Search button, a light/dark toggle
+  (remembered in the browser) and buttons for Home, About and Posts. On a long post it also shows
+  the section you're reading with a progress ring.
 - **Table of contents:** on a post, click the section name in the dock and it grows
   upward into a panel listing the post's headings (`*` as main entries, `**` indented
   beneath them). The section you're in is highlighted, clicking an entry scrolls
@@ -220,12 +249,15 @@ list of posts, and a floating bar at the bottom instead of a header.
   contents opens or the search box replaces the name). This is done by `morph()` in
   `content/js/site.js`; change the timing with the `transition: width` line on `.dock`
   in the stylesheet. It is skipped when the system's "reduce motion" setting is on.
-- **Search:** press Ctrl/Cmd+K anywhere, or click the box. It searches every post's
-  title, tags, summary and full text, ignores accents (so `hus` finds `hús`), needs
-  every word you type to match, and shows the best matches with the matching text
-  highlighted. Arrow keys and Enter pick a result; Esc closes it. The build writes the
-  index to `public/search-index.json` (`public/is/search-index.json` for Icelandic) and it is fetched the first time
-  you use the box.
+- **Search:** click the Search button or press Ctrl/Cmd+K anywhere. A palette opens in the middle of
+  the screen, in the style of the main website's search. It lists the site's pages (Home, About,
+  Posts, Privacy Policy, Terms of Service) and the latest posts, and typing narrows them. Posts are
+  matched on title, tags, summary and full text, accents are ignored (so `hus` finds `hús`), every
+  word you type must match, and the matching text is highlighted. A "Toggle theme" entry is there
+  too. Arrow keys move the highlight, Enter opens, Esc or a click outside closes. The build writes
+  the post index to `public/search-index.json` (`public/is/search-index.json` for Icelandic) and
+  it is fetched the first time the palette opens. The pages in the list come from `blog-palette-pages`
+  in `publish.el`; its look is the `.cmd-*` rules in `content/css/style.css`.
 - **Motion:** content fades up on load and the dock springs in. Everything respects
   the "reduce motion" setting, and the dock stays put when you move between pages in
   browsers that support cross-page view transitions.

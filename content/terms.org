@@ -1,0 +1,64 @@
+#+TITLE: Terms of Service
+#+DESCRIPTION: The ground rules for reading, sharing and using what's on this blog.
+#+LANGUAGE: en-GB
+
+/Last updated: 17 November 2026/
+
+Welcome. This is a personal blog written by Allister Isaiah Harvey ("I", "me"). By using the site you agree to these terms. If you don't agree, please don't use it.
+
+* The site
+
+The blog is free to read. I write about the things I'm building and learning, including code, languages, science, maths and music. Posts reflect what I know and think at the time of writing, and I may edit, move or remove any page without notice.
+
+* Not professional advice
+
+Everything here is for general information and interest. It isn't legal, financial, medical or other professional advice, and nothing on the site creates a professional relationship between us. If you act on something you read, you do so at your own risk, so check the details that matter, especially anything involving your health, money or safety.
+
+* Accuracy
+
+I try to get things right and to link to sources, but I make mistakes and things change. The site is provided "as is", with no promise that it is complete, current or free of errors, or that it will always be available.
+
+* Content and copyright
+
+Unless a post says otherwise, the text, images and music on this blog are my own work and are © Allister Isaiah Harvey, all rights reserved.
+
+You may:
+
+- Quote short passages, with credit and a link back to the original post.
+- Link to any page.
+- Share posts on social media or in a newsletter, as long as you link to the original.
+- Use the short code snippets in posts in your own projects.
+
+Please don't republish whole posts, or pass my writing, music or images off as your own, without asking me first. Third-party material, such as logos, screenshots and quotations, belongs to its owners and is shown for commentary or illustration.
+
+* Links to other sites
+
+Posts link to websites and services I don't control. I don't endorse everything on them and I'm not responsible for their content, availability or privacy practices.
+
+* Comments and messages
+
+If comments are switched on for a post, you are responsible for what you write. Please be civil. I may remove comments that are abusive, unlawful, spam or off-topic, and block people who repeatedly post them. Don't post anything you wouldn't want to be public.
+
+* Using the site responsibly
+
+Please don't try to break the site, overload it with automated requests, or probe it for security weaknesses. Ordinary use, including RSS readers and search-engine crawlers that respect =robots.txt=, is fine. If you find a security problem, tell me rather than exploiting it.
+
+* Limit of liability
+
+To the fullest extent the law allows, I'm not liable for any loss or damage that comes from using the site or relying on what's on it, including indirect or consequential loss. Nothing here excludes liability that can't legally be excluded.
+
+* Privacy
+
+How the site handles information about you is explained in the [[file:privacy.org][Privacy Policy]], which forms part of these terms.
+
+* Governing law
+
+These terms are governed by the laws of Trinidad and Tobago, and any dispute about them is for the courts of Trinidad and Tobago, unless the law where you live gives you rights that can't be waived.
+
+* Changes
+
+I may update these terms from time to time. The "Last updated" date above shows when. Continuing to use the site after a change means you accept the new terms.
+
+* Contact
+
+Questions about these terms? Get in touch using the contact details on the [[file:about.org][About page]].

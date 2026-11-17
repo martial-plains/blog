@@ -1,0 +1,67 @@
+#+TITLE: Persónuverndarstefna
+#+DESCRIPTION: Hvað þetta blogg safnar um þig og hvað ekki, á einföldu máli.
+#+LANGUAGE: is
+
+/Síðast uppfært: 17. nóvember 2026/
+
+Þetta er lítið persónulegt blogg eftir Allister Isaiah Harvey („ég“). Vefurinn er kyrrstæður: engir notendareikningar, engin skráningareyðublöð og enginn gagnagrunnur um gesti. Á þessari síðu er útskýrt hvað verður um upplýsingar um þig þegar þú heimsækir vefinn.
+
+* Stutta útgáfan
+
+- Ég bið ekki um neinar persónuupplýsingar og birti engar auglýsingar.
+- Vefurinn setur engar eigin vefkökur. Færsla með innfelldu YouTube-myndbandi getur falið í sér vefkökur frá YouTube, eins og útskýrt er undir Þriðju aðilar.
+- Ég nota hvorki greiningar- né rakningarforskriftir, svo ég veit ekki hver les hvaða færslu.
+- Það eina sem geymist í vafranum þínum er val þitt á útliti og tungumáli, og það fer aldrei úr tækinu þínu.
+
+* Hvað ég safna
+
+Engu, beint. Hér er ekkert eyðublað, enginn fréttabréfalisti og engin innskráning, svo vefurinn fær aldrei nafn þitt, netfang eða annað sem þú skrifar, nema í leitarreitinn sem lýst er hér að neðan.
+
+** Þjónaskrár
+
+Vefurinn er hýstur á GitHub Pages. Eins og allir vefhýsingaraðilar fær GitHub tæknilegar upplýsingar þegar vafrinn þinn biður um síðu, til dæmis IP-tölu þína, síðuna sem þú baðst um, gerð vafrans og tímann. Ég hef ekki aðgang að þessum skrám. Hvernig GitHub meðhöndlar þær er útskýrt í [[https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement][persónuverndaryfirlýsingu GitHub]].
+
+** Leit
+
+Leitin (Ctrl eða Cmd + K) virkar alfarið í vafranum þínum. Þegar þú notar hana í fyrsta sinn sækir vafrinn skrá með lista yfir færslur bloggsins og leitar svo í henni á staðnum. Það sem þú skrifar er hvorki sent til mín né annarra.
+
+* Hvað geymist í vafranum þínum
+
+Vefurinn notar staðbundna geymslu vafrans, ekki vefkökur, til að muna tvö val:
+
+| Atriði   | Til hvers                                    | Geymist þar til                    |
+|----------+----------------------------------------------+------------------------------------|
+| =theme=  | Man ljóst eða dökkt útlit                    | Þú eyðir vefgögnum                 |
+| =lang=   | Man tungumálið sem þú valdir                 | Þú eyðir vefgögnum                 |
+
+Þessi gildi haldast í tækinu þínu. Ég get ekki lesið þau og vefurinn þarf þau ekki til að virka. Þú getur eytt þeim hvenær sem er í stillingum vafrans.
+
+* Þriðju aðilar
+
+- *Letur.* Letrið Inter er hýst á þessum vef sjálfum, svo ekkert er sent til Google eða annarrar leturþjónustu þegar það hleðst.
+- *Stærðfræði.* Færsla með stærðfræðiformúlum hleður MathJax-safninu frá opinberu efnisdreifikerfi (CDN). Vafrinn þinn tengist því kerfi, sem getur séð IP-tölu þína, eins og með hverja aðra skrá sem er sótt af þjóni þriðja aðila. Færslur án formúla senda enga slíka beiðni.
+- *Myndbönd.* Myndbönd sem ég hýsi sjálfur eru afhent af þessum vef og senda ekkert annað. Færsla með innfelldu YouTube-myndbandi hleður spilaranum frá YouTube, í gegnum persónuverndarvæna slóð (youtube-nocookie.com). Vafrinn þinn tengist þá YouTube, sem getur séð IP-tölu þína og, þegar þú spilar myndbandið, getur vistað vefkökur eða áþekk gögn í tækinu þínu samkvæmt [[https://policies.google.com/privacy][persónuverndarstefnu Google]]. Færslur án innfelldra myndbanda senda enga slíka beiðni.
+- *Tenglar.* Færslur vísa á aðra vefi, svo sem greinar, verkfæri og verslanir. Þegar þú fylgir tengli gildir persónuverndarstefna þess vefs, ekki þessi.
+- *Streymi.* Ef þú gerist áskrifandi með RSS sækir lesarinn þinn streymið af þessum vef. Hvaða lesara þú notar og hversu oft hann athugar er mál milli þín og lesarans.
+
+* Athugasemdir og greining
+
+Hvorugt er í notkun núna. Ef ég bæti við athugasemdum eða greiningu síðar uppfæri ég þessa síðu og dagsetninguna efst áður en það fer í loftið.
+
+* Börn
+
+Bloggið er skrifað fyrir almenning og beinist ekki að börnum yngri en 13 ára. Það safnar engum persónuupplýsingum um neinn, þar á meðal börn.
+
+* Réttindi þín
+
+Þar sem ég geymi engar persónuupplýsingar um þig er venjulega ekkert til að fá aðgang að, leiðrétta eða eyða. Hafir þú skrifað mér beint geturðu beðið mig um að eyða þeim samskiptum og ég geri það. Eftir því hvar þú býrð áttu mögulega rétt samkvæmt persónuverndarlögum í þínu landi og getur haft samband við persónuverndaryfirvöld þar ef þú hefur áhyggjur.
+
+* Breytingar á stefnunni
+
+Ef ég breyti því hvernig vefurinn virkar á þann hátt að það snertir friðhelgi þína uppfæri ég þessa síðu og dagsetninguna „Síðast uppfært“.
+
+* Samband
+
+Spurningar um þessa stefnu? Hafðu samband með upplýsingunum á [[file:../about.org][Um mig-síðunni]] (á ensku).
+
+Sjá einnig [[file:terms.org][þjónustuskilmálana]].

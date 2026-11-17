@@ -1,0 +1,64 @@
+#+TITLE: Nutzungsbedingungen
+#+DESCRIPTION: Die Spielregeln zum Lesen, Teilen und Verwenden der Inhalte dieses Blogs.
+#+LANGUAGE: de
+
+/Zuletzt aktualisiert: 17. November 2026/
+
+Willkommen. Dies ist ein privater Blog von Allister Isaiah Harvey („ich“). Mit der Nutzung der Website erklärst du dich mit diesen Bedingungen einverstanden. Wenn du nicht einverstanden bist, nutze die Website bitte nicht.
+
+* Die Website
+
+Der Blog ist kostenlos lesbar. Ich schreibe über Dinge, die ich baue und lerne, darunter Programmierung, Sprachen, Naturwissenschaften, Mathematik und Musik. Beiträge geben wieder, was ich zum Zeitpunkt des Schreibens weiß und denke, und ich kann jede Seite ohne Ankündigung ändern, verschieben oder entfernen.
+
+* Keine professionelle Beratung
+
+Alles hier dient der allgemeinen Information und Unterhaltung. Es ist keine Rechts-, Finanz-, medizinische oder sonstige fachliche Beratung, und durch die Website entsteht kein Beratungsverhältnis zwischen uns. Wenn du nach etwas handelst, das du gelesen hast, geschieht das auf eigenes Risiko. Prüfe wichtige Einzelheiten, besonders wenn es um Gesundheit, Geld oder Sicherheit geht.
+
+* Richtigkeit
+
+Ich bemühe mich, es richtig zu machen und Quellen zu verlinken, aber ich mache Fehler, und Dinge ändern sich. Die Website wird „wie besehen“ bereitgestellt, ohne Gewähr für Vollständigkeit, Aktualität oder Fehlerfreiheit und ohne Zusage, dass sie jederzeit erreichbar ist.
+
+* Inhalte und Urheberrecht
+
+Sofern ein Beitrag nichts anderes angibt, sind die Texte, Bilder und die Musik dieses Blogs meine eigene Arbeit und © Allister Isaiah Harvey, alle Rechte vorbehalten.
+
+Du darfst:
+
+- Kurze Passagen zitieren, mit Quellenangabe und einem Link zum Originalbeitrag.
+- Auf jede Seite verlinken.
+- Beiträge in sozialen Netzwerken oder in einem Newsletter teilen, solange du auf das Original verlinkst.
+- Die kurzen Code-Schnipsel aus den Beiträgen in eigenen Projekten verwenden.
+
+Bitte veröffentliche keine ganzen Beiträge erneut und gib meine Texte, Musik oder Bilder nicht als deine eigenen aus, ohne mich vorher zu fragen. Material Dritter, etwa Logos, Screenshots und Zitate, gehört seinen jeweiligen Inhabern und wird zur Kommentierung oder Veranschaulichung gezeigt.
+
+* Links zu anderen Websites
+
+Beiträge verlinken auf Websites und Dienste, die ich nicht kontrolliere. Ich unterstütze nicht alles, was dort steht, und bin nicht verantwortlich für deren Inhalte, Verfügbarkeit oder Datenschutzpraxis.
+
+* Kommentare und Nachrichten
+
+Wenn Kommentare für einen Beitrag aktiviert sind, bist du für das verantwortlich, was du schreibst. Bitte bleib höflich. Ich kann Kommentare entfernen, die beleidigend, rechtswidrig, Spam oder themenfremd sind, und Personen sperren, die sie wiederholt posten. Schreibe nichts, was nicht öffentlich werden soll.
+
+* Verantwortungsvolle Nutzung
+
+Bitte versuche nicht, die Website lahmzulegen, sie mit automatisierten Anfragen zu überlasten oder auf Sicherheitslücken zu prüfen. Normale Nutzung, einschließlich RSS-Readern und Suchmaschinen-Crawlern, die =robots.txt= beachten, ist in Ordnung. Wenn du eine Sicherheitslücke findest, sag es mir, statt sie auszunutzen.
+
+* Haftungsbeschränkung
+
+Soweit gesetzlich zulässig, hafte ich nicht für Verluste oder Schäden, die aus der Nutzung der Website oder dem Vertrauen auf ihre Inhalte entstehen, einschließlich mittelbarer Schäden und Folgeschäden. Nichts hier schließt eine Haftung aus, die gesetzlich nicht ausgeschlossen werden kann.
+
+* Datenschutz
+
+Wie die Website mit Informationen über dich umgeht, steht in der [[file:privacy.org][Datenschutzerklärung]], die Teil dieser Bedingungen ist.
+
+* Anwendbares Recht
+
+Für diese Bedingungen gilt das Recht von Trinidad und Tobago, und für Streitigkeiten sind die Gerichte von Trinidad und Tobago zuständig, es sei denn, das Recht an deinem Wohnort gewährt dir Rechte, auf die nicht verzichtet werden kann.
+
+* Änderungen
+
+Ich kann diese Bedingungen von Zeit zu Zeit aktualisieren. Das Datum „Zuletzt aktualisiert“ oben zeigt, wann. Wenn du die Website nach einer Änderung weiter nutzt, akzeptierst du die neuen Bedingungen.
+
+* Kontakt
+
+Fragen zu diesen Bedingungen? Melde dich über die Kontaktdaten auf der [[file:../about.org][Über-mich-Seite]] (auf Englisch).

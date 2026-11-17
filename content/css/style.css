@@ -129,6 +129,12 @@ figure img { border-radius: 12px; max-width: min(100%, 20rem); }
 /* Diagrams (SVG) fill the column; photos and covers keep the narrower cap above. */
 figure img[src$=".svg"] { width: 100%; max-width: 100%; height: auto; }
 figcaption { margin-top: .6rem; color: var(--muted); font-size: .9rem; }
+/* Video: a self-hosted <video> or an embedded <iframe> fills the column and keeps its shape. */
+#content video, #content iframe { display: block; width: 100%; margin: 2rem 0; border: 0; border-radius: 12px; background: #000; }
+#content video { height: auto; max-height: 80vh; }
+#content iframe { aspect-ratio: 16 / 9; height: auto; }
+figure video, figure iframe { margin: 0 auto; }
+#content audio { display: block; width: 100%; margin: 1.5rem 0; }
 code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 code { background: var(--code-bg); padding: .12em .38em; border-radius: 5px; color: var(--fg); }
 pre { background: var(--code-bg); padding: 1rem 1.15rem; border-radius: 12px; overflow-x: auto; margin: 1.4rem 0; line-height: 1.6; }
@@ -291,6 +297,9 @@ h2[data-count]::after { content: attr(data-count); margin-left: .6rem; font: .62
 .endnav a { color: var(--body); text-decoration: none; transition: color .15s; }
 .endnav a:hover { color: var(--fg); }
 .colophon { margin: 2.5rem 0 0; color: var(--muted); font-size: .8rem; }
+.colophon.legal { margin-top: .35rem; }
+.colophon.legal a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.colophon.legal a:hover { color: var(--fg); }
 
 /* ---- posts index ---- */
 .list-head .title { margin-bottom: .45rem; }
@@ -356,49 +365,80 @@ h2[data-count]::after { content: attr(data-count); margin-left: .6rem; font: .62
   :root:not([data-theme="light"]) .icon-sun { display: inline-flex; }
   :root:not([data-theme="light"]) .icon-moon { display: none; }
 }
-.dock-search, #search-open, .dock .dock-section { display: none; }
-.dock.searching .dock-search { display: block; width: 17rem; }
-.dock.searching .dock-search label {
-  display: flex; align-items: center; gap: .55rem; height: 2.2rem; padding: 0 .7rem 0 .8rem;
-  background: var(--hover); border-radius: 999px; cursor: text;
-}
-.dock.reading:not(.searching) .dock-section {
+.dock .dock-section { display: none; }
+.dock.reading .dock-section {
   display: flex; align-items: center; gap: .55rem; width: auto; height: 2.2rem; padding: 0 .7rem 0 .8rem;
   border-radius: 999px; min-width: 0; max-width: 21rem; font: inherit; font-weight: 500; color: var(--fg); text-align: left;
 }
-.dock.reading.toc-open:not(.searching) .dock-section { flex: 1; max-width: none; }
-.dock.reading:not(.searching) #search-open { display: grid; }
-.dock-search input {
-  flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--fg); font: inherit;
-  -webkit-appearance: none; appearance: none;
-}
-.dock-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
-.dock-search input::placeholder { color: var(--muted); }
-.dock-search kbd {
-  font: .68rem/1 var(--mono); padding: .22rem .38rem; border-radius: 5px; color: var(--muted); background: var(--hover); white-space: nowrap;
-}
+.dock.reading.toc-open .dock-section { flex: 1; max-width: none; }
 .dock a.dock-text { width: auto; display: flex; align-items: center; gap: .45rem; padding: 0 .85rem 0 .7rem; border-radius: 999px; font-weight: 500; }
 .dock a.dock-text:hover { background: var(--hover); }
 
-/* search results pop up above the dock */
-.results {
-  position: absolute; bottom: calc(100% + .9rem); left: 50%; translate: -50% 0;
-  width: min(30rem, calc(100vw - 1.5rem)); max-height: min(22rem, 55vh); overflow-y: auto;
-  list-style: none; margin: 0; padding: .35rem;
-  background: var(--dock-bg); border: 1px solid var(--dock-line); border-radius: 18px;
-  -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, .12); animation: rise .18s ease-out both;
+/* the Search button in the dock */
+.dock #search-open {
+  display: flex; align-items: center; gap: .45rem; width: auto; padding: 0 .85rem 0 .7rem;
+  border-radius: 999px; font: inherit; font-weight: 500;
 }
-.results li { margin: 0; }
-.dock .results a, .results .none {
-  display: block; width: auto; height: auto; place-items: normal; text-align: left;
-  padding: .6rem .8rem; border-radius: 12px; text-decoration: none; color: var(--fg); line-height: 1.4;
+
+/* ---- search palette: a centred box over the page ---- */
+.cmd {
+  position: fixed; inset: 0; z-index: 70; display: flex; align-items: flex-start; justify-content: center;
+  padding: 16vh 1rem 0; background: rgba(0, 0, 0, .3);
+  -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+  animation: cmd-fade .15s ease-out both;
 }
-.results .none { color: var(--muted); }
-.dock .results li.is-active a, .dock .results a:hover { background: var(--hover); }
-.results .r-title { display: block; font-weight: 500; }
-.results .r-snip { display: block; margin-top: .15rem; font-size: .84rem; color: var(--muted); }
-.results mark { background: none; color: var(--fg); font-weight: 600; text-decoration: underline; text-underline-offset: .15em; }
+.cmd.is-closing { animation: cmd-fade-out .15s ease-in both; pointer-events: none; }
+.cmd-box {
+  width: 100%; max-width: 600px; overflow: hidden; border-radius: 24px;
+  border: 1px solid var(--dock-line); background: var(--dock-bg-open); color: var(--fg);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .25); font-size: .95rem;
+  animation: cmd-pop .3s cubic-bezier(.34, 1.3, .64, 1) both;
+}
+.cmd.is-closing .cmd-box { animation: cmd-pop-out .15s ease-in both; }
+.cmd-field { display: flex; align-items: center; gap: .8rem; padding: 1.1rem 1.5rem; color: var(--muted); }
+.cmd-field svg { flex: none; }
+.cmd-field input {
+  flex: 1; min-width: 0; border: 0; outline: 0; padding: 0; background: transparent; color: var(--fg);
+  font: inherit; font-size: 1.1rem; -webkit-appearance: none; appearance: none;
+}
+.cmd-field input::placeholder { color: var(--muted); }
+.cmd-list {
+  position: relative; max-height: 50vh; overflow-y: auto; margin: 0; padding: .5rem;
+  list-style: none; border-top: 1px solid var(--line);
+}
+.cmd-list li { margin: 0; padding: 0; }
+.cmd-hl {
+  position: absolute; left: .5rem; right: .5rem; top: 0; height: 0; border-radius: 12px; background: var(--line);
+  pointer-events: none; opacity: 0;
+  transition: transform .25s cubic-bezier(.32, .72, 0, 1), height .25s cubic-bezier(.32, .72, 0, 1), opacity .15s;
+}
+.cmd-group { padding: .75rem 1rem .25rem; font-size: .85rem; color: var(--muted); }
+.cmd-gap { height: .5rem; }
+.cmd-list li[role="option"] { position: relative; z-index: 1; }
+.cmd-row {
+  display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: .6rem 1rem; border: 0; border-radius: 12px; background: none; cursor: pointer;
+  font: inherit; color: var(--fg); text-align: left; text-decoration: none;
+}
+.cmd-main { display: flex; align-items: flex-start; gap: .75rem; min-width: 0; }
+.cmd-ic { display: grid; flex: none; margin-top: .22rem; color: var(--muted); }
+.cmd-txt { display: flex; flex-direction: column; min-width: 0; line-height: 1.4; }
+.cmd-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cmd-snip {
+  margin-top: .15rem; font-size: .84rem; color: var(--muted);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.cmd-hint { flex: none; align-self: center; font-size: .85rem; color: var(--muted); white-space: nowrap; }
+.cmd-none { padding: 2rem 1rem; text-align: center; color: var(--muted); }
+.cmd mark { background: none; padding: 0; color: var(--fg); font-weight: 600; text-decoration: underline; text-underline-offset: .15em; }
+.cmd-foot {
+  display: flex; justify-content: space-between; gap: 1rem; padding: .75rem 1.5rem;
+  border-top: 1px solid var(--line); font-size: .85rem; color: var(--muted);
+}
+@keyframes cmd-fade { from { opacity: 0; } }
+@keyframes cmd-fade-out { to { opacity: 0; } }
+@keyframes cmd-pop { from { opacity: 0; transform: translateY(8px) scale(.96); } }
+@keyframes cmd-pop-out { to { opacity: 0; transform: translateY(4px) scale(.97); } }
 .dock-section .dot { width: .4rem; height: .4rem; border-radius: 50%; background: var(--fg); flex: none; }
 #dock-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ring { flex: none; transform: rotate(-90deg); }
@@ -471,25 +511,24 @@ h3 { scroll-margin-top: 2rem; }
   body { padding-top: 3.5rem; font-size: 1rem; }
   h1.title { font-size: 1.45rem; }
   .post-list { margin-left: -.5rem; }
-  .dock.searching .dock-search { width: 10.5rem; }
-  .dock-search kbd { display: none; }
-  .dock.reading:not(.searching) .dock-section { max-width: 9.5rem; }
-  .dock.reading.toc-open:not(.searching) #search-open { display: none; }
-  .dock a.dock-text span { display: none; }
-  .dock a.dock-text { padding: 0; width: 2.2rem; justify-content: center; }
+  .cmd { padding-top: 9vh; }
+  .cmd-foot { display: none; }
+  .dock.reading .dock-section { max-width: 9.5rem; }
+  .dock.reading.toc-open #search-open { display: none; }
+  .dock a.dock-text span, .dock #search-open span { display: none; }
+  .dock a.dock-text, .dock #search-open { padding: 0; width: 2.2rem; justify-content: center; }
 }
 /* very narrow phones (320px): drop the language label and shrink the search box so the dock fits */
 @media (max-width: 24rem) {
   .dock .lang > button { width: 2.2rem; padding: 0; justify-content: center; }
   .dock .lang > button span { display: none; }
-  .dock.searching .dock-search { width: 8.5rem; }
 }
 
 /* ---- printing: just the text ---- */
 @media print {
   :root, :root[data-theme="dark"] { --bg: #fff; --fg: #000; --body: #222; --muted: #555; --line: #bbb; --code-bg: #f1f1f1; }
   body { padding: 0; max-width: none; font-size: 11pt; background: #fff; color: #222; }
-  .dock, .bottom-fade, .skip-link, .copy-btn, a.anchor, .post-nav, .related, .post-tags, .endnav, .subnav, .comments { display: none !important; }
+  .dock, .cmd, .bottom-fade, #content iframe, .skip-link, .copy-btn, a.anchor, .post-nav, .related, .post-tags, .endnav, .subnav, .comments { display: none !important; }
   #content > *, #preamble > *, .list-head { animation: none !important; }
   .hero img { border-radius: 0; max-height: 9cm; }
   a { color: #000; text-decoration: underline; }

@@ -215,7 +215,9 @@ and written to the feed in that same zone.  Use IANA names such as
      (archive . "Archive") (tags . "Tags")
      (archive-lede . "Every post, newest first.") (tags-lede . "Browse posts by topic.")
      (related . "Related posts") (older . "Older post") (newer . "Newer post")
-     (anchor . "Copy link to this section") (skip . "Skip to content"))
+     (anchor . "Copy link to this section") (skip . "Skip to content")
+     (privacy . "Privacy Policy") (terms . "Terms of Service")
+     (pages . "Pages") (find . "Search") (hint-move . "↑↓ to move, ↵ to open") (hint-close . "Esc to close"))
     ("is"
      (description . "Pistlar um íslensku, Emacs, Org mode og skrýtin verkefni sem spretta upp úr þeim.")
      (home . "Heim") (about . "Um mig") (posts . "Færslur") (all-posts . "Allar færslur")
@@ -231,7 +233,9 @@ and written to the feed in that same zone.  Use IANA names such as
      (archive . "Safn") (tags . "Efnisorð")
      (archive-lede . "Allar færslur, nýjustu fyrst.") (tags-lede . "Skoðaðu færslur eftir efni.")
      (related . "Tengdar færslur") (older . "Eldri færsla") (newer . "Nýrri færsla")
-     (anchor . "Afrita tengil á þennan kafla") (skip . "Fara beint í efnið"))
+     (anchor . "Afrita tengil á þennan kafla") (skip . "Fara beint í efnið")
+     (pages . "Síður") (find . "Leita") (hint-move . "↑↓ til að fletta, ↵ til að opna") (hint-close . "Esc til að loka")
+     (privacy . "Persónuverndarstefna") (terms . "Þjónustuskilmálar"))
     ("sv"
      (description . "Anteckningar om isländska, Emacs, Org mode och de udda projekt som växer fram ur dem.")
      (home . "Hem") (about . "Om mig") (posts . "Inlägg") (all-posts . "Alla inlägg")
@@ -247,7 +251,9 @@ and written to the feed in that same zone.  Use IANA names such as
      (archive . "Arkiv") (tags . "Ämnen")
      (archive-lede . "Alla inlägg, nyaste först.") (tags-lede . "Bläddra bland inlägg efter ämne.")
      (related . "Relaterade inlägg") (older . "Äldre inlägg") (newer . "Nyare inlägg")
-     (anchor . "Kopiera länk till det här avsnittet") (skip . "Hoppa till innehållet"))
+     (anchor . "Kopiera länk till det här avsnittet") (skip . "Hoppa till innehållet")
+     (pages . "Sidor") (find . "Sök") (hint-move . "↑↓ för att flytta, ↵ för att öppna") (hint-close . "Esc för att stänga")
+     (privacy . "Integritetspolicy") (terms . "Användarvillkor"))
     ("de"
      (description . "Notizen über Isländisch, Emacs, Org mode und die kuriosen Projekte, die daraus entstehen.")
      (home . "Start") (about . "Über mich") (posts . "Beiträge") (all-posts . "Alle Beiträge")
@@ -263,7 +269,9 @@ and written to the feed in that same zone.  Use IANA names such as
      (archive . "Archiv") (tags . "Themen")
      (archive-lede . "Alle Beiträge, neueste zuerst.") (tags-lede . "Beiträge nach Thema durchstöbern.")
      (related . "Ähnliche Beiträge") (older . "Älterer Beitrag") (newer . "Neuerer Beitrag")
-     (anchor . "Link zu diesem Abschnitt kopieren") (skip . "Zum Inhalt springen"))
+     (anchor . "Link zu diesem Abschnitt kopieren") (skip . "Zum Inhalt springen")
+     (pages . "Seiten") (find . "Suche") (hint-move . "↑↓ zum Navigieren, ↵ zum Öffnen") (hint-close . "Esc zum Schließen")
+     (privacy . "Datenschutzerklärung") (terms . "Nutzungsbedingungen"))
     ("ja"
      (description . "アイスランド語、Emacs、Org mode、そしてそこから生まれる風変わりなプロジェクトについてのメモ。")
      (home . "ホーム") (about . "自己紹介") (posts . "記事") (all-posts . "すべての記事")
@@ -280,6 +288,8 @@ and written to the feed in that same zone.  Use IANA names such as
      (archive-lede . "すべての記事を新しい順に。") (tags-lede . "トピック別に記事を見る。")
      (related . "関連記事") (older . "前の記事") (newer . "次の記事")
      (anchor . "このセクションへのリンクをコピー") (skip . "本文へスキップ")
+     (pages . "ページ") (find . "検索") (hint-move . "↑↓ で移動、↵ で開く") (hint-close . "Esc で閉じる")
+     (privacy . "プライバシーポリシー") (terms . "利用規約")
      ;; Arguments are (day month year), so number the fields to get 2026年9月30日.
      (date-format . "%3$d年%2$s%1$d日"))))
 
@@ -523,7 +533,7 @@ Returns (ORG-FILES-REGEXP . FOLDERS-REGEXP); either is nil when there is nothing
 ;; post links to (images, PDFs, audio, video), including files that sit in a
 ;; post's own folder.
 (defvar blog-asset-extensions
-  "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|svg\\|webp\\|avif\\|ico\\|txt\\|pdf\\|mp3\\|ogg\\|wav\\|mp4\\|webm\\|woff2?")
+  "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|svg\\|webp\\|avif\\|ico\\|txt\\|pdf\\|mp3\\|ogg\\|wav\\|mp4\\|m4v\\|mov\\|webm\\|vtt\\|woff2?")
 
 (defun blog-asset-url (file ref)
   "The URL of the asset REF named in the Org source FILE.
@@ -687,38 +697,51 @@ because the build copies every asset there."
         alts "")
        "</ul></div>"))))
 
+;; The pages offered in the search palette, as JSON for the dock's data-pages attribute.
+(defun blog-palette-pages (lang)
+  (json-encode
+   (vconcat
+    (mapcar (lambda (p)
+              `((label . ,(blog-str lang (car p)))
+                (url . ,(blog-nav-url lang (cdr p)))))
+            '((home . "index.org") (about . "about.org") (posts . "posts/index.org")
+              (privacy . "privacy.org") (terms . "terms.org"))))))
+
 ;; The floating bar at the bottom of every page (see content/js/site.js).
 (defun blog-dock (lang rel)
   (concat
    "<div class=\"bottom-fade\" aria-hidden=\"true\"></div>"
    (format (concat "<nav class=\"dock\" aria-label=\"Site\" data-no-match=\"%s\" data-unavailable=\"%s\" "
-                   "data-copy=\"%s\" data-copied=\"%s\" data-anchor=\"%s\">")
+                   "data-copy=\"%s\" data-copied=\"%s\" data-anchor=\"%s\" "
+                   "data-search=\"%s\" data-pages-label=\"%s\" data-posts-label=\"%s\" "
+                   "data-theme-label=\"%s\" data-hint-move=\"%s\" data-hint-close=\"%s\" "
+                   "data-pages=\"%s\">")
            (blog-attr (blog-str lang 'no-match))
            (blog-attr (blog-str lang 'unavailable))
            (blog-attr (blog-str lang 'copy))
            (blog-attr (blog-str lang 'copied))
-           (blog-attr (blog-str lang 'anchor)))
+           (blog-attr (blog-str lang 'anchor))
+           (blog-attr (blog-str lang 'search))
+           (blog-attr (blog-str lang 'pages))
+           (blog-attr (blog-str lang 'posts))
+           (blog-attr (blog-str lang 'theme))
+           (blog-attr (blog-str lang 'hint-move))
+           (blog-attr (blog-str lang 'hint-close))
+           (blog-attr (blog-palette-pages lang)))
    ;; Table of contents: filled in by content/js/site.js from the post's headings.
    (format (concat "<div class=\"toc-panel\" id=\"toc-panel\" inert><div class=\"toc-clip\">"
                    "<p class=\"toc-head\">%s</p><ul class=\"toc-list\" id=\"toc-list\"></ul>"
                    "</div></div>")
            (blog-text (blog-str lang 'toc)))
    "<div class=\"dock-row\">"
-   ;; Search box (with its results list) and, on long pages, a button that opens it.
-   "<div class=\"dock-search\"><label>"
-   (blog-svg "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>")
-   (format (concat "<input id=\"dock-search\" type=\"search\" placeholder=\"%s\" "
-                   "autocomplete=\"off\" aria-label=\"%s\" data-index=\"%s\" />")
+   ;; The search button.  It opens the search palette, which content/js/site.js builds.
+   (format (concat "<button id=\"search-open\" type=\"button\" aria-haspopup=\"dialog\" "
+                   "aria-label=\"%s\" title=\"%s\" data-index=\"%s\">%s<span>%s</span></button>")
            (blog-attr (blog-str lang 'search))
            (blog-attr (blog-str lang 'search))
-           (blog-search-index-url lang))
-   "<kbd>Ctrl K</kbd></label>"
-   "<ul id=\"search-results\" class=\"results\" role=\"listbox\" hidden></ul></div>"
-   (format "<button id=\"search-open\" type=\"button\" aria-label=\"%s\" title=\"%s\">"
-           (blog-attr (blog-str lang 'search))
-           (blog-attr (blog-str lang 'search)))
-   (blog-svg "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>")
-   "</button>"
+           (blog-search-index-url lang)
+           (blog-svg "<circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/>")
+           (blog-text (blog-str lang 'find)))
    ;; Which part of the post you are reading, with a progress ring.
    (format (concat "<button class=\"dock-section\" id=\"toc-toggle\" type=\"button\" "
                    "aria-expanded=\"false\" aria-controls=\"toc-panel\" title=\"%s\">")
@@ -849,6 +872,9 @@ because the build copies every asset there."
                 (blog-text (blog-str lang 'rss)))))
      (format "<p class=\"colophon\">&copy; %s %s. %s</p>"
              (format-time-string "%Y") blog-author (blog-text (blog-str lang 'built)))
+     (format "<p class=\"colophon legal\"><a href=\"%s\">%s</a> &middot; <a href=\"%s\">%s</a></p>"
+             (blog-nav-url lang "privacy.org") (blog-text (blog-str lang 'privacy))
+             (blog-nav-url lang "terms.org") (blog-text (blog-str lang 'terms)))
      (blog-dock lang rel))))
 
 ;; ---------------------------------------------------------------
@@ -1525,7 +1551,7 @@ The text is cut to 20000 characters (enough for search) unless WHOLE is non-nil.
                "<" "&lt;" (replace-regexp-in-string "&" "&amp;" s t t) t t) t t))
 
 (defun blog-write-sitemap ()
-  (let ((rels (list "index.org" "about.org" "posts/index.org" "archive.org" "tags.org"))
+  (let ((rels (list "index.org" "about.org" "privacy.org" "terms.org" "posts/index.org" "archive.org" "tags.org"))
         (coding-system-for-write 'utf-8))
     (dolist (code (blog-codes))
       (dolist (file (blog-post-files code))

@@ -1,0 +1,64 @@
+#+TITLE: Þjónustuskilmálar
+#+DESCRIPTION: Grundreglurnar um að lesa, deila og nota það sem er á þessu bloggi.
+#+LANGUAGE: is
+
+/Síðast uppfært: 17. nóvember 2026/
+
+Velkomin. Þetta er persónulegt blogg eftir Allister Isaiah Harvey („ég“). Með því að nota vefinn samþykkir þú þessa skilmála. Ef þú samþykkir þá ekki, vinsamlegast ekki nota hann.
+
+* Vefurinn
+
+Bloggið er ókeypis að lesa. Ég skrifa um það sem ég er að smíða og læra, þar á meðal forritun, tungumál, vísindi, stærðfræði og tónlist. Færslur endurspegla það sem ég veit og hugsa þegar ég skrifa þær, og ég má breyta, flytja eða fjarlægja hvaða síðu sem er án fyrirvara.
+
+* Ekki fagleg ráðgjöf
+
+Allt hér er almennar upplýsingar og til gamans. Þetta er hvorki lögfræðileg, fjárhagsleg, læknisfræðileg né önnur fagleg ráðgjöf, og vefurinn stofnar ekki til ráðgjafarsambands milli okkar. Ef þú bregst við einhverju sem þú lest gerirðu það á eigin ábyrgð, svo athugaðu þau atriði sem skipta máli, sérstaklega þegar kemur að heilsu, peningum eða öryggi.
+
+* Nákvæmni
+
+Ég reyni að hafa hlutina rétta og vísa í heimildir, en mér verður á og hlutir breytast. Vefurinn er veittur „eins og hann er“, án loforðs um að hann sé tæmandi, uppfærður eða villulaus, eða að hann sé alltaf aðgengilegur.
+
+* Efni og höfundarréttur
+
+Nema færsla segi annað eru textarnir, myndirnar og tónlistin á þessu bloggi mitt eigið verk og © Allister Isaiah Harvey, öll réttindi áskilin.
+
+Þú mátt:
+
+- Vitna í stutta kafla, með heimildartilvísun og tengli á upprunalegu færsluna.
+- Tengja á hvaða síðu sem er.
+- Deila færslum á samfélagsmiðlum eða í fréttabréfi, svo lengi sem þú tengir á frumútgáfuna.
+- Nota stuttu kóðabútana úr færslunum í þín eigin verkefni.
+
+Vinsamlegast ekki endurbirta heilar færslur eða gefa texta, tónlist eða myndir eftir mig út fyrir að vera þín eigin án þess að spyrja mig fyrst. Efni þriðju aðila, svo sem merki, skjámyndir og tilvitnanir, tilheyrir eigendum sínum og er sýnt til umfjöllunar eða skýringar.
+
+* Tenglar á aðra vefi
+
+Færslur vísa á vefi og þjónustur sem ég stjórna ekki. Ég styð ekki allt sem þar er og ber ekki ábyrgð á efni þeirra, aðgengi eða meðferð persónuupplýsinga.
+
+* Athugasemdir og skilaboð
+
+Ef athugasemdir eru virkar við færslu berð þú ábyrgð á því sem þú skrifar. Sýndu kurteisi. Ég má fjarlægja athugasemdir sem eru móðgandi, ólöglegar, ruslpóstur eða óviðkomandi og loka á þá sem birta slíkt ítrekað. Skrifaðu ekkert sem þú vilt ekki að verði opinbert.
+
+* Ábyrg notkun
+
+Vinsamlegast ekki reyna að eyðileggja vefinn, yfirkeyra hann með sjálfvirkum beiðnum eða leita að öryggisgöllum í honum. Venjuleg notkun er í lagi, þar á meðal RSS-lesarar og leitarvélaskriðlar sem virða =robots.txt=. Ef þú finnur öryggisvandamál, láttu mig vita í stað þess að nýta það.
+
+* Takmörkun ábyrgðar
+
+Að því marki sem lög leyfa ber ég ekki ábyrgð á tapi eða tjóni sem hlýst af notkun vefsins eða því að treysta á efni hans, þar með talið óbeinu tjóni og afleiddu tjóni. Ekkert hér útilokar ábyrgð sem ekki er lögum samkvæmt hægt að útiloka.
+
+* Persónuvernd
+
+Hvernig vefurinn meðhöndlar upplýsingar um þig er útskýrt í [[file:privacy.org][persónuverndarstefnunni]], sem er hluti af þessum skilmálum.
+
+* Lög sem gilda
+
+Um þessa skilmála gilda lög Trínidad og Tóbagó, og ágreiningur um þá heyrir undir dómstóla þar, nema lög þar sem þú býrð veiti þér réttindi sem ekki er hægt að afsala sér.
+
+* Breytingar
+
+Ég má uppfæra þessa skilmála af og til. Dagsetningin „Síðast uppfært“ hér að ofan sýnir hvenær. Ef þú heldur áfram að nota vefinn eftir breytingu samþykkir þú nýju skilmálana.
+
+* Samband
+
+Spurningar um skilmálana? Hafðu samband með upplýsingunum á [[file:../about.org][Um mig-síðunni]] (á ensku).

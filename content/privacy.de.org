@@ -1,0 +1,67 @@
+#+TITLE: Datenschutzerklärung
+#+DESCRIPTION: Was dieser Blog über dich erhebt und was nicht, in einfachen Worten.
+#+LANGUAGE: de
+
+/Zuletzt aktualisiert: 17. November 2026/
+
+Dies ist ein kleiner privater Blog von Allister Isaiah Harvey („ich“). Es ist eine statische Website: Es gibt keine Konten, keine Anmeldeformulare und keine Besucherdatenbank. Diese Seite erklärt, was mit deinen Informationen geschieht, wenn du die Seite besuchst.
+
+* Das Wichtigste in Kürze
+
+- Ich frage dich nicht nach persönlichen Daten und schalte keine Werbung.
+- Diese Website setzt selbst keine Cookies. Bei einem Beitrag mit eingebettetem YouTube-Video können Cookies von YouTube eine Rolle spielen, wie unter „Dritte“ erklärt.
+- Ich setze weder Analyse- noch Tracking-Skripte ein, ich weiß also nicht, wer welchen Beitrag liest.
+- Im Browser werden nur deine Auswahl von Design (hell oder dunkel) und Sprache gespeichert, und diese verlassen nie dein Gerät.
+
+* Was ich erhebe
+
+Direkt nichts. Es gibt kein Formular, keinen Newsletter und kein Login, die Website erhält also weder deinen Namen noch deine E-Mail-Adresse oder sonst etwas, das du eingibst, mit Ausnahme der unten beschriebenen Suche.
+
+** Server-Logs
+
+Die Website wird bei GitHub Pages gehostet. Wie jeder Webhoster erhält GitHub technische Informationen, wenn dein Browser eine Seite abruft, etwa deine IP-Adresse, die angeforderte Seite, deinen Browsertyp und die Uhrzeit. Auf diese Logs habe ich keinen Zugriff. Wie GitHub damit umgeht, steht in [[https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement][GitHubs Datenschutzerklärung]].
+
+** Suche
+
+Die Suche (Strg oder Cmd + K) läuft vollständig in deinem Browser. Bei der ersten Nutzung lädt dein Browser eine Datei mit der Liste der Beiträge herunter und durchsucht sie lokal. Was du eintippst, wird weder an mich noch an andere gesendet.
+
+* Was in deinem Browser gespeichert wird
+
+Die Website nutzt den lokalen Speicher deines Browsers, keine Cookies, um sich zwei Einstellungen zu merken:
+
+| Eintrag  | Wofür                                        | Gespeichert bis                    |
+|----------+----------------------------------------------+------------------------------------|
+| =theme=  | Merkt sich den hellen oder dunklen Modus     | Du löschst deine Website-Daten     |
+| =lang=   | Merkt sich die gewählte Sprache              | Du löschst deine Website-Daten     |
+
+Diese Werte bleiben auf deinem Gerät. Ich kann sie nicht lesen, und die Website braucht sie nicht, um zu funktionieren. Du kannst sie jederzeit in den Einstellungen deines Browsers löschen.
+
+* Dritte
+
+- *Schriften.* Die Schrift Inter wird auf dieser Website selbst gehostet, daher wird beim Laden nichts an Google oder einen anderen Schriftdienst gesendet.
+- *Mathematik.* Ein Beitrag mit mathematischen Formeln lädt die Bibliothek MathJax von einem öffentlichen Content-Delivery-Network (CDN). Dein Browser kontaktiert dieses CDN, das dabei deine IP-Adresse sehen kann, wie bei jeder Datei, die von einem fremden Server geladen wird. Beiträge ohne Formeln lösen keine solche Anfrage aus.
+- *Videos.* Clips, die ich selbst hoste, werden von dieser Website ausgeliefert und senden nichts an andere. Ein Beitrag mit eingebettetem YouTube-Video lädt den Player von YouTube, über die datenschutzfreundliche Adresse (youtube-nocookie.com). Dein Browser kontaktiert dann YouTube, das deine IP-Adresse sehen kann und, sobald du das Video abspielst, nach [[https://policies.google.com/privacy][Googles Datenschutzerklärung]] Cookies oder ähnliche Daten auf deinem Gerät speichern kann. Beiträge ohne eingebettetes Video lösen keine solche Anfrage aus.
+- *Links.* Beiträge verlinken auf andere Websites, zum Beispiel Artikel, Werkzeuge und Shops. Sobald du einem Link folgst, gilt die Datenschutzerklärung der jeweiligen Seite, nicht diese.
+- *Feeds.* Wenn du per RSS abonnierst, ruft dein Feedreader den Feed von dieser Website ab. Welchen Reader du nutzt und wie oft er nachfragt, bleibt zwischen dir und dem Reader.
+
+* Kommentare und Statistiken
+
+Beides ist derzeit nicht aktiviert. Falls ich später Kommentare oder Statistiken einführe, aktualisiere ich diese Seite und das Datum oben, bevor sie in Betrieb gehen.
+
+* Kinder
+
+Dieser Blog richtet sich an ein allgemeines Publikum und nicht an Kinder unter 13 Jahren. Er erhebt von niemandem personenbezogene Daten, auch nicht von Kindern.
+
+* Deine Rechte
+
+Da ich keine personenbezogenen Daten über dich speichere, gibt es normalerweise nichts, was du einsehen, berichtigen oder löschen lassen könntest. Wenn du mir direkt geschrieben hast, kannst du verlangen, dass ich diese Korrespondenz lösche, und ich tue das. Je nach Wohnort hast du möglicherweise weitere Rechte nach dem örtlichen Datenschutzrecht und kannst dich bei Bedenken an die zuständige Datenschutzbehörde wenden.
+
+* Änderungen dieser Erklärung
+
+Wenn ich die Funktionsweise der Website so ändere, dass es deine Privatsphäre betrifft, aktualisiere ich diese Seite und das Datum „Zuletzt aktualisiert“.
+
+* Kontakt
+
+Fragen zu dieser Erklärung? Melde dich über die Kontaktdaten auf der [[file:../about.org][Über-mich-Seite]] (auf Englisch).
+
+Siehe auch die [[file:terms.org][Nutzungsbedingungen]].
