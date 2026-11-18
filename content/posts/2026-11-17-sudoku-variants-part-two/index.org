@@ -159,14 +159,14 @@ deadly. Here's the position that tripped the old code, taken from a real puzzle:
 [[file:rectangle.svg]]
 
 Three of the four cells have a third candidate (the digits in amber). For the
-swap argument to work, the "floor" cells have to be exactly the pair, with
+swap argument to work, the 'floor' cells have to be exactly the pair, with
 nothing else they could hold. If they can hold other digits, swapping 2 and 6
 doesn't recreate a solution, and nothing has been proved. The old code only
 checked that two of the cells shared the digits 2 and 6. It never checked that
 they held nothing else. From that unproved pattern it then removed a 1 from
 the cell at row 2, column 3, and the solution has a 1 there.
 
-There was a second problem in the same block. When the two "roof" cells carry
+There was a second problem in the same block. When the two 'roof' cells carry
 different extra digits, say a 1 in one and a 5 in the other, they act together
 like a single cell holding {1, 5}. That only lets you eliminate 1 and 5 from
 the rest of the row if some other cell in the row is exactly {1, 5}, which
@@ -294,8 +294,8 @@ only rules are rows, columns and boxes, and a swap inside two rows, two columns
 and two boxes breaks none of them. In a variant it isn't. Swap two digits in a
 Killer cage and the cage sum may break. Swap two digits in an Anti-Knight grid
 and a knight's move may now repeat. The pattern is no longer deadly, because the
-extra rule rules the swapped grid out, and the deduction that "this puzzle
-can't have two solutions" doesn't follow.
+extra rule rules the swapped grid out, and the deduction that 'this puzzle
+can't have two solutions' doesn't follow.
 
 So the uniqueness techniques are only safe when every rule is a group where each
 digit appears once. I made =solve_human= check this before it starts, and skip
@@ -396,8 +396,8 @@ thirds by Grandmaster. Killer and Consecutive fall off a cliff. At Expert only
 about one Killer puzzle in five is solved, and only two of 60 Consecutive
 puzzles at Expert. By Master, Consecutive stalls every single time.
 
-It would be easy to read that as "Consecutive Master is much harder than Classic
-Master". I don't think that's what it says. The solver's techniques are all
+It would be easy to read that as 'Consecutive Master is much harder than Classic
+Master'. I don't think that's what it says. The solver's techniques are all
 about candidates and groups where a digit appears once. A Consecutive bar says
 two neighbours differ by one. The solver can use that only when one of the two
 cells already holds a digit; a bar between two empty cells tells it nothing. A
@@ -409,13 +409,13 @@ So =Stalled= in these variants doesn't mean the puzzle is hard for a person. It
 means the puzzle needs techniques that aren't in the list. A good Killer solver
 knows that a two-cell cage summing to 3 must be {1, 2}, and that three cells
 summing to 24 must be {7, 8, 9}. Those are the techniques of the variant, and I
-haven't written them yet. Until I do, "needs guessing" for Killer and
-Consecutive really means "outside what the solver knows".
+haven't written them yet. Until I do, 'needs guessing' for Killer and
+Consecutive really means 'outside what the solver knows'.
 
 That's the same lesson as last time's remark about thermometers, in a sharper
 form. A difficulty number belongs to a solver, not to a puzzle. A solver's
 technique list defines what it can see, and anything outside that list shows up
-as "hard". The ranks for Classic are trustworthy because the technique list for
+as 'hard'. The ranks for Classic are trustworthy because the technique list for
 Classic is long and well tested. The ranks for Killer would mostly measure how
 much the solver doesn't know.
 
@@ -429,7 +429,7 @@ solver.
 
 Sixty-eight of the 75 came out exactly as labelled. All the naked-single,
 hidden-single and naked-pair entries held. The seven that changed were all
-labelled "Unique rectangle", and that label turned out to be unreliable: of 18
+labelled 'Unique rectangle', and that label turned out to be unreliable: of 18
 entries carrying it, only 11 survive. Four of the others need a different
 technique, and three can't be finished by logic at all any more, so they'd need
 guessing.
@@ -476,8 +476,8 @@ Grandmaster point, because generating those puzzles was too slow to finish a
 batch. Sudoku X, Jigsaw, Hyper and the other variants aren't in the charts at all.
 
 The generator also carves down to an exact clue count, not to a minimal puzzle,
-so a tier's givens are a target. And every statement about "stalled" or
-"needs guessing" is relative to this solver's technique list. A bigger list
+so a tier's givens are a target. And every statement about 'stalled' or
+'needs guessing' is relative to this solver's technique list. A bigger list
 would move the stalled share down, and for the variants, a list with the right
 techniques would move it down dramatically. These numbers describe the solver
 as it is now, and I'd expect them to change as it grows.
