@@ -1,0 +1,423 @@
+# -*- fill-column: 80 -*-
+#+TITLE: Allt sem ég horfi á, les og spila, í Org
+#+SUBTITLE: 1.822 glósur, fjórir innflutningar og ein regla um samstillingu
+#+DATE: <2026-11-24 09:00>
+#+TIMEZONE: America/Port_of_Spain
+#+LANGUAGE: is
+#+OPTIONS: toc:nil num:nil ^:{}
+#+FILETAGS: :org-mode:emacs:notes:media:
+#+HERO: banner.is.svg
+#+HERO_ALT: Dökkur borði með titlinum „Allt sem ég horfi á, les og spila“. Við hliðina sést eiginleikaskúffa Org-glósu um sjónvarpsþáttaröð, ofan á bunka af plakötum
+#+DESCRIPTION: Svona held ég utan um allar kvikmyndir, þáttaraðir, bækur og tölvuleiki í Org-glósum: hvernig ég flutti inn margra ára feril, bætti við upplýsingum sem vantaði, finn hlutina aftur og held öllu í takt við margmiðlunarþjóninn minn.
+
+Hver kvikmynd sem ég hef séð, hver þáttaröð sem ég hef byrjað á, hver bók sem ég
+hef lesið og hver leikur sem ég á hefur sína eigin Org-glósu. Þær eru orðnar
+1.822. Þær eru allar í einni möppu við hliðina á öðrum glósum mínum, og í Emacs
+bæti ég nýjum við, leita í þeim og held þeim uppfærðum.
+
+Fyrir þremur vikum skrifaði ég um [[file:../2026-11-03-why-org-is-where-all-my-notes-live/index.org][af hverju allar glósurnar mínar eru í Org]].
+Þessi færsla fjallar um einn hluta af því, þann sem langmestur kóði liggur
+á bak við.
+
+* Af hverju ekki bara nota öppin?
+
+Árum saman geymdu aðrir þessar upplýsingar fyrir mig. Trakt vissi hvað ég hafði
+horft á, Goodreads hvað ég hafði lesið og Steam hvaða leiki ég átti. Hver
+þjónusta stendur sig vel á sínu sviði. En engin þeirra veit af hinum, og engin
+þeirra býður upp á almennilegan stað til að skrifa sjálfur.
+
+Ég vildi þrennt sem ekkert app býður upp á í einu:
+
+- *Allt á einum stað.* Ég vil geta spurt „hvaða glæpasögur stóðu upp úr á árinu?“
+  og fengið bæði bækur og þáttaraðir í sama svarinu.
+- *Pláss til að skrifa.* Umsögn, tilvitnun, hver mælti með einhverju, eða heilan
+  leiðarvísi um leik, í sömu skrá og titillinn sjálfur.
+- *Gögn sem lifa þjónustuna af.* Mappa með venjulegum textaskrám opnast áfram þótt
+  app hætti eða breyti útflutningssniðinu sínu.
+
+Org uppfyllir þriðja atriðið einfaldlega með því að vera Org. Hin tvö kostuðu
+smá vinnu.
+
+Og þriðja atriðið er ekki lengur bara fræðilegt. Eftir síðustu uppfærslur á
+Trakt nota ég það varla lengur og skrái nú allt í Org. Eldri ferillinn kemur frá
+Trakt, en héðan í frá eru það glósurnar sem gilda.
+
+* Ein glósa fyrir hvern titil
+
+Hver titill er ein skrá með einni fyrirsögn á efsta stigi. Allt sem forrit þarf
+að vita um titilinn er geymt í eiginleikaskúffu fyrirsagnarinnar (e. /property
+drawer/), og allt sem ég skrifa sjálfur fer undir undirfyrirsagnirnar. Hér er
+dæmi um þáttaröð sem ég er að horfa á núna, aðeins stytt:
+
+#+begin_src org
+,* Boston Legal (2004)                                   :show:comedy:drama:
+:PROPERTIES:
+:TYPE: show
+:TITLE: Boston Legal
+:YEAR: 2004
+:STATUS: watching
+:RATING: 9
+:RATED: 2026-09-15
+:EPISODES_WATCHED: 87
+:AIRED_EPISODES: 101
+:PROGRESS: 86%
+:LAST_WATCHED: 2026-11-14
+:GENRES: Comedy, Drama
+:POSTER: https://image.tmdb.org/t/p/w342/b0bXUCfpcsgQ6EVVmucU2G76ixT.jpg
+:IMDB: tt0402711
+:TMDB: 4598
+:TVDB: 74058
+:END:
+,** Overview
+,** Review
+,** Notes
+,** Seasons
+,*** Season 1
+| Ep | Title                             |    Watched | Rating |
+|----+-----------------------------------+------------+--------|
+|  1 | Head Cases                        | 2026-08-31 |        |
+|  2 | Still Crazy After All These Years | 2026-08-31 |        |
+#+end_src
+
+Allar fjórar gerðirnar hafa sömu grunnreitina
+(=TYPE=, =TITLE=, =YEAR=, =STATUS=, =RATING=, =GENRES=, =POSTER=) og svo sína
+eigin reiti að auki. Kvikmynd hefur =PLAYS= og áhorfsferil þar sem hvert áhorf
+fær sinn tímastimpil. Þáttaröð hefur töflu fyrir hvert tímabil með öllum
+þáttunum, dagsetningunum sem ég horfði á þá og einkunn ef ég vil. Bók
+hefur =AUTHOR=, =PAGES=, =STARTED=, =FINISHED= og lestrarferil. Leikur
+hefur =PLATFORM= og =HOURS= og fær heila möppu í stað einnar skrár, því sumum
+leikjum fylgja leiðarvísar. Við hliðina á aðalglósu Hay Day eru til dæmis
+sautján glósur til viðbótar og afrit af wiki-síðu leiksins.
+
+Tegundirnar eru líka skráðar sem merki á fyrirsögninni (=:comedy:drama:=). Þá
+eru sömu upplýsingarnar geymdar á tveimur stöðum, en það er gert viljandi:
+þannig virkar venjuleg merkjaleit í Org á allt efnið, án þess að neitt af
+kóðanum mínum sé hlaðið inn.
+
+Einkunnirnar eru frá 1 upp í 10, sami kvarði og hjá Trakt, svo það þurfti ekki
+að umreikna neitt við innflutninginn. Hvaða stöður eru í boði fer eftir gerð:
+kvikmyndir eru /watched/ eða /plan-to-watch/, bækur /to-read/, /reading/, /read/
+eða /dnf/, og leikir /backlog/, /playing/, /completed/, /100%/ eða /dropped/.
+
+* Margra ára ferill fluttur inn
+
+Enginn slær inn 1.822 glósur í höndunum. Ég flutti eldri ferilinn inn með fjórum
+innflutningum. Hver þeirra er =M-x=-skipun sem les útflutningsskrá eða API og
+skrifar glósur á sniðinu hér að ofan.
+
+| Hvaðan    | Hvað kom inn                                                    |
+|-----------+-----------------------------------------------------------------|
+| Trakt     | 638 kvikmyndir, 479 þáttaraðir, 22.939 áhorf, 1.798 einkunnir   |
+| Goodreads | 132 bækur, 92 stjörnugjafir, 117 dagsetningar þegar lestri lauk |
+| Steam     | 301 leikur ásamt spilatíma                                      |
+| Jellyfin  | það sem er í gangi á margmiðlunarþjóninum og hvar ég stoppaði   |
+
+Það þarf að vera óhætt að keyra hvern innflutning oftar en einu sinni. Ég keyrði
+þá margoft á meðan ég var að fylla í eyðurnar, og Steam-innflutningurinn er
+hugsaður til að keyra öðru hverju svo nýir leikir og aukinn spilatími skili sér.
+Seinni keyrsla má aldrei skrifa yfir umsögn sem ég hef skrifað í millitíðinni.
+Þess vegna ber hver innflutningur ábyrgð á ákveðnum reitum og köflum og snertir
+ekkert annað. /Overview/, /Review/ og /Notes/, fyrirsagnir sem ég hef bætt við
+og merkin mín fá að vera í friði. Einkunnir, áhorf og þáttatöflur tilheyra
+innflutningnum. Mín eigin orð tilheyra mér.
+
+Hver uppspretta hafði sína sérvisku.
+
+*Trakt veit bara það sem því er sagt.* Ég byrjaði að nota Trakt í júní 2025, og
+fyrir nánast allt þar á undan er Trakt með frumsýningar- eða útsendingardag en
+ekki daginn sem ég horfði í raun. Innflutningurinn tekur þær dagsetningar
+samviskusamlega upp. Útkoman er tafla sem fullyrðir að ég hafi horft á 76
+sjónvarpsþætti árið 2000. Það gerði ég ekki, heldur voru þeir sýndir þá.
+Yfirlitsskráin tekur þetta nú fram beint fyrir ofan töfluna. Það er ekki hægt að
+laga gögnin eftir á, og mér finnst betra að hafa heiðarlegan fyrirvara en
+nákvæmni sem er ekki til.
+
+*Goodreads flytur út titla en hvorki höfunda né ISBN-númer.* Innflutningurinn
+náði í hillurnar mínar, einkunnir og dagsetningar, og önnur skipun sækir
+afganginn í Open Library: höfunda, blaðsíðufjölda, kápumyndir, tegundir og
+ISBN-númer. Hún samþykkir aðeins niðurstöðu þegar greinilega er um sömu bók að
+ræða og birtir lista yfir þær sem hún sleppti, svo ég geti bætt ISBN-númerunum
+við handvirkt.
+
+*Steam reiknar spilatímann ekki á sama hátt og ég.* Suma leiki hef ég líka
+spilað annars staðar. Þess vegna geymir glósan tölu Steam í =STEAM_HOURS= og
+minn heildartíma í =HOURS=, og innflutningur getur aðeins hækkað =HOURS= upp í
+tölu Steam, aldrei lækkað hana. Það sem ég skrái sjálfur með =C-c e g= glatast
+því ekki.
+
+Steam var reyndar heiðarlegasti innflutningurinn. Af 301 leik eru 285 enn í bið.
+Aðeins 137 þeirra hafa yfirhöfuð einhvern skráðan spilatíma.
+
+* Upplýsingarnar sem vantaði
+
+Útflutningsskrá segir mér /að/ ég hafi horft á eitthvað, en ekki /hvað/ það var.
+Þrjár skipanir til viðbótar bæta úr því:
+
+- *TMDB* bætir við tegundum, plakati, söguþræði, lengd, leikstjóra eða höfundum,
+  og fyrir þáttaraðir sjónvarpsstöðinni og hvort þáttaröðinni sé lokið.
+- *Open Library* gerir það sama fyrir bækur, eins og áður sagði.
+- *MyAnimeList* bætir við tenglum á anime og manga. Anime eru pöruð með TVDB- og
+  TMDB-auðkennunum sem ég hef þegar frá Trakt, í gegnum auðkennalista sem
+  notendasamfélagið heldur við, svo ekkert er giskað út frá titlinum. MAL skráir
+  hvert tímabil sem sérstaka færslu, svo þáttaröð fær einn tengil fyrir hvert
+  tímabil.
+
+Skipanirnar þrjár vinna aðeins með glósur sem hafa ekki verið auðgaðar áður og
+skrá dagsetninguna í =ENRICHED=. Það tekur því enga stund að keyra þær aftur og
+ekkert óvænt gerist. 1.467 af 1.822 glósum eru nú komnar með tegundir; hinar eru
+að mestu lítt þekktir leikir og bækur sem finnast hvergi.
+
+Plakötin eru tengd en ekki sótt. Hver glósa byrjar /Overview/ á myndatengli á
+TMDB, Open Library eða Steam, og Org getur birt myndir af netinu beint í
+textanum ef það er stillt þannig:
+
+#+begin_src emacs-lisp
+(setq org-display-remote-inline-images 'cache) ; fetch https images, keep them
+(setq org-image-actual-width nil)              ; honour #+attr_org: :width 250
+#+end_src
+
+Mappan helst þannig nógu lítil til að samstilla hana hvert sem er, og hver glósa
+opnast með plakatið efst. Ef ég bæti bók við sjálfur dugar ISBN-númerið til að
+fá kápumyndina strax.
+
+* Að finna hlutina aftur
+
+Safn glósna nýtist lítið ef ekki er hægt að spyrja það spurninga. Nær allt sem
+ég nota dags daglega er á =C-c e=:
+
+| Lyklar    | Hvað gerist                                                |
+|-----------+------------------------------------------------------------|
+| =C-c e n= | ný bók, nýr leikur, ný kvikmynd eða þáttaröð               |
+| =C-c e f= | sía eftir gerð, tegund, einkunn og stöðu                   |
+| =C-c e r= | bestu titlarnir sem ég hef klárað í tiltekinni tegund      |
+| =C-c e s= | gefa einkunn eða breyta henni, 1 til 10                    |
+| =C-c e d= | merkja lokið: staða, dagsetning, einkunn og umsögn ef vill |
+| =C-c e b= | skrá hve langt ég er kominn í bók                          |
+| =C-c e g= | skrá spilalotu                                             |
+| =C-c e v= | skrifa umsögn með dagsetningu                              |
+| =C-c e u= | titlar sem ég hef klárað en ekki gefið einkunn             |
+
+Það sem ég nota mest er samt ekki skipun heldur kvikur bálkur (e. /dynamic
+block/). Í Org má setja =#+BEGIN:=-línu hvar sem er, og =C-c C-c= á henni kallar
+á fall sem heitir eftir bálkinum og fyllir í allt á milli línunnar og =#+END:=.
+Listi eins og þessi getur því verið í hvaða glósu sem er og uppfært sig þegar ég
+vil:
+
+#+begin_src org
+,#+BEGIN: ent-list :types ("movie") :tags ("horror") :rating "8+, !10" :limit 5
+| Title                 | Type  | Rating | Genres                           | Status  |
+|-----------------------+-------+--------+----------------------------------+---------|
+| Backrooms (2026)      | movie |      9 | Horror, Mystery, Science Fiction | watched |
+| Cure (1997)           | movie |      9 | Horror, Mystery, Crime, Thriller | watched |
+| Hell House LLC (2015) | movie |      9 | Horror, Mystery                  | watched |
+| Heretic (2024)        | movie |      9 | Thriller, Horror                 | watched |
+| Jigsaw (2017)         | movie |      9 | Horror, Mystery                  | watched |
+,#+END:
+#+end_src
+
+Titlarnir eru í raun tenglar á glósurnar sínar; ég tók tenglakóðann út hér.
+Fallið á bak við er stutt, því Org sér um leiðinlega hlutann: allt sem kemur á
+eftir heiti bálksins er lesið inn sem eiginleikalisti, svo =:types= berst sem
+listinn ="movie"= og =:limit= sem talan 5.
+
+#+begin_src emacs-lisp
+(defun org-dblock-write:ent-list (params)
+  "Fill an ent-list block with a table of the titles that match PARAMS."
+  (let ((dir (file-name-directory (buffer-file-name))))
+    (insert "| Title | Type | Rating | Genres | Status |\n|-\n")
+    (dolist (it (ent-query (ent-items) params))
+      (insert (format "| [[file:%s][%s]] | %s | %s | %s | %s |\n"
+                      (file-relative-name (plist-get it :file) dir)
+                      (plist-get it :title)
+                      (ent-prop it "TYPE") (ent-prop it "RATING")
+                      (ent-prop it "GENRES") (ent-prop it "STATUS"))))
+    (delete-char -1)
+    (org-table-align)))
+#+end_src
+
+=ent-items= skilar einum eiginleikalista fyrir hverja glósu og =ent-query= síar
+og raðar. Yfirlitssíðurnar mínar eru í raun bara svona bálkar: einn fyrir það
+sem ég er að horfa á, einn fyrir það sem ég hef klárað en ekki gefið einkunn, og
+einn fyrir biðlistann, raðað eftir því hvenær titlinum var bætt við.
+
+Færibreytan =:rating= hefur sína eigin litlu málfræði, því „8 og hærra“ dugði
+ekki lengi. Skilyrði getur verið tala, bil
+(=5-7=), =8+=, =>=8=, =<=6=, =>7=, =<5= eða =unrated=, og =!= fyrir framan
+útilokar það. ="8+, !10"= þýðir því „gott en ekki fullkomið“ og ="!unrated"=
+„bara það sem ég hef gefið einkunn“. Hvert skilyrði verður að bili:
+
+#+begin_src emacs-lisp
+(defun ent-rating-range (term)
+  "Read one rating TERM as a (LOW . HIGH) range, or nil if it can't be read.
+Unrated titles count as 0, so \"<=6\" leaves them out."
+  (cond
+   ((member term '("unrated" "none")) (cons 0.0 0.0))
+   ((string-match "\\`>=\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons n 10.0))))
+   ((string-match "\\`<=\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons 0.01 n))))
+   ((string-match "\\`>\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons (+ n 0.01) 10.0))))
+   ((string-match "\\`<\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons 0.01 (- n 0.01)))))
+   ((string-match "\\`\\(.+\\)\\+\\'" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons n 10.0))))
+   ((string-match "\\`\\([^-]+\\)-\\([^-]+\\)\\'" term)
+    (let ((a (ent--num (match-string 1 term)))
+          (b (ent--num (match-string 2 term))))
+      (and a b (cons a b))))
+   (t (let ((n (ent--num term))) (and n (cons n n))))))
+#+end_src
+
+Eina ákvörðunin þarna sem vert er að nefna er að titill án einkunnar telst 0.
+Annars myndi ="<=6"= taka með allar myndir sem ég hef ekki enn gefið einkunn, og
+listinn yfir það sem mér líkaði ekki væri að mestu efni sem ég hef ekki einu
+sinni myndað mér skoðun á.
+
+Eitt sést ekki í kóðabútnum: að lesa 1.822 skrár með Org í hvert sinn sem bálkur
+er uppfærður tekur nokkrar sekúndur. Hið raunverulega =ent-items= byggir upp
+vísi (e. /index/) í minni einu sinni og uppfærir svo aðeins eina færslu
+með =after-save-hook= þegar ég vista glósu undir =resources/media/=.
+
+Og jafnvel án kóðans míns virka merkin. Ef mappan er í =org-agenda-files= finnur
+merkjaleit eins og =+horror+RATING>=8= í dagskránni sömu myndirnar.
+
+** Meðmæli sem má líma beint inn
+
+Þegar einhver spyr mig hvað hann eigi að horfa á, spyr =C-c e r= um tegund,
+finnur bestu titlana sem ég hef klárað í henni og afritar tíu efstu sem hreinan
+texta:
+
+#+begin_example
+• 1 Litre of Tears (2005) — Drama, Family (10/10)
+• Animal Kingdom (2016) — Crime, Drama (10/10)
+• Californication (2007) — Comedy, Drama (10/10)
+#+end_example
+
+Þetta er minnsti eiginleikinn af öllum en jafnframt sá eini sem aðrir sjá í
+raun.
+
+* Í takt við margmiðlunarþjóninn
+
+Innflutningarnir koma eldri ferlinum inn en halda engu uppfærðu. Margt af því
+sem ég horfi á spila ég í gegnum Jellyfin, margmiðlunarþjóninn minn, svo síðasta
+púslið er samstilling í báðar áttir. Ef ég horfi á eitthvað þar bætist lína við
+áhorfsferilinn í glósunni, og ef ég merki eitthvað sem séð í glósu merkir
+þjónninn það sem spilað.
+
+Það er auðvelt að gera lúmsk mistök í tvíátta samstillingu, svo reglurnar eru
+stuttar og standa efst í kóðanum:
+
+- *Séð öðrum megin:* hin hliðin uppfærist til samræmis.
+- *Séð báðum megin:* nýjasta dagsetningin ræður. Glósan geymir allar dagsetningar
+  sem hún hefur nokkurn tíma fengið, en þjónninn aðeins þá síðustu.
+- *„Óséð“ er aldrei sent á milli.* Ef eitthvað var séð við síðustu samstillingu en
+  önnur hliðin segir nú annað, fer það á listann „Látið ósnert“ og engu er
+  breytt.
+- *Aðeins það sem passar eftir auðkenni er sent.* Titlar eru paraðir eftir TMDB-,
+  TVDB-, IMDb- eða MyAnimeList-auðkenni. Titill sem passar aðeins eftir nafni og
+  ári er sóttur inn í glósuna og auðkenni hans afrituð, en ekkert er sent á
+  þjóninn fyrr en í næstu keyrslu, þegar hann passar eftir auðkenni.
+
+Þriðja reglan krefst minnis. Án þess að vita hvernig staðan var síðast lítur
+„séð í glósunni, óséð á þjóninum“ alveg eins út hvort sem ég var að enda við að
+horfa eða hreinsaði áhorfið viljandi á þjóninum. Þess vegna heldur samstillingin
+litla stöðuskrá yfir hvernig hver titill leit út síðast (369 færslur fyrir
+Jellyfin eins og er). Fyrir kvikmynd snýst öll ákvörðunin um þetta:
+
+#+begin_src emacs-lisp
+(defun msync-plan-movie (note server prev)
+  "What to do for one movie: (SIDE . WHY), or nil for nothing.
+NOTE and SERVER are plists with :watched (t or nil) and :last (a
+YYYY-MM-DD string or nil). PREV is what the last sync recorded."
+  (let ((nw (plist-get note :watched))
+        (sw (plist-get server :watched))
+        (nl (or (plist-get note :last) ""))
+        (sl (or (plist-get server :last) "")))
+    (cond
+     ;; Watched at the last sync, unwatched on one side now: hands off.
+     ((and (plist-get prev :played) (not (eq nw sw)))
+      '(left-alone . "unwatched on one side since the last sync"))
+     ((and sw (not nw)) '(note . "watched on the server: add it to the watch log"))
+     ((and nw (not sw)) '(server . "watched in the note: mark it played"))
+     ((and nw sw (string> nl sl)) '(server . "the note is newer: update the server"))
+     ((and nw sw (string> sl nl)) '(note . "the server saw it again: add the date")))))
+#+end_src
+
+Þáttaraðir fylgja sömu reglu fyrir hvern þátt. Dagsetningarnar eru strengir á
+forminu =YYYY-MM-DD=, svo samanburður á strengjunum er um leið samanburður á
+dagsetningum.
+
+Aðalatriðið er að fallið skilar aðeins ákvörðun en gerir ekkert
+sjálft. =C-c m s= tekur allar ákvarðanirnar, sýnir alla áætlunina í biðminni og
+spyr fyrst þá hvort eigi að framkvæma hana. Samstilling sem getur breytt
+hundruðum glósa ætti að sýna hvað hún ætlar að gera áður en hún gerir það. Hún
+keyrir líka í bakgrunni, svo ég get haldið áfram að skrifa á meðan hún talar við
+þjóninn.
+
+Sami kóði ræður líka við Emby, Plex og MyAnimeList, hvert með sínar takmarkanir.
+Plex tekur ekki við liðnum dagsetningum, svo allt sem fer þangað er stimplað
+„núna“. Jellyfin man aðeins síðasta áhorf á hvern titil. Þess vegna er það
+glósan, ekki þjónninn, sem heldur utan um hvert einasta áhorf.
+
+* Það sem 1.822 glósur segja um mig
+
+Þegar allt var komið á einn stað var tölfræðisíða aðeins nokkrum línum af kóða
+frá. Sumt kom mér á óvart.
+
+- *Ég gef nánast öllu 6, 7 eða 8.* Af 1.169 titlum með einkunn lenda 895 þar.
+  Aðeins 100 fá 9 eða 10 og aðeins 21 fá lægra en 4. Kvarðinn minn frá 1 upp í
+  10 er í raun kvarði frá 6 upp í 8, með örfáum undantekningum.
+- *Ég gef margar einkunnir en skrifa sáralítið.* 1.169 einkunnir, en umsagnir um
+  aðeins þrjá titla. Í hverri glósu bíður /Review/-fyrirsögn eftir því að verða
+  fyllt út. Oftast stendur hún auð.
+- *Árið 2020 las ég mest.* Þá kláraði ég 84 bækur, og síðan hef ég aldrei klárað
+  fleiri en 16 á einu ári.
+- *Ég byrja á fleiri þáttaröðum en ég klára.* 490 byrjaðar, 357 kláraðar og 122 í
+  bið, sem þýðir hér að ég hef ekki horft á þátt í sextíu daga.
+
+Ekkert af þessu krafðist þess beinlínis að glósurnar væru í Org. En á meðan
+svörin voru dreifð um fjórar vefsíður hefði mér aldrei dottið í hug að spyrja.
+
+* Gallarnir, svo það sé sagt
+
+*Mesta vinnan liggur í innflutningunum.* Skipanirnar sem nota glósurnar eru
+auðveldi hlutinn. Að ná gögnum frá fjórum þjónustum almennilega inn, para titla
+á milli þeirra og gera hvern innflutning öruggan í endurkeyrslu: Þar liggur
+kóðinn og öll sértilvikin.
+
+*Pörunin verður aldrei fullkomin.* Pörun eftir nafni og ári bregst nógu oft til
+að ég láti hana ekki senda neitt. Sumar bækur finnast alls ekki á Open Library
+og sumir leikir munu aldrei fá tegundir.
+
+*Mín gögn, mín ábyrgð.* Nú þegar ég nota Trakt varla lengur er ekkert skráð
+sjálfkrafa nema efnið fari í gegnum Jellyfin eða ég skrái það sjálfur. Ef ég
+horfi á eitthvað annars staðar og gleymi að skrá það vita glósurnar einfaldlega
+ekki af því. Áður greip sjálfvirka skráningin hjá Trakt slíkt fyrir mig.
+
+*Skrárnar eru ansi margar.* 1.822 glósur, auk leiðarvísa fyrir einn leik og
+yfirlitssíðnanna. Org ræður vel við það, en við þennan fjölda er vísir í minni,
+sem er alltaf haldið uppfærðum, ekki munaður heldur nauðsyn.
+
+* Það sem ég tek með mér
+
+*Haltu reitum innflutningsins aðskildum frá þínum eigin.* Það er óhætt að keyra
+alla innflutningana aftur af því að hver þeirra ber ábyrgð á ákveðnum reitum og
+snertir aldrei afganginn. Þessi eina regla gerði mér kleift að flytja inn aftur
+og aftur áhyggjulaust.
+
+*Samstilling á fyrst að ákveða og svo framkvæma.* Af því að hún skilar áætlun í
+stað þess að breyta strax er hægt að forskoða, og það er forskoðunin sem gerir
+hana trausta.
+
+*Ekki draga ályktanir um ásetning af því að eitthvað vantar.* „Óséð“ öðrum megin
+getur þýtt „ekki enn“ eða „hreinsað viljandi“. Samstillingin getur ekki greint
+þar á milli, svo hún giskar ekki heldur segir það bara hreint út.
+
+*Geymdu upplýsingar tvisvar ef það hjálpar einföldu verkfærunum.* Að hafa
+tegundirnar bæði sem merki og sem reiti kostar nokkur bæti á hverja glósu, og í
+staðinn getur dagskráin í Org leitað í öllu efninu án kóðans míns.
+
+Og svo er það lexían sem ég þarf alltaf að læra upp á nýtt: Þegar maður hefur
+einfaldan stað til að skrá eitthvað niður, endar maður líka á að skrá það. Enn
+sem komið er aðallega einkunnir. En þrjár umsagnir eru þó byrjun.

@@ -1,0 +1,416 @@
+# -*- fill-column: 80 -*-
+#+TITLE: Allt jag tittar på, läser och spelar, i Org
+#+SUBTITLE: 1 822 anteckningar, fyra importer och en enda regel för synkning
+#+DATE: <2026-11-24 09:00>
+#+TIMEZONE: America/Port_of_Spain
+#+LANGUAGE: sv
+#+OPTIONS: toc:nil num:nil ^:{}
+#+FILETAGS: :org-mode:emacs:notes:media:
+#+HERO: banner.sv.svg
+#+HERO_ALT: En mörk banner med rubriken Allt jag tittar på, läser och spelar, bredvid egenskaperna i en Org-anteckning om en tv-serie, framför en hög med affischkort
+#+DESCRIPTION: Så håller jag koll på varje film, serie, bok och spel som en Org-anteckning: hur jag fick in flera års historik, fyllde i det som saknades, hittar saker igen och håller allt i synk med min mediaserver.
+
+Varje film jag har sett, varje serie jag har börjat på, varje bok jag har läst
+och varje spel jag äger har en egen Org-anteckning. Just nu är de 1 822 stycken.
+De ligger i en mapp bredvid resten av mina anteckningar. I Emacs lägger jag till
+nya, söker bland dem och håller dem uppdaterade.
+
+För tre veckor sedan skrev jag om [[file:../2026-11-03-why-org-is-where-all-my-notes-live/index.org][varför alla mina anteckningar ligger i Org]].
+Det här är en del av det, och den del som har överlägset mest kod.
+
+* Varför inte bara använda apparna?
+
+I flera år låg allt det här hos andra. Trakt visste vad jag hade tittat på,
+Goodreads vad jag hade läst och Steam vilka spel jag ägde. Var och en är bra på
+sitt. Men ingen av dem vet något om de andra, och ingen av dem är ett ställe där
+jag kan skriva själv.
+
+Jag ville ha tre saker som ingen app ger mig samtidigt:
+
+- *Allt på ett ställe.* Jag vill kunna fråga ”vilka var årets bästa deckare?” och
+  få både böcker och serier i samma svar.
+- *Plats att skriva.* En recension, ett citat, vem som tipsade mig, eller en hel
+  guide till ett spel, i samma fil som titeln.
+- *Data som överlever tjänsten.* En mapp med vanliga textfiler går att öppna även
+  när en app läggs ner eller byter exportformat.
+
+Den tredje fixar Org redan genom att vara Org. De två första krävde lite jobb.
+
+Och den tredje är inte bara teori längre. Efter Trakts senaste uppdateringar har
+jag i stort sett slutat använda det, och nu loggar jag allt i Org. Historiken
+kom från Trakt, men från och med nu är det anteckningarna som gäller.
+
+* En anteckning per titel
+
+Varje titel är en fil med en enda rubrik på översta nivån. Allt ett program
+behöver veta om titeln ligger i rubrikens property drawer, och allt jag själv
+skriver hamnar under underrubrikerna. Så här ser en serie ut som jag är mitt i
+just nu, lite nedkortad:
+
+#+begin_src org
+,* Boston Legal (2004)                                   :show:comedy:drama:
+:PROPERTIES:
+:TYPE: show
+:TITLE: Boston Legal
+:YEAR: 2004
+:STATUS: watching
+:RATING: 9
+:RATED: 2026-09-15
+:EPISODES_WATCHED: 87
+:AIRED_EPISODES: 101
+:PROGRESS: 86%
+:LAST_WATCHED: 2026-11-14
+:GENRES: Comedy, Drama
+:POSTER: https://image.tmdb.org/t/p/w342/b0bXUCfpcsgQ6EVVmucU2G76ixT.jpg
+:IMDB: tt0402711
+:TMDB: 4598
+:TVDB: 74058
+:END:
+,** Overview
+,** Review
+,** Notes
+,** Seasons
+,*** Season 1
+| Ep | Title                             |    Watched | Rating |
+|----+-----------------------------------+------------+--------|
+|  1 | Head Cases                        | 2026-08-31 |        |
+|  2 | Still Crazy After All These Years | 2026-08-31 |        |
+#+end_src
+
+Alla fyra typerna har samma grundfält
+(=TYPE=, =TITLE=, =YEAR=, =STATUS=, =RATING=, =GENRES=, =POSTER=) och lägger
+sedan till egna. En film har =PLAYS= och en visningslogg med en tidsstämpel för
+varje gång jag sett den. En serie har en tabell per säsong med alla avsnitt,
+datumen då jag såg dem och ett betyg om jag vill. En bok
+har =AUTHOR=, =PAGES=, =STARTED=, =FINISHED= och en läslogg. Ett spel
+har =PLATFORM= och =HOURS= och får en egen mapp i stället för en fil, eftersom
+en del spel har guider. Hay Day har sjutton anteckningar och en kopia av sin
+wiki bredvid huvudanteckningen.
+
+Genrerna läggs dessutom in som taggar på rubriken (=:comedy:drama:=). Det är
+dubbellagrat, men med flit: då fungerar Orgs vanliga taggsökning på mina medier
+utan att någon av min kod är laddad.
+
+Betygen går från 1 till 10, samma skala som Trakt, så ingenting behövde räknas
+om vid importen. Vilka statusar som finns beror på typen: filmer är /watched/
+eller /plan-to-watch/, böcker /to-read/, /reading/, /read/ eller /dnf/, och spel
+/backlog/, /playing/, /completed/, /100%/ eller /dropped/.
+
+* Att få in flera års historik
+
+Ingen knappar in 1 822 anteckningar för hand. Historiken kom in via fyra
+importer. Var och en är ett =M-x=-kommando som läser en export eller ett API och
+skriver anteckningar i formatet ovan.
+
+| Källa     | Vad som kom in                                        |
+|-----------+-------------------------------------------------------|
+| Trakt     | 638 filmer, 479 serier, 22 939 visningar, 1 798 betyg |
+| Goodreads | 132 böcker, 92 stjärnbetyg, 117 utläsningsdatum       |
+| Steam     | 301 spel, med speltid                                 |
+| Jellyfin  | det som pågår på min mediaserver, och var jag pausade |
+
+Alla importer måste tåla att köras flera gånger. Jag körde dem om och om igen
+medan jag fyllde i luckorna, och Steam-importen är tänkt att köras då och då för
+att få med nya spel och mer speltid. En andra körning får aldrig skriva över en
+recension som jag har skrivit i mellantiden. Därför ansvarar varje import för
+ett bestämt urval av fält och avsnitt och rör inget annat: min /Overview/,
+/Review/ och /Notes/, rubriker jag lagt till och mina taggar lämnas i fred.
+Betyg, visningar och avsnittstabellerna tillhör importen. Mina egna ord tillhör
+mig.
+
+Varje källa hade sina egenheter.
+
+*Trakt vet bara det man berättar.* Jag började använda Trakt i juni 2025, och
+för nästan allt före det har Trakt premiär- eller sändningsdatum i stället för
+dagen jag faktiskt såg det. Importen tar troget över det. Det blir en tabell som
+påstår att jag såg 76 tv-avsnitt år 2000. Det gjorde jag inte, det var då de
+sändes. Indexet säger det nu rakt ovanför tabellen. Uppgifterna går inte att
+rätta i efterhand, och jag föredrar en ärlig brasklapp framför en precision som
+inte finns.
+
+*Goodreads exporterar titlar men varken författare eller ISBN.* Importen tog in
+mina hyllor, betyg och datum, och ett andra kommando hämtar resten från Open
+Library: författare, sidantal, omslag, genrer och ISBN. Det godtar bara träffar
+där det tydligt rör sig om samma bok, och listar dem som hoppats över så att jag
+kan lägga till ISBN-numren för hand.
+
+*Steam och jag räknar speltid olika.* En del spel har jag spelat på annat håll
+också. Därför sparar anteckningen Steams siffra i =STEAM_HOURS= och min totala
+tid i =HOURS=, och en import kan bara höja =HOURS= upp till Steams siffra,
+aldrig sänka den. Spelpass jag loggar själv med =C-c e g= försvinner alltså
+inte.
+
+Steam var för övrigt den ärligaste importen. Av 301 spel ligger 285 kvar i
+backloggen. Bara 137 har någon registrerad speltid över huvud taget.
+
+* Att fylla i det som saknas
+
+En export berättar /att/ man har sett något, men inte /vad/ det var. Det sköter
+tre kommandon till:
+
+- *TMDB* lägger till genrer, affisch, handling, speltid, regissör eller skapare,
+  och för serier vilken kanal och om serien är avslutad.
+- *Open Library* gör samma sak för böcker, som ovan.
+- *MyAnimeList* ger länkar till anime och manga. Anime matchas via de TVDB- och
+  TMDB-id som jag redan har från Trakt, med hjälp av en id-lista som communityn
+  underhåller, så ingenting gissas utifrån titeln. MAL har varje säsong som en
+  egen post, så en serie får en länk per säsong.
+
+Alla tre rör bara anteckningar som inte har kompletterats än, och skriver
+datumet i =ENRICHED=. En ny körning går därför snabbt och bjuder inte på några
+överraskningar. 1 467 av de 1 822 anteckningarna har genrer nu; resten är mest
+smala spel och böcker som inte går att hitta någonstans.
+
+Affischerna länkas, de laddas inte ner. Varje anteckning börjar sin /Overview/
+med en bildlänk till TMDB, Open Library eller Steam, och Org kan visa bilder
+från nätet direkt i bufferten om man ställer in det:
+
+#+begin_src emacs-lisp
+(setq org-display-remote-inline-images 'cache) ; fetch https images, keep them
+(setq org-image-actual-width nil)              ; honour #+attr_org: :width 250
+#+end_src
+
+Mappen blir då liten nog att synka vart som helst, och varje anteckning öppnas
+med affischen högst upp. Lägger jag in en bok för hand räcker det med ett ISBN
+för att få omslaget direkt.
+
+* Att hitta saker igen
+
+En hög med anteckningar är bara till nytta om man kan ställa frågor till den.
+Det mesta jag behöver till vardags ligger på =C-c e=:
+
+| Tangenter | Vad den gör                                                |
+|-----------+------------------------------------------------------------|
+| =C-c e n= | ny bok, nytt spel, ny film eller serie                     |
+| =C-c e f= | filtrera på typ, genre, betyg och status                   |
+| =C-c e r= | bästa avslutade titlarna i en genre, att skicka till någon |
+| =C-c e s= | sätta eller ändra betyg, 1 till 10                         |
+| =C-c e d= | markera som klar: status, datum, betyg, ev. recension      |
+| =C-c e b= | logga hur långt jag har läst                               |
+| =C-c e g= | logga ett spelpass                                         |
+| =C-c e v= | skriva en daterad recension                                |
+| =C-c e u= | avslutade titlar som saknar betyg                          |
+
+Det jag använder mest är ändå inget kommando, utan ett dynamiskt block. I Org
+kan man lägga en =#+BEGIN:=-rad var som helst, och =C-c C-c= på den anropar en
+funktion som heter som blocket och fyller i allt mellan raden och =#+END:=. En
+lista som den här kan alltså ligga i vilken anteckning som helst och uppdatera
+sig när jag vill:
+
+#+begin_src org
+,#+BEGIN: ent-list :types ("movie") :tags ("horror") :rating "8+, !10" :limit 5
+| Title                 | Type  | Rating | Genres                           | Status  |
+|-----------------------+-------+--------+----------------------------------+---------|
+| Backrooms (2026)      | movie |      9 | Horror, Mystery, Science Fiction | watched |
+| Cure (1997)           | movie |      9 | Horror, Mystery, Crime, Thriller | watched |
+| Hell House LLC (2015) | movie |      9 | Horror, Mystery                  | watched |
+| Heretic (2024)        | movie |      9 | Thriller, Horror                 | watched |
+| Jigsaw (2017)         | movie |      9 | Horror, Mystery                  | watched |
+,#+END:
+#+end_src
+
+Titlarna är egentligen länkar till sina anteckningar; länkkoden har jag plockat
+bort här. Funktionen bakom är kort, eftersom Org sköter det krångliga: allt
+efter blockets namn tolkas som en plist, så =:types= kommer in som
+listan ="movie"= och =:limit= som talet 5.
+
+#+begin_src emacs-lisp
+(defun org-dblock-write:ent-list (params)
+  "Fill an ent-list block with a table of the titles that match PARAMS."
+  (let ((dir (file-name-directory (buffer-file-name))))
+    (insert "| Title | Type | Rating | Genres | Status |\n|-\n")
+    (dolist (it (ent-query (ent-items) params))
+      (insert (format "| [[file:%s][%s]] | %s | %s | %s | %s |\n"
+                      (file-relative-name (plist-get it :file) dir)
+                      (plist-get it :title)
+                      (ent-prop it "TYPE") (ent-prop it "RATING")
+                      (ent-prop it "GENRES") (ent-prop it "STATUS"))))
+    (delete-char -1)
+    (org-table-align)))
+#+end_src
+
+=ent-items= ger en plist per anteckning, och =ent-query= filtrerar och sorterar.
+Mina översiktssidor består i princip bara av sådana block: ett för det jag
+tittar på nu, ett för det jag har sett klart men inte betygsatt, ett för
+backloggen sorterad efter när jag lade till titeln.
+
+Parametern =:rating= har ett litet eget språk, eftersom ”8 och uppåt” inte
+räckte så länge. Ett villkor kan vara ett tal, ett intervall
+(=5-7=), =8+=, =>=8=, =<=6=, =>7=, =<5= eller =unrated=, och ett =!= framför
+utesluter det. ="8+, !10"= betyder alltså ”bra men inte perfekt”,
+och ="!unrated"= betyder ”bara sånt jag har betygsatt”. Varje villkor blir ett
+intervall:
+
+#+begin_src emacs-lisp
+(defun ent-rating-range (term)
+  "Read one rating TERM as a (LOW . HIGH) range, or nil if it can't be read.
+Unrated titles count as 0, so \"<=6\" leaves them out."
+  (cond
+   ((member term '("unrated" "none")) (cons 0.0 0.0))
+   ((string-match "\\`>=\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons n 10.0))))
+   ((string-match "\\`<=\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons 0.01 n))))
+   ((string-match "\\`>\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons (+ n 0.01) 10.0))))
+   ((string-match "\\`<\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons 0.01 (- n 0.01)))))
+   ((string-match "\\`\\(.+\\)\\+\\'" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons n 10.0))))
+   ((string-match "\\`\\([^-]+\\)-\\([^-]+\\)\\'" term)
+    (let ((a (ent--num (match-string 1 term)))
+          (b (ent--num (match-string 2 term))))
+      (and a b (cons a b))))
+   (t (let ((n (ent--num term))) (and n (cons n n))))))
+#+end_src
+
+Det enda beslutet där som är värt att nämna är att en titel utan betyg räknas
+som 0. Annars skulle ="<=6"= i smyg få med varje film jag inte hunnit
+betygsätta, och listan över saker jag inte gillade skulle mest bestå av saker
+jag inte ens hunnit tänka på.
+
+En sak syns inte i kodsnutten: att läsa in 1 822 filer med Org varje gång ett
+block uppdateras tar flera sekunder. Den riktiga =ent-items= bygger ett index i
+minnet en gång och uppdaterar sedan bara en post via en =after-save-hook= när
+jag sparar en anteckning under =resources/media/=.
+
+Och även utan min kod fungerar taggarna. Om mediemappen ligger
+i =org-agenda-files= hittar en taggsökning som =+horror+RATING>=8= i agendan
+samma filmer.
+
+** Tips att klistra in
+
+När någon frågar mig vad de ska titta på frågar =C-c e r= efter en genre, letar
+fram mina bästa avslutade titlar i den och kopierar topp tio som vanlig text:
+
+#+begin_example
+• 1 Litre of Tears (2005) — Drama, Family (10/10)
+• Animal Kingdom (2016) — Crime, Drama (10/10)
+• Californication (2007) — Comedy, Drama (10/10)
+#+end_example
+
+Det är den minsta funktionen av alla, men också den enda som andra människor
+faktiskt ser.
+
+* I synk med mediaservern
+
+Importerna tar in historiken, men de håller ingenting uppdaterat. Mycket av det
+jag tittar på spelas upp via Jellyfin, min mediaserver, så den sista pusselbiten
+är en synk åt båda hållen: tittar jag på något där får anteckningen en rad i
+visningsloggen, och markerar jag något som sett i en anteckning markeras det som
+spelat på servern.
+
+Tvåvägssynk är lätt att få fel på sätt som inte syns direkt, så reglerna är
+korta och står överst i koden:
+
+- *Sett på bara ena sidan:* den andra sidan hänger med.
+- *Sett på båda:* det senaste datumet vinner. Anteckningen sparar alla datum den
+  någonsin fått; servern har bara det senaste.
+- *”Osett” skickas aldrig.* Var något sett vid förra synken och ena sidan nu säger
+  att det inte är det, hamnar det under ”Lämnat orört” och ingenting ändras.
+- *Bara id-träffar skickas.* Titlar matchas på TMDB-, TVDB-, IMDb- eller
+  MyAnimeList-id. En titel som bara matchar på namn och år hämtas in i
+  anteckningen och får sina id kopierade, men ingenting skickas till servern
+  förrän nästa körning, då den matchar på id.
+
+Den tredje regeln kräver ett minne. Utan att veta hur det såg ut förra gången
+ser ”sett i anteckningen, osett på servern” likadant ut oavsett om jag precis
+har sett filmen eller medvetet nollställt den på servern. Därför sparar synken
+en liten tillståndsfil över hur varje titel såg ut senast (369 poster för
+Jellyfin just nu). För en film kokar hela beslutet ner till det här:
+
+#+begin_src emacs-lisp
+(defun msync-plan-movie (note server prev)
+  "What to do for one movie: (SIDE . WHY), or nil for nothing.
+NOTE and SERVER are plists with :watched (t or nil) and :last (a
+YYYY-MM-DD string or nil). PREV is what the last sync recorded."
+  (let ((nw (plist-get note :watched))
+        (sw (plist-get server :watched))
+        (nl (or (plist-get note :last) ""))
+        (sl (or (plist-get server :last) "")))
+    (cond
+     ;; Watched at the last sync, unwatched on one side now: hands off.
+     ((and (plist-get prev :played) (not (eq nw sw)))
+      '(left-alone . "unwatched on one side since the last sync"))
+     ((and sw (not nw)) '(note . "watched on the server: add it to the watch log"))
+     ((and nw (not sw)) '(server . "watched in the note: mark it played"))
+     ((and nw sw (string> nl sl)) '(server . "the note is newer: update the server"))
+     ((and nw sw (string> sl nl)) '(note . "the server saw it again: add the date")))))
+#+end_src
+
+Serier följer samma regel per avsnitt. Datumen är strängar på
+formen =YYYY-MM-DD=, så en strängjämförelse blir samtidigt en datumjämförelse.
+
+Det viktiga är att funktionen bara returnerar ett beslut och inte gör något
+själv. =C-c m s= fattar alla beslut, visar hela planen i en buffert och frågar
+först därefter om den ska genomföras. En synk som kan skriva om hundratals
+anteckningar bör visa vad den tänker göra innan den gör det. Den körs dessutom i
+bakgrunden, så jag kan fortsätta skriva medan den pratar med servern.
+
+Samma kod klarar också Emby, Plex och MyAnimeList, var och en med sina
+begränsningar. Plex tar inte emot datum bakåt i tiden, så allt som skickas dit
+stämplas med ”nu”. Jellyfin kommer bara ihåg den senaste visningen av varje
+titel. Därför är det anteckningen, inte servern, som har koll på varje gång jag
+har sett något.
+
+* Vad 1 822 anteckningar säger om mig
+
+När allt väl låg på ett ställe var en statistiksida bara några rader kod bort.
+En del av det förvånade mig.
+
+- *Jag ger nästan allt en 6, 7 eller 8.* Av 1 169 betygsatta titlar hamnar 895
+  där. Bara 100 får 9 eller 10, och bara 21 får under 4. Min skala från 1 till
+  10 är egentligen en skala från 6 till 8 med några undantag.
+- *Jag betygsätter mycket men skriver väldigt lite.* 1 169 betyg, men recensioner
+  av bara tre titlar. Varje anteckning har en /Review/-rubrik som bara väntar på
+  att fyllas i. Oftast förblir den tom.
+- *2020 var året då jag läste som mest.* Då läste jag ut 84 böcker, och sedan dess
+  har det aldrig blivit fler än 16 på ett år.
+- *Jag börjar på fler serier än jag ser klart.* 490 påbörjade, 357 klara och 122
+  pausade, vilket här betyder att jag inte har sett ett avsnitt på sextio dagar.
+
+Inget av det här krävde egentligen att anteckningarna låg i Org. Men så länge
+svaren var utspridda på fyra olika sajter hade jag aldrig ställt frågorna.
+
+* Nackdelarna, ärligt talat
+
+*Det mesta jobbet ligger i importerna.* Kommandona som använder anteckningarna
+är den enkla delen. Att få in data från fyra tjänster ordentligt, matcha titlar
+mellan dem och göra varje import säker att köra om: det är där koden och alla
+specialfall finns.
+
+*Matchningen blir aldrig perfekt.* Träffar på namn och år blir fel så pass ofta
+att jag inte låter dem skicka något. Vissa böcker finns inte alls på Open
+Library, och en del spel kommer aldrig att få några genrer.
+
+*Mina data, mitt ansvar.* Nu när jag i stort sett har lämnat Trakt loggas
+ingenting automatiskt om det inte spelas via Jellyfin eller jag loggar det
+själv. Tittar jag på något någon annanstans och glömmer bort det vet
+anteckningarna helt enkelt inte om det. Förut fångade Trakts scrobbling upp sånt
+åt mig.
+
+*Det blir väldigt många filer.* 1 822 anteckningar, plus guiderna till ett spel,
+plus översiktssidorna. Org klarar det bra, men med så här många filer är ett
+index i minnet som hålls uppdaterat inget tillval utan ett måste.
+
+* Det här tar jag med mig
+
+*Håll isär importens fält och dina egna.* Alla importer går att köra om utan
+risk eftersom var och en ansvarar för bestämda fält och aldrig rör resten. Den
+enda regeln gjorde att jag kunde importera om och om igen utan att oroa mig.
+
+*En synk ska bestämma först och agera sedan.* Att den returnerar en plan i
+stället för att ändra direkt är det som gör förhandsvisningen möjlig, och det är
+förhandsvisningen som gör att man kan lita på synken.
+
+*Dra aldrig slutsatser om avsikt utifrån att något saknas.* ”Inte sett” på ena
+sidan kan betyda ”inte än” eller ”medvetet nollställt”. Synken kan inte avgöra
+vilket, så den gissar inte utan säger det rakt ut.
+
+*Dubbellagra med flit för de enkla verktygens skull.* Att ha genrerna både som
+taggar och som fält kostar några byte per anteckning, och i gengäld kan Orgs
+egen agenda söka i mina medier helt utan min kod.
+
+Och så den lärdom jag får lära mig om och om igen: finns det plats att skriva,
+så skriver man. Mest betyg hittills. Men tre recensioner är åtminstone en
+början.

@@ -1,0 +1,434 @@
+# -*- fill-column: 80 -*-
+#+TITLE: Alles, was ich schaue, lese und spiele, in Org
+#+SUBTITLE: 1.822 Notizen, vier Importe und eine einzige Regel fürs Synchronisieren
+#+DATE: <2026-11-24 09:00>
+#+TIMEZONE: America/Port_of_Spain
+#+LANGUAGE: de
+#+OPTIONS: toc:nil num:nil ^:{}
+#+FILETAGS: :org-mode:emacs:notes:media:
+#+HERO: banner.de.svg
+#+HERO_ALT: Dunkles Banner mit dem Titel „Alles, was ich schaue, lese und spiele“, daneben der Property-Drawer einer Org-Notiz zu einer Serie, vor einem Stapel Filmplakat-Karten
+#+DESCRIPTION: Wie ich jeden Film, jede Serie, jedes Buch und jedes Spiel als Org-Notiz festhalte: Jahre an Verlauf importieren, fehlende Infos ergänzen, Dinge schnell wiederfinden und alles mit dem Medienserver synchron halten.
+
+Zu jedem Film, den ich gesehen habe, jeder Serie, die ich angefangen habe, jedem
+Buch, das ich gelesen habe, und jedem Spiel, das ich besitze, gibt es eine
+eigene Org-Notiz. Inzwischen sind es 1.822. Sie liegen in einem Ordner neben
+meinen anderen Notizen, und ich pflege sie komplett in Emacs: neue anlegen,
+darin suchen, sie aktuell halten.
+
+Vor drei Wochen habe ich beschrieben, [[file:../2026-11-03-why-org-is-where-all-my-notes-live/index.org][warum alle meine Notizen in Org liegen]].
+Heute geht es um eine Ecke davon, und zwar um die, in der mit Abstand am
+meisten Code steckt.
+
+* Warum nicht einfach die Apps?
+
+Jahrelang lagen diese Daten bei anderen. Trakt wusste, was ich geschaut hatte,
+Goodreads, was ich gelesen hatte, und Steam, welche Spiele mir gehören. Jeder
+dieser Dienste macht seine Sache gut. Aber keiner weiß vom anderen, und bei
+keinem kann ich vernünftig selbst etwas aufschreiben.
+
+Ich wollte drei Dinge, die mir keine App zusammen bietet:
+
+- *Alles an einem Ort.* Ich will fragen können: „Was waren dieses Jahr meine
+  besten Krimis?“, und dann Bücher und Serien in derselben Antwort sehen.
+- *Platz für eigene Texte.* Eine Rezension, ein Zitat, wer mir etwas empfohlen
+  hat, oder gleich ein ganzer Spieleguide, alles in derselben Datei wie der
+  Titel selbst.
+- *Daten, die den Dienst überleben.* Ein Ordner voller Textdateien lässt sich auch
+  dann noch öffnen, wenn eine App eingestellt wird oder ihr Exportformat ändert.
+
+Punkt drei erledigt Org schon allein dadurch, dass es Org ist. Für die anderen
+beiden musste ich etwas tun.
+
+Und Punkt drei ist längst keine Theorie mehr. Seit den letzten Updates von Trakt
+nutze ich es kaum noch und erfasse alles nur noch in Org. Der alte Verlauf
+stammt von Trakt, ab jetzt sind die Notizen das Original.
+
+* Eine Notiz pro Titel
+
+Jeder Titel ist eine Datei mit genau einer Überschrift auf oberster Ebene.
+Alles, was ein Programm über den Titel wissen muss, steht im Property-Drawer
+dieser Überschrift. Alles, was ich selbst schreibe, steht in den
+Unterüberschriften. Hier, leicht gekürzt, eine Serie, bei der ich gerade
+mittendrin bin:
+
+#+begin_src org
+,* Boston Legal (2004)                                   :show:comedy:drama:
+:PROPERTIES:
+:TYPE: show
+:TITLE: Boston Legal
+:YEAR: 2004
+:STATUS: watching
+:RATING: 9
+:RATED: 2026-09-15
+:EPISODES_WATCHED: 87
+:AIRED_EPISODES: 101
+:PROGRESS: 86%
+:LAST_WATCHED: 2026-11-14
+:GENRES: Comedy, Drama
+:POSTER: https://image.tmdb.org/t/p/w342/b0bXUCfpcsgQ6EVVmucU2G76ixT.jpg
+:IMDB: tt0402711
+:TMDB: 4598
+:TVDB: 74058
+:END:
+,** Overview
+,** Review
+,** Notes
+,** Seasons
+,*** Season 1
+| Ep | Title                             |    Watched | Rating |
+|----+-----------------------------------+------------+--------|
+|  1 | Head Cases                        | 2026-08-31 |        |
+|  2 | Still Crazy After All These Years | 2026-08-31 |        |
+#+end_src
+
+Alle vier Arten haben dieselben Grundfelder
+(=TYPE=, =TITLE=, =YEAR=, =STATUS=, =RATING=, =GENRES=, =POSTER=) und dazu
+jeweils eigene. Zu einem Film gehören =PLAYS= und ein Sehverlauf, der jede
+Sichtung mit einem Zeitstempel festhält. Eine Serie hat pro Staffel eine Tabelle
+mit allen Folgen, dem Datum, an dem ich sie gesehen habe, und auf Wunsch einer
+Bewertung. Ein Buch hat =AUTHOR=, =PAGES=, =STARTED=, =FINISHED= und ein
+Leseprotokoll. Ein Spiel hat =PLATFORM= und =HOURS= und bekommt statt einer
+Datei einen eigenen Ordner, weil zu manchen Spielen Guides gehören. Bei Hay Day
+liegen neben der Hauptnotiz siebzehn weitere Notizen und eine Kopie des Wikis.
+
+Die Genres stehen außerdem als Tags in der Überschrift (=:comedy:drama:=). Das
+ist doppelt gemoppelt, aber mit Absicht: So funktioniert die normale Tag-Suche
+von Org auf meinen Medien, auch ohne dass irgendetwas von meinem Code geladen
+ist.
+
+Bewertet wird von 1 bis 10, genau wie bei Trakt, also musste beim Import nichts
+umgerechnet werden. Welche Status es gibt, hängt von der Art ab: Filme sind
+/watched/ oder /plan-to-watch/, Bücher /to-read/, /reading/, /read/ oder /dnf/,
+Spiele /backlog/, /playing/, /completed/, /100%/ oder /dropped/.
+
+* Jahre an Verlauf importieren
+
+1.822 Notizen tippt niemand von Hand. Meinen bisherigen Verlauf habe ich mit
+vier Importen übernommen. Jeder davon ist ein =M-x=-Befehl, der einen Export
+oder eine API ausliest und Notizen im obigen Format schreibt.
+
+| Quelle    | Was dabei herauskam                                               |
+|-----------+-------------------------------------------------------------------|
+| Trakt     | 638 Filme, 479 Serien, 22.939 Wiedergaben, 1.798 Bewertungen      |
+| Goodreads | 132 Bücher, 92 Sternebewertungen, 117 Lesedaten                   |
+| Steam     | 301 Spiele samt Spielzeit                                         |
+| Jellyfin  | was auf meinem Medienserver gerade läuft und wo ich pausiert habe |
+
+Jeder Import muss sich gefahrlos mehrmals ausführen lassen. Während ich die
+Lücken geschlossen habe, habe ich sie ohnehin mehrfach ausgeführt, und der
+Steam-Import ist dafür gedacht, ab und zu neue Spiele und Spielzeiten
+nachzuholen. Ein zweiter Durchlauf darf dabei nie eine Rezension überschreiben,
+die ich zwischendurch geschrieben habe. Deshalb gehören jedem Import feste
+Felder und Abschnitte, und alles andere fasst er nicht an: meine /Overview/,
+/Review/ und /Notes/, selbst angelegte Überschriften, meine Tags. Bewertungen,
+Wiedergaben und die Folgentabellen gehören dem Import. Meine Texte gehören mir.
+
+Jede Quelle hatte ihre Macken.
+
+*Trakt weiß nur, was man ihm sagt.* Ich nutze Trakt seit Juni 2025. Für fast
+alles davor kennt es nur das Erscheinungs- oder Ausstrahlungsdatum, nicht den
+Tag, an dem ich es tatsächlich gesehen habe. Der Import übernimmt das brav.
+Heraus kommt eine Tabelle, laut der ich im Jahr 2000 76 Serienfolgen geschaut
+habe. Habe ich nicht. Damals liefen diese Folgen im Fernsehen. Im Index steht
+das jetzt direkt über der Tabelle. Nachträglich reparieren lassen sich die Daten
+nicht, und ein ehrlicher Hinweis ist mir lieber als eine Genauigkeit, die es
+nicht gibt.
+
+*Goodreads exportiert Titel, aber weder Autoren noch ISBNs.* Der Import holte
+meine Regale, Bewertungen und Daten; ein zweiter Befehl ergänzt den Rest aus
+Open Library: Autoren, Seitenzahl, Cover, Genres und ISBNs. Er übernimmt nur
+Treffer, deren Titel eindeutig zum Buch passt, und listet alle übersprungenen
+auf, damit ich ihnen von Hand eine ISBN mitgeben kann.
+
+*Steam zählt meine Spielzeit anders als ich.* Manche Spiele habe ich auch
+woanders gespielt. Deshalb steht in der Notiz Steams Wert in =STEAM_HOURS= und
+meine Gesamtzeit in =HOURS=. Ein Import kann =HOURS= höchstens auf Steams Wert
+anheben, aber nie senken. Was ich mit =C-c e g= von Hand eintrage, geht also
+nicht verloren.
+
+Steam war übrigens der ehrlichste Import. Von 301 Spielen liegen 285 noch auf
+dem Pile of Shame. Nur 137 haben überhaupt erfasste Spielzeit.
+
+* Fehlende Infos ergänzen
+
+Ein Export verrät, /dass/ man etwas gesehen hat, aber nicht, /was/ es war. Das
+ergänzen drei weitere Befehle:
+
+- *TMDB* liefert Genres, Poster, Inhaltsangabe, Laufzeit, Regie bzw. Showrunner
+  und bei Serien den Sender und ob sie abgeschlossen ist.
+- *Open Library* macht dasselbe für Bücher, wie oben beschrieben.
+- *MyAnimeList* liefert Links für Anime und Manga. Anime werden über die TVDB- und
+  TMDB-IDs zugeordnet, die ich von Trakt schon habe, und zwar über eine von der
+  Community gepflegte ID-Liste. Geraten wird anhand des Titels also nichts. Da
+  MAL jede Staffel als eigenen Eintrag führt, bekommt eine Serie einen Link pro
+  Staffel.
+
+Alle drei fassen nur Notizen an, die noch nicht ergänzt wurden, und vermerken
+das Datum in =ENRICHED=. Ein zweiter Lauf ist deshalb schnell und hält keine
+Überraschungen bereit. Inzwischen haben 1.467 der 1.822 Notizen Genres; der Rest
+sind vor allem obskure Spiele und Bücher, zu denen sich nichts findet.
+
+Poster werden nur verlinkt, nicht heruntergeladen. Jede Notiz beginnt ihre
+/Overview/ mit einem Bildlink zu TMDB, Open Library oder Steam, und Org zeigt
+Bilder aus dem Netz direkt im Text an, wenn man es ihm sagt:
+
+#+begin_src emacs-lisp
+(setq org-display-remote-inline-images 'cache) ; fetch https images, keep them
+(setq org-image-actual-width nil)              ; honour #+attr_org: :width 250
+#+end_src
+
+So bleibt der Ordner klein genug, um ihn überallhin zu synchronisieren, und jede
+Notiz öffnet sich mit dem Poster ganz oben. Lege ich ein Buch von Hand an,
+reicht die ISBN, um gleich das Cover zu bekommen.
+
+* Dinge wiederfinden
+
+Ein Haufen Notizen bringt nur etwas, wenn man ihm Fragen stellen kann. Fast
+alles, was ich im Alltag brauche, liegt auf =C-c e=:
+
+| Tasten    | Funktion                                                         |
+|-----------+------------------------------------------------------------------|
+| =C-c e n= | neues Buch, Spiel, neuer Film, neue Serie                        |
+| =C-c e f= | nach Art, Genre, Bewertung und Status filtern                    |
+| =C-c e r= | die besten abgeschlossenen Titel eines Genres zum Weiterschicken |
+| =C-c e s= | Titel bewerten oder neu bewerten, 1 bis 10                       |
+| =C-c e d= | etwas abschließen: Status, Datum, Bewertung, evtl. Rezension     |
+| =C-c e b= | Lesefortschritt eintragen                                        |
+| =C-c e g= | Spielsitzung eintragen                                           |
+| =C-c e v= | Rezension mit Datum schreiben                                    |
+| =C-c e u= | abgeschlossene, aber noch unbewertete Titel                      |
+
+Am häufigsten benutze ich aber gar keinen Befehl, sondern einen dynamischen
+Block. In Org kann man überall eine =#+BEGIN:=-Zeile setzen; =C-c C-c= darauf
+ruft eine Funktion auf, die nach dem Block benannt ist, und die füllt alles
+zwischen dieser Zeile und =#+END:=. So kann eine Liste wie diese in jeder
+beliebigen Notiz stehen und sich auf Knopfdruck aktualisieren:
+
+#+begin_src org
+,#+BEGIN: ent-list :types ("movie") :tags ("horror") :rating "8+, !10" :limit 5
+| Title                 | Type  | Rating | Genres                           | Status  |
+|-----------------------+-------+--------+----------------------------------+---------|
+| Backrooms (2026)      | movie |      9 | Horror, Mystery, Science Fiction | watched |
+| Cure (1997)           | movie |      9 | Horror, Mystery, Crime, Thriller | watched |
+| Hell House LLC (2015) | movie |      9 | Horror, Mystery                  | watched |
+| Heretic (2024)        | movie |      9 | Thriller, Horror                 | watched |
+| Jigsaw (2017)         | movie |      9 | Horror, Mystery                  | watched |
+,#+END:
+#+end_src
+
+Die Titel sind eigentlich Links auf ihre Notizen; das Link-Markup habe ich hier
+weggelassen. Die Funktion dahinter ist kurz, weil Org das Lästige übernimmt: Es
+zerlegt alles hinter dem Blocknamen in eine Property-Liste. =:types= kommt also
+als Liste ="movie"= an und =:limit= als Zahl 5.
+
+#+begin_src emacs-lisp
+(defun org-dblock-write:ent-list (params)
+  "Fill an ent-list block with a table of the titles that match PARAMS."
+  (let ((dir (file-name-directory (buffer-file-name))))
+    (insert "| Title | Type | Rating | Genres | Status |\n|-\n")
+    (dolist (it (ent-query (ent-items) params))
+      (insert (format "| [[file:%s][%s]] | %s | %s | %s | %s |\n"
+                      (file-relative-name (plist-get it :file) dir)
+                      (plist-get it :title)
+                      (ent-prop it "TYPE") (ent-prop it "RATING")
+                      (ent-prop it "GENRES") (ent-prop it "STATUS"))))
+    (delete-char -1)
+    (org-table-align)))
+#+end_src
+
+=ent-items= liefert pro Notiz eine Property-Liste, =ent-query= filtert und
+sortiert. Meine Übersichtsseiten bestehen im Grunde nur aus solchen Blöcken:
+einer für das, was ich gerade schaue, einer für Abgeschlossenes ohne Bewertung,
+einer für den Backlog, sortiert nach Hinzufügedatum.
+
+Der Parameter =:rating= hat eine kleine eigene Syntax, weil „ab 8“ schnell nicht
+mehr gereicht hat. Ein Ausdruck kann eine Zahl sein, ein Bereich
+(=5-7=), =8+=, =>=8=, =<=6=, =>7=, =<5= oder =unrated=; ein vorangestelltes =!=
+schließt ihn aus. ="8+, !10"= bedeutet also „gut, aber nicht perfekt“,
+und ="!unrated"= heißt „nur, was ich schon bewertet habe“. Jeder Ausdruck wird
+zu einem Bereich:
+
+#+begin_src emacs-lisp
+(defun ent-rating-range (term)
+  "Read one rating TERM as a (LOW . HIGH) range, or nil if it can't be read.
+Unrated titles count as 0, so \"<=6\" leaves them out."
+  (cond
+   ((member term '("unrated" "none")) (cons 0.0 0.0))
+   ((string-match "\\`>=\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons n 10.0))))
+   ((string-match "\\`<=\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons 0.01 n))))
+   ((string-match "\\`>\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons (+ n 0.01) 10.0))))
+   ((string-match "\\`<\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons 0.01 (- n 0.01)))))
+   ((string-match "\\`\\(.+\\)\\+\\'" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons n 10.0))))
+   ((string-match "\\`\\([^-]+\\)-\\([^-]+\\)\\'" term)
+    (let ((a (ent--num (match-string 1 term)))
+          (b (ent--num (match-string 2 term))))
+      (and a b (cons a b))))
+   (t (let ((n (ent--num term))) (and n (cons n n))))))
+#+end_src
+
+Erwähnenswert ist darin eigentlich nur eine Entscheidung: Ein unbewerteter Titel
+zählt als 0. Sonst würde ="<=6"= stillschweigend jeden Film mitnehmen, den ich
+noch nicht bewertet habe, und die Liste der Sachen, die mir nicht gefallen
+haben, bestünde vor allem aus Sachen, über die ich noch gar nicht nachgedacht
+habe.
+
+Was der Codeausschnitt verschweigt: 1.822 Dateien bei jeder Aktualisierung mit
+Org einzulesen dauert mehrere Sekunden. Das echte =ent-items= baut einmal einen
+Index im Arbeitsspeicher auf und aktualisiert per =after-save-hook= nur den
+einen Eintrag, sobald ich eine Notiz unter =resources/media/= speichere.
+
+Und selbst ganz ohne meinen Code funktionieren die Tags. Liegt der Medienordner
+in =org-agenda-files=, findet eine Tag-Suche wie =+horror+RATING>=8= in der
+Agenda dieselben Filme.
+
+** Empfehlungen zum Weiterschicken
+
+Wenn mich jemand fragt, was er schauen soll, fragt =C-c e r= nach einem Genre,
+sucht meine besten abgeschlossenen Titel darin heraus und kopiert die Top Ten
+als reinen Text:
+
+#+begin_example
+• 1 Litre of Tears (2005) — Drama, Family (10/10)
+• Animal Kingdom (2016) — Crime, Drama (10/10)
+• Californication (2007) — Comedy, Drama (10/10)
+#+end_example
+
+Es ist die kleinste Funktion von allen und gleichzeitig die einzige, die andere
+Leute tatsächlich zu Gesicht bekommen.
+
+* Synchron mit dem Medienserver
+
+Die Importe holen den Verlauf herein, aktuell halten sie aber nichts. Vieles von
+dem, was ich schaue, läuft über meinen Medienserver Jellyfin. Das letzte
+Puzzleteil ist deshalb ein Abgleich in beide Richtungen: Schaue ich dort etwas,
+bekommt die Notiz einen Eintrag im Sehverlauf. Markiere ich in einer Notiz etwas
+als gesehen, setzt der Server es auf „gespielt“.
+
+Bei einer Zwei-Wege-Synchronisation schleichen sich leicht Fehler ein, deshalb
+sind die Regeln kurz und stehen ganz oben im Code:
+
+- *Nur auf einer Seite gesehen:* Die andere Seite zieht nach.
+- *Auf beiden Seiten gesehen:* Das neueste Datum gewinnt. Die Notiz behält jedes
+  Datum, das sie je gesehen hat; der Server kennt nur das letzte.
+- *„Ungesehen“ wird nie übertragen.* War etwas beim letzten Abgleich gesehen und
+  meldet eine Seite jetzt das Gegenteil, landet es in der Liste „Nicht
+  angefasst“, und es ändert sich nichts.
+- *Übertragen wird nur per ID.* Zugeordnet wird über TMDB-, TVDB-, IMDb- oder
+  MyAnimeList-IDs. Passt ein Titel nur über Name und Jahr, wird er in die Notiz
+  übernommen und seine IDs werden mitkopiert. Zum Server geschickt wird aber
+  erst beim nächsten Lauf, wenn er über die ID passt.
+
+Für die dritte Regel braucht der Abgleich ein Gedächtnis. Ohne zu wissen, was
+beim letzten Mal galt, sieht „in der Notiz gesehen, auf dem Server nicht“ immer
+gleich aus, egal ob ich den Film gerade geschaut oder auf dem Server absichtlich
+zurückgesetzt habe. Deshalb merkt sich der Abgleich in einer kleinen
+Statusdatei, wie jeder Titel beim letzten Mal aussah (bei Jellyfin sind das
+gerade 369 Einträge). Für einen Film läuft die ganze Entscheidung darauf hinaus:
+
+#+begin_src emacs-lisp
+(defun msync-plan-movie (note server prev)
+  "What to do for one movie: (SIDE . WHY), or nil for nothing.
+NOTE and SERVER are plists with :watched (t or nil) and :last (a
+YYYY-MM-DD string or nil). PREV is what the last sync recorded."
+  (let ((nw (plist-get note :watched))
+        (sw (plist-get server :watched))
+        (nl (or (plist-get note :last) ""))
+        (sl (or (plist-get server :last) "")))
+    (cond
+     ;; Watched at the last sync, unwatched on one side now: hands off.
+     ((and (plist-get prev :played) (not (eq nw sw)))
+      '(left-alone . "unwatched on one side since the last sync"))
+     ((and sw (not nw)) '(note . "watched on the server: add it to the watch log"))
+     ((and nw (not sw)) '(server . "watched in the note: mark it played"))
+     ((and nw sw (string> nl sl)) '(server . "the note is newer: update the server"))
+     ((and nw sw (string> sl nl)) '(note . "the server saw it again: add the date")))))
+#+end_src
+
+Bei Serien gilt dieselbe Regel pro Folge. Die Daten sind Strings im
+Format =YYYY-MM-DD=, ein String-Vergleich ist also gleichzeitig ein
+Datumsvergleich.
+
+Entscheidend ist, dass die Funktion nur eine Entscheidung zurückgibt und selbst
+nichts tut. =C-c m s= trifft alle Entscheidungen, zeigt den kompletten Plan in
+einem Buffer und fragt erst dann, ob er ausgeführt werden soll. Ein Abgleich,
+der Hunderte Notizen umschreiben kann, sollte erst einmal zeigen, was er vorhat.
+Er läuft außerdem im Hintergrund, ich kann also weitertippen, während er mit dem
+Server redet.
+
+Derselbe Code kann auch Emby, Plex und MyAnimeList, jeweils mit eigenen
+Einschränkungen. Plex nimmt kein Datum in der Vergangenheit an, alles, was
+dorthin geht, bekommt also den Stempel „jetzt“. Jellyfin merkt sich pro Titel
+nur die letzte Wiedergabe. Deshalb ist die Notiz und nicht der Server der Ort,
+an dem jede einzelne Sichtung festgehalten wird.
+
+* Was 1.822 Notizen über mich verraten
+
+Als alles an einem Ort lag, war eine Statistikseite nur noch ein paar Zeilen
+Code entfernt. Manches davon hat mich überrascht.
+
+- *Ich gebe fast allem eine 6, 7 oder 8.* Von 1.169 bewerteten Titeln landen 895
+  dort. Nur 100 bekommen eine 9 oder 10, gerade mal 21 weniger als 4. Meine
+  Skala von 1 bis 10 ist in Wahrheit eine von 6 bis 8 mit ein paar Ausreißern.
+- *Ich bewerte viel und schreibe wenig.* 1.169 Bewertungen, aber Rezensionen zu
+  ganzen drei Titeln. Jede Notiz hat eine Überschrift /Review/, die nur darauf
+  wartet, gefüllt zu werden. Meistens bleibt sie leer.
+- *2020 war mein Rekordjahr beim Lesen.* 84 Bücher habe ich in dem Jahr beendet,
+  seitdem in keinem Jahr mehr als 16.
+- *Ich fange mehr an, als ich zu Ende bringe.* 490 Serien angefangen, 357
+  abgeschlossen, 122 pausiert. Pausiert heißt hier: seit sechzig Tagen keine
+  Folge mehr gesehen.
+
+Dafür hätten die Notizen nicht unbedingt in Org liegen müssen. Aber solange die
+Antworten auf vier Websites verteilt waren, hätte ich mir diese Fragen nie
+gestellt.
+
+* Die Schattenseiten
+
+*Die meiste Arbeit steckt in den Importen.* Die Befehle, mit denen ich die
+Notizen benutze, sind der leichte Teil. Die Daten von vier Diensten sauber
+hereinzuholen, Titel zwischen ihnen zuzuordnen und jeden Import wiederholbar zu
+machen: Da steckt der eigentliche Code, und da stecken die Sonderfälle.
+
+*Zuordnungen sind nie perfekt.* Treffer über Name und Jahr liegen oft genug
+daneben, dass ich sie nichts übertragen lasse. Manche Bücher findet Open Library
+überhaupt nicht, und ein paar Spiele werden wohl nie Genres haben.
+
+*Meine Daten, meine Verantwortung.* Seit ich Trakt kaum noch nutze, wird
+automatisch nur noch erfasst, was über Jellyfin läuft; alles andere muss ich
+selbst eintragen. Schaue ich woanders etwas und vergesse es, wissen die Notizen
+eben nichts davon. Früher hat das Scrobbling von Trakt so etwas für mich
+aufgefangen.
+
+*Es sind ziemlich viele Dateien.* 1.822 Notizen, dazu die Guides eines Spiels,
+dazu die Übersichtsseiten. Org kommt damit gut klar, aber ein Index im
+Arbeitsspeicher, der laufend aktuell gehalten wird, ist bei dieser Menge kein
+Luxus, sondern Pflicht.
+
+* Was ich daraus mitnehme
+
+*Trenne die Felder des Imports von deinen eigenen.* Jeder Import lässt sich
+gefahrlos wiederholen, weil ihm feste Felder gehören und er den Rest nie
+anrührt. Diese eine Regel hat es möglich gemacht, ohne Bauchschmerzen immer
+wieder neu zu importieren.
+
+*Ein Abgleich sollte erst entscheiden und dann handeln.* Weil er einen Plan
+zurückgibt statt direkt etwas zu ändern, gibt es überhaupt eine Vorschau, und
+erst die Vorschau macht ihn vertrauenswürdig.
+
+*Unterstelle keine Absicht, nur weil ein Eintrag fehlt.* „Nicht gesehen“ kann
+auf einer Seite „noch nicht“ heißen oder „absichtlich zurückgesetzt“. Der
+Abgleich kann das nicht unterscheiden. Also rät er nicht, sondern sagt es offen.
+
+*Doppelt speichern, wenn es den einfachen Werkzeugen hilft.* Die Genres
+zusätzlich als Tags abzulegen kostet ein paar Bytes pro Notiz und sorgt dafür,
+dass die Agenda von Org meine Medien ganz ohne meinen Code durchsuchen kann.
+
+Und eine Lektion, die ich immer wieder neu lerne: Wo man etwas aufschreiben
+kann, wird auch etwas aufgeschrieben. Bisher vor allem Bewertungen. Drei
+Rezensionen sind immerhin ein Anfang.

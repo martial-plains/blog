@@ -1,0 +1,405 @@
+# -*- fill-column: 80 -*-
+#+TITLE: Everything I watch, read and play, in Org
+#+SUBTITLE: 1,822 notes, four imports and one rule for syncing
+#+DATE: <2026-11-24 09:00>
+#+TIMEZONE: America/Port_of_Spain
+#+LANGUAGE: en-GB
+#+OPTIONS: toc:nil num:nil ^:{}
+#+FILETAGS: :org-mode:emacs:notes:media:
+#+HERO: banner.svg
+#+HERO_ALT: A dark banner reading Everything I watch, read and play, next to the property drawer of an Org note for a TV show, laid over a stack of poster cards
+#+DESCRIPTION: How I keep every film, show, book and game I've watched, read or played as an Org note: importing years of history, filling in the gaps, finding things again, and keeping it in step with a media server.
+
+Every film I've watched, every show I've started, every book I've read and every
+game I own has its own Org note. There are 1,822 of them. They sit in one folder
+next to the rest of my notes, and Emacs is what I use to add to them, search
+them and keep them current.
+
+I wrote about [[file:../2026-11-03-why-org-is-where-all-my-notes-live/index.org][why my notes live in Org]] three weeks ago. This is one corner
+of that, and the one with the most code in it.
+
+* Why not just use the apps
+
+For years the record lived in other people's databases. Trakt knew what I
+watched, Goodreads knew what I read, and Steam knew what I owned. Each of them
+is good at its own thing. None of them knows about the others, and none of them
+is a place for my own writing.
+
+I wanted three things the apps don't give me together:
+
+- *One place for all of it*, so I can ask "what were my best crime stories this
+  year?" and get books and shows in the same answer.
+- *Room to write.* A review, a quote, a note about who recommended it, or a whole
+  guide to a game, in the same file as the title.
+- *A record that outlives the service.* A folder of plain text files will still
+  open when an app closes or changes its export format.
+
+Org already does the third one by being Org. The first two needed some work.
+
+The third one also stopped being hypothetical. After Trakt's last few updates I
+mostly stopped using it, and I now track everything in Org. Trakt is where the
+history came from. From here on, the notes are the record.
+
+* One note per title
+
+Each title is a file with one top-level heading. Everything a program needs to
+know about it lives in that heading's property drawer, and everything I write
+lives under the subheadings. Here is a show I'm in the middle of, trimmed:
+
+#+begin_src org
+,* Boston Legal (2004)                                   :show:comedy:drama:
+:PROPERTIES:
+:TYPE: show
+:TITLE: Boston Legal
+:YEAR: 2004
+:STATUS: watching
+:RATING: 9
+:RATED: 2026-09-15
+:EPISODES_WATCHED: 87
+:AIRED_EPISODES: 101
+:PROGRESS: 86%
+:LAST_WATCHED: 2026-11-14
+:GENRES: Comedy, Drama
+:POSTER: https://image.tmdb.org/t/p/w342/b0bXUCfpcsgQ6EVVmucU2G76ixT.jpg
+:IMDB: tt0402711
+:TMDB: 4598
+:TVDB: 74058
+:END:
+,** Overview
+,** Review
+,** Notes
+,** Seasons
+,*** Season 1
+| Ep | Title                             |    Watched | Rating |
+|----+-----------------------------------+------------+--------|
+|  1 | Head Cases                        | 2026-08-31 |        |
+|  2 | Still Crazy After All These Years | 2026-08-31 |        |
+#+end_src
+
+The four kinds share the core properties
+(=TYPE=, =TITLE=, =YEAR=, =STATUS=, =RATING=, =GENRES=, =POSTER=) and then add
+their own. A film has =PLAYS= and a watch log with a timestamp for each viewing.
+A show has a table per season with every episode, the dates I watched it and an
+optional rating. A book has =AUTHOR=, =PAGES=, =STARTED=, =FINISHED= and a
+reading log. A game has =PLATFORM= and =HOURS=, and gets a folder of its own
+instead of a single file, because some games come with guides. Hay Day has
+seventeen notes and a copy of its wiki beside its main one.
+
+Genres are copied into the heading's tags as well (=:comedy:drama:=). That
+duplicates information, and it's deliberate: it means plain Org tag searches
+work on my media without any of my code loaded.
+
+The ratings run from 1 to 10, the same scale Trakt uses, so nothing had to be
+converted on the way in. The status words depend on the type: films are
+/watched/ or /plan-to-watch/, books go /to-read/, /reading/, /read/ or /dnf/,
+and games go /backlog/, /playing/, /completed/, /100%/ or /dropped/.
+
+* Getting years of history in
+
+Nobody types 1,822 notes. The history came in through four imports, each
+an =M-x= command that reads an export or an API and writes notes in the format
+above.
+
+| Source    | What came in                                              |
+|-----------+-----------------------------------------------------------|
+| Trakt     | 638 watched films, 479 shows, 22,939 plays, 1,798 ratings |
+| Goodreads | 132 books, 92 star ratings, 117 finish dates              |
+| Steam     | 301 games, with playtime                                  |
+| Jellyfin  | what's in progress on my media server, and where I paused |
+
+Every import has to be safe to run twice. I ran them more than once while I was
+filling in the gaps, the Steam import is meant to be re-run to pick up new games
+and playtime, and a second run must never clobber a review I wrote in between.
+So each importer owns a fixed set of properties and sections and leaves
+everything else alone: my /Overview/, /Review/ and /Notes/, any headings I've
+added, my tags. Ratings, plays and the episode tables are the importer's. My
+words are mine.
+
+Each source had its own quirk.
+
+*Trakt only knows what I told it.* I joined in June 2025, and for most of the
+history from before that, Trakt has the release or air date rather than the day
+I watched. The import faithfully copies that. The result is a table that says I
+watched 76 episodes of television in 2000. I didn't; that's when those episodes
+aired. The index now says so above the table, because the data can't be fixed
+after the fact and I'd rather have a caveat than a false precision.
+
+*Goodreads exports titles but not authors or ISBNs.* The import brought in my
+shelves, ratings and dates, and a second command fills in the rest from Open
+Library: authors, page counts, covers, genres and ISBNs. It only accepts a match
+whose title looks like the same book, and it lists the ones it skipped so I can
+give them an ISBN by hand.
+
+*Steam's playtime and mine are different numbers.* Some games I've played
+somewhere else too. So the note keeps Steam's figure in =STEAM_HOURS= and my
+total in =HOURS=, and an import only ever raises =HOURS= to Steam's figure,
+never lowers it. Sessions I log by hand with =C-c e g= survive.
+
+Steam was also the most honest import. Of 301 games, 285 are in the backlog. 137
+have any playtime at all.
+
+* Filling in the gaps
+
+An export tells you that you watched something. It doesn't tell you what the
+thing was. Three more commands fill that in:
+
+- *TMDB* adds genres, a poster, an overview, the runtime, the director or
+  creators, and for shows the network and whether it has ended.
+- *Open Library* does the same for books, as above.
+- *MyAnimeList* links for anime and manga. Anime are matched by the TVDB and TMDB
+  ids Trakt already gave me, through a community-kept mapping of ids, so there's
+  no guessing by title. MAL lists each season as its own entry, so a show gets a
+  link per season.
+
+Each of these only touches notes that haven't been enriched yet, and each writes
+the date it ran into =ENRICHED=, so running one again is quick and does nothing
+surprising. 1,467 of the 1,822 notes now have genres; the rest are mostly
+obscure games and books with no match.
+
+Posters are linked, not downloaded. Each note starts its /Overview/ with an
+image link to TMDB, Open Library or Steam, and Org can show remote images inline
+if you ask it to:
+
+#+begin_src emacs-lisp
+(setq org-display-remote-inline-images 'cache) ; fetch https images, keep them
+(setq org-image-actual-width nil)              ; honour #+attr_org: :width 250
+#+end_src
+
+The folder stays small enough to sync anywhere, and a note opens with its poster
+at the top. For a book I add by hand, giving an ISBN when I create the note is
+enough to get its cover.
+
+* Finding things again
+
+A pile of notes is only useful if you can ask it questions. Most of the everyday
+work is on =C-c e=:
+
+| Keys      | Does                                                    |
+|-----------+---------------------------------------------------------|
+| =C-c e n= | new book, game, film or show                            |
+| =C-c e f= | filter by type, genre, rating and status                |
+| =C-c e r= | best finished titles in a genre, to send someone        |
+| =C-c e s= | rate or re-rate a title, 1 to 10                        |
+| =C-c e d= | finish something: status, date, rating, optional review |
+| =C-c e b= | log reading progress                                    |
+| =C-c e g= | log a play session                                      |
+| =C-c e v= | write a dated review                                    |
+| =C-c e u= | finished titles I haven't rated yet                     |
+
+The piece I use most, though, isn't a command. It's a dynamic block. Org lets
+you put a =#+BEGIN:= line anywhere, and =C-c C-c= on it calls a function named
+after the block to fill in what's between that line and =#+END:=. So a list like
+this can live in any note, and update itself on request:
+
+#+begin_src org
+,#+BEGIN: ent-list :types ("movie") :tags ("horror") :rating "8+, !10" :limit 5
+| Title                 | Type  | Rating | Genres                           | Status  |
+|-----------------------+-------+--------+----------------------------------+---------|
+| Backrooms (2026)      | movie |      9 | Horror, Mystery, Science Fiction | watched |
+| Cure (1997)           | movie |      9 | Horror, Mystery, Crime, Thriller | watched |
+| Hell House LLC (2015) | movie |      9 | Horror, Mystery                  | watched |
+| Heretic (2024)        | movie |      9 | Thriller, Horror                 | watched |
+| Jigsaw (2017)         | movie |      9 | Horror, Mystery                  | watched |
+,#+END:
+#+end_src
+
+The titles are links to their notes; I've left the link markup out here. The
+function behind it is short, because Org does the awkward part: it parses
+everything after the block's name into a property list, so =:types= arrives as
+the list ="movie"= and =:limit= arrives as the number 5.
+
+#+begin_src emacs-lisp
+(defun org-dblock-write:ent-list (params)
+  "Fill an ent-list block with a table of the titles that match PARAMS."
+  (let ((dir (file-name-directory (buffer-file-name))))
+    (insert "| Title | Type | Rating | Genres | Status |\n|-\n")
+    (dolist (it (ent-query (ent-items) params))
+      (insert (format "| [[file:%s][%s]] | %s | %s | %s | %s |\n"
+                      (file-relative-name (plist-get it :file) dir)
+                      (plist-get it :title)
+                      (ent-prop it "TYPE") (ent-prop it "RATING")
+                      (ent-prop it "GENRES") (ent-prop it "STATUS"))))
+    (delete-char -1)
+    (org-table-align)))
+#+end_src
+
+=ent-items= returns one property list per note, and =ent-query= filters and
+sorts them. My hubs are made of these blocks: one for what I'm watching, one for
+what I've finished but not rated, one for the backlog, sorted by when I added
+each title.
+
+The =:rating= parameter has a small language of its own, because "8 and up"
+wasn't enough for long. A term can be a number, a range
+(=5-7=), =8+=, =>=8=, =<=6=, =>7=, =<5= or =unrated=, and a =!= in front leaves
+it out. So ="8+, !10"= is "good but not perfect", and ="!unrated"= means "only
+things I've rated". Each term becomes a range:
+
+#+begin_src emacs-lisp
+(defun ent-rating-range (term)
+  "Read one rating TERM as a (LOW . HIGH) range, or nil if it can't be read.
+Unrated titles count as 0, so \"<=6\" leaves them out."
+  (cond
+   ((member term '("unrated" "none")) (cons 0.0 0.0))
+   ((string-match "\\`>=\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons n 10.0))))
+   ((string-match "\\`<=\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons 0.01 n))))
+   ((string-match "\\`>\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons (+ n 0.01) 10.0))))
+   ((string-match "\\`<\\(.+\\)" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons 0.01 (- n 0.01)))))
+   ((string-match "\\`\\(.+\\)\\+\\'" term)
+    (let ((n (ent--num (match-string 1 term)))) (and n (cons n 10.0))))
+   ((string-match "\\`\\([^-]+\\)-\\([^-]+\\)\\'" term)
+    (let ((a (ent--num (match-string 1 term)))
+          (b (ent--num (match-string 2 term))))
+      (and a b (cons a b))))
+   (t (let ((n (ent--num term))) (and n (cons n n))))))
+#+end_src
+
+The one decision in there worth pointing out is that an unrated title counts
+as 0. Without that, ="<=6"= would quietly sweep in every film I haven't got
+round to rating, and a list of "things I didn't like" would be mostly things I
+hadn't thought about.
+
+One thing the snippet hides: reading 1,822 files with Org every time a block
+updates is slow, several seconds. The real =ent-items= keeps an index in memory,
+builds it once, and updates a single entry from an =after-save-hook= whenever I
+save a note under =resources/media/=.
+
+And if none of my code is loaded, the tags still work. With the media folder
+in =org-agenda-files=, a tags search such as =+horror+RATING>=8= in the agenda
+finds the same films.
+
+** Recommendations you can paste
+
+When someone asks me what to watch, =C-c e r= asks for a genre, finds my best
+finished titles in it, and copies the top ten as plain text:
+
+#+begin_example
+• 1 Litre of Tears (2005) — Drama, Family (10/10)
+• Animal Kingdom (2016) — Crime, Drama (10/10)
+• Californication (2007) — Comedy, Drama (10/10)
+#+end_example
+
+It's the smallest feature here and the one other people actually see.
+
+* Keeping it in step with the media server
+
+The imports bring history in. They don't keep anything current. What I watch
+plays through Jellyfin, my media server, so the last piece is a two-way sync
+between the notes and the server: if I watch something there, the note gets a
+watch-log line, and if I mark something watched in a note, the server marks it
+played.
+
+Two-way sync is easy to get subtly wrong, so the rules are short and written at
+the top of the code:
+
+- *Watched on one side only:* the other side catches up.
+- *Watched on both:* the newest last-watched date wins. The note keeps every date
+  it has ever seen; the server only keeps the latest.
+- *Un-watching is never pushed.* If something was watched at the last sync and one
+  side now says it isn't, the sync lists it under "Left alone" and changes
+  nothing.
+- *Only ids push.* Titles are matched by TMDB, TVDB, IMDb or MyAnimeList id. A
+  title that only matches by name and year is pulled into the note, and its ids
+  are copied across, but nothing is pushed to the server for it until the next
+  run, when it will match by id.
+
+The third rule is the one that needs memory. Without knowing what the last run
+saw, "watched in the note, unwatched on the server" looks the same whether I
+just watched it or I deliberately cleared it on the server. So the sync keeps a
+small state file of what each title looked like last time (369 entries for
+Jellyfin at the moment). For a film, the whole decision comes down to this:
+
+#+begin_src emacs-lisp
+(defun msync-plan-movie (note server prev)
+  "What to do for one movie: (SIDE . WHY), or nil for nothing.
+NOTE and SERVER are plists with :watched (t or nil) and :last (a
+YYYY-MM-DD string or nil). PREV is what the last sync recorded."
+  (let ((nw (plist-get note :watched))
+        (sw (plist-get server :watched))
+        (nl (or (plist-get note :last) ""))
+        (sl (or (plist-get server :last) "")))
+    (cond
+     ;; Watched at the last sync, unwatched on one side now: hands off.
+     ((and (plist-get prev :played) (not (eq nw sw)))
+      '(left-alone . "unwatched on one side since the last sync"))
+     ((and sw (not nw)) '(note . "watched on the server: add it to the watch log"))
+     ((and nw (not sw)) '(server . "watched in the note: mark it played"))
+     ((and nw sw (string> nl sl)) '(server . "the note is newer: update the server"))
+     ((and nw sw (string> sl nl)) '(note . "the server saw it again: add the date")))))
+#+end_src
+
+Shows run the same rule per episode. Dates are =YYYY-MM-DD= strings, so
+comparing them as strings compares them as dates.
+
+The function returns a decision rather than doing anything, and that's the
+important part. =C-c m s= runs every decision, shows the whole plan in a buffer,
+and only then asks whether to apply it. A sync that can rewrite hundreds of
+notes should show its working first. It also runs in the background, so I can
+keep typing while it talks to the server.
+
+The same code knows Emby, Plex and MyAnimeList, each with its own limits. Plex
+can't be given a past date, so anything pushed there is stamped "now". Jellyfin
+only remembers the latest play of each title, which is why the note, not the
+server, is the record of every viewing.
+
+* What 1,822 notes say about me
+
+Once everything was in one place, a stats page was a few lines of code away.
+Some of it was a surprise.
+
+- *I rate almost everything a 6, 7 or 8.* Of 1,169 rated titles, 895 land there.
+  Only 100 get a 9 or 10, and 21 get below a 4. A 1-to-10 scale is really a
+  6-to-8 scale with a few exceptions.
+- *I rate a lot and write very little.* 1,169 ratings, and reviews for three
+  titles. The structure is there for every note, a dated /Review/ heading
+  waiting to be filled. It mostly stays empty.
+- *2020 was my reading year.* I finished 84 books that year and haven't finished
+  more than 16 in any year since.
+- *I start more than I finish.* 490 shows started, 357 completed, and 122 on hold,
+  which here means I haven't watched an episode in sixty days.
+
+None of that needed the notes to be in Org. But I'd never have asked the
+questions while the answers were spread over four websites.
+
+* The honest downsides
+
+*The imports are most of the work.* The commands that use the notes are the easy
+part. Getting four services' data in cleanly, matching titles between them, and
+making every import safe to re-run is where the code and the edge cases are.
+
+*Matching is never perfect.* Name-and-year matches are wrong often enough that I
+don't trust them to push anything. Some books have no match on Open Library at
+all, and a few games will never have genres.
+
+*It's my data, so it's my job.* Now that I've mostly left Trakt, nothing records
+what I watch unless it plays through Jellyfin or I log it myself. If I watch
+something elsewhere and forget, the notes simply don't know. Trakt's scrobbling
+used to catch those for me.
+
+*It's a lot of files.* 1,822 notes, plus a game's guides, plus the hubs. Org
+handles it fine, but an index that's kept up to date in memory is not optional
+at this size.
+
+* What I took away
+
+*Separate the importer's fields from yours.* Every import is safe to re-run
+because each one owns a known set of properties and never touches the rest. That
+single rule made it possible to keep re-importing without fear.
+
+*A sync should decide first and act second.* Returning a plan instead of making
+changes is what makes the preview possible, and the preview is what makes the
+sync trustworthy.
+
+*Never infer intent from absence.* "Not watched" on one side might mean "not
+yet" or "deliberately cleared". The sync can't tell, so it doesn't guess, and it
+says so.
+
+*Duplicate on purpose for the plain tools.* Putting genres in the tags as well
+as the properties costs a few bytes per note and means Org's own agenda can
+search my media with none of my code.
+
+And the one I keep relearning: a record you can write in gets written in. Mostly
+ratings, so far. Three reviews is a start.
