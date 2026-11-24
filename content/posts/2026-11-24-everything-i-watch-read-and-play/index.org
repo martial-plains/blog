@@ -26,8 +26,8 @@ is a place for my own writing.
 
 I wanted three things the apps don't give me together:
 
-- *One place for all of it*, so I can ask "what were my best crime stories this
-  year?" and get books and shows in the same answer.
+- *One place for all of it*, so I can ask 'what were my best crime stories this
+  year?' and get books and shows in the same answer.
 - *Room to write.* A review, a quote, a note about who recommended it, or a whole
   guide to a game, in the same file as the title.
 - *A record that outlives the service.* A folder of plain text files will still
@@ -227,11 +227,11 @@ sorts them. My hubs are made of these blocks: one for what I'm watching, one for
 what I've finished but not rated, one for the backlog, sorted by when I added
 each title.
 
-The =:rating= parameter has a small language of its own, because "8 and up"
+The =:rating= parameter has a small language of its own, because '8 and up'
 wasn't enough for long. A term can be a number, a range
 (=5-7=), =8+=, =>=8=, =<=6=, =>7=, =<5= or =unrated=, and a =!= in front leaves
-it out. So ="8+, !10"= is "good but not perfect", and ="!unrated"= means "only
-things I've rated". Each term becomes a range:
+it out. So ="8+, !10"= is 'good but not perfect', and ="!unrated"= means 'only
+things I've rated'. Each term becomes a range:
 
 #+begin_src emacs-lisp
 (defun ent-rating-range (term)
@@ -258,7 +258,7 @@ Unrated titles count as 0, so \"<=6\" leaves them out."
 
 The one decision in there worth pointing out is that an unrated title counts
 as 0. Without that, ="<=6"= would quietly sweep in every film I haven't got
-round to rating, and a list of "things I didn't like" would be mostly things I
+round to rating, and a list of 'things I didn't like' would be mostly things I
 hadn't thought about.
 
 One thing the snippet hides: reading 1,822 files with Org every time a block
@@ -298,7 +298,7 @@ the top of the code:
 - *Watched on both:* the newest last-watched date wins. The note keeps every date
   it has ever seen; the server only keeps the latest.
 - *Un-watching is never pushed.* If something was watched at the last sync and one
-  side now says it isn't, the sync lists it under "Left alone" and changes
+  side now says it isn't, the sync lists it under 'Left alone' and changes
   nothing.
 - *Only ids push.* Titles are matched by TMDB, TVDB, IMDb or MyAnimeList id. A
   title that only matches by name and year is pulled into the note, and its ids
@@ -306,7 +306,7 @@ the top of the code:
   run, when it will match by id.
 
 The third rule is the one that needs memory. Without knowing what the last run
-saw, "watched in the note, unwatched on the server" looks the same whether I
+saw, 'watched in the note, unwatched on the server' looks the same whether I
 just watched it or I deliberately cleared it on the server. So the sync keeps a
 small state file of what each title looked like last time (369 entries for
 Jellyfin at the moment). For a film, the whole decision comes down to this:
@@ -340,7 +340,7 @@ notes should show its working first. It also runs in the background, so I can
 keep typing while it talks to the server.
 
 The same code knows Emby, Plex and MyAnimeList, each with its own limits. Plex
-can't be given a past date, so anything pushed there is stamped "now". Jellyfin
+can't be given a past date, so anything pushed there is stamped 'now'. Jellyfin
 only remembers the latest play of each title, which is why the note, not the
 server, is the record of every viewing.
 
@@ -392,8 +392,8 @@ single rule made it possible to keep re-importing without fear.
 changes is what makes the preview possible, and the preview is what makes the
 sync trustworthy.
 
-*Never infer intent from absence.* "Not watched" on one side might mean "not
-yet" or "deliberately cleared". The sync can't tell, so it doesn't guess, and it
+*Never infer intent from absence.* 'Not watched' on one side might mean 'not
+yet' or 'deliberately cleared'. The sync can't tell, so it doesn't guess, and it
 says so.
 
 *Duplicate on purpose for the plain tools.* Putting genres in the tags as well
