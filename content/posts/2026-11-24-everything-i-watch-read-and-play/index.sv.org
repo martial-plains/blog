@@ -1,4 +1,3 @@
-# -*- fill-column: 80 -*-
 #+TITLE: Allt jag tittar på, läser och spelar, i Org
 #+SUBTITLE: 1 822 anteckningar, fyra importer och en enda regel för synkning
 #+DATE: <2026-11-24 09:00>

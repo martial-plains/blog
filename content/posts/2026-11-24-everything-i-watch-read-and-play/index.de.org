@@ -1,4 +1,3 @@
-# -*- fill-column: 80 -*-
 #+TITLE: Alles, was ich schaue, lese und spiele, in Org
 #+SUBTITLE: 1.822 Notizen, vier Importe und eine einzige Regel fürs Synchronisieren
 #+DATE: <2026-11-24 09:00>

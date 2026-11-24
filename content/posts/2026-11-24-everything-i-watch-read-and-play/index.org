@@ -1,4 +1,3 @@
-# -*- fill-column: 80 -*-
 #+TITLE: Everything I watch, read and play, in Org
 #+SUBTITLE: 1,822 notes, four imports and one rule for syncing
 #+DATE: <2026-11-24 09:00>

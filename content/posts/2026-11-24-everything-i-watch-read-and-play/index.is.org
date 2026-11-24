@@ -1,4 +1,3 @@
-# -*- fill-column: 80 -*-
 #+TITLE: Allt sem ég horfi á, les og spila, í Org
 #+SUBTITLE: 1.822 glósur, fjórir innflutningar og ein regla um samstillingu
 #+DATE: <2026-11-24 09:00>
